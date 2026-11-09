@@ -1,7 +1,7 @@
 ﻿namespace Sistema_Odontológico
 {
-    public class Class1
+    public class Odontologo
     {
-
+        public string Nombre {  get; set; }
     }
 }
