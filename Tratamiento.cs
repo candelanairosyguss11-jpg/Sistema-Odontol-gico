@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Sistema_Odontológico
 {
-    public class Tratamientos
+    public class Tratamiento
     {
         public string Descripcion { get; set; }
         
