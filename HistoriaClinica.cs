@@ -8,12 +8,13 @@ namespace Sistema_Odontológico
     public class HistoriaClinica
     {
         public Paciente Paciente { get; set; }
-        public List<string> TratamientosRealizados { get; set; }
-        public List<string> Alergias { get; set; }
-        public List<string> Estudios { get; set; }
-        public List<string> Fotos { get; set; }
+       
+        public List<Tratamientos> TratamientosRealizados { get; set; } = new List<Tratamientos>();
+        public List<string> Alergias { get; set; } = new List<string>();
+        public List<Documento> Estudios { get; set; } = new List<Documento>();
+        public List<string> Fotos { get; set; } = new List<string>();
         public string Odontograma { get; set; }
-        public List<string> ConsentimientosInformados { get; set; }
+        public List<Documento> ConsentimientosInformados { get; set; } = new List<Documento>();
 
 
         public void AgregarTratamiento(Tratamientos tratamiento)
