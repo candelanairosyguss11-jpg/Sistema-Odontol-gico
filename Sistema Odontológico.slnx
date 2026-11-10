@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="../SistemaUI/SistemaUI.csproj" Id="238a7162-d32f-47ae-b5e9-fa463561be3d" />
   <Project Path="Sistema Odontológico.csproj" />
+  <Project Path="SistemaUI/SistemaUI.csproj" Id="811694aa-eb3a-44cb-9daa-8adc33b8a8ff" />
 </Solution>
