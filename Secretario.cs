@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Sistema_Odontológico
 {
-    public abstract class Secetrario : Usuario
+    public abstract class Secretario : Usuario
     {
         public override string Rol
         {
