@@ -9,7 +9,7 @@ namespace Sistema_Odontológico
     {
         public Paciente Paciente { get; set; }
        
-        public List<Tratamientos> TratamientosRealizados { get; set; } = new List<Tratamientos>();
+        public List<Tratamiento> TratamientosRealizados { get; set; } = new List<Tratamiento>();
         public List<string> Alergias { get; set; } = new List<string>();
         public List<Documento> Estudios { get; set; } = new List<Documento>();
         public List<string> Fotos { get; set; } = new List<string>();
@@ -17,7 +17,7 @@ namespace Sistema_Odontológico
         public List<Documento> ConsentimientosInformados { get; set; } = new List<Documento>();
 
 
-        public void AgregarTratamiento(Tratamientos tratamiento)
+        public void AgregarTratamiento(Tratamiento tratamiento)
         {
             TratamientosRealizados.Add(tratamiento);
         }

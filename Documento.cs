@@ -14,10 +14,9 @@ namespace Sistema_Odontológico
             // Abrir documento
         }
 
-        public void MostrarInformacion()
+        public string MostarInformacion()
         {
-            Console.WriteLine("Documento: " + Nombre);
-            Console.WriteLine("Tipo: " + Tipo);
+            return $"Documento: {Nombre}\nTipo: {Tipo}";
         }
 
     }

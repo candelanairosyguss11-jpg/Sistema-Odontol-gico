@@ -4,11 +4,11 @@ namespace Sistema_Odontológico
 {
     public abstract class Odontologo : Usuario
     {
-        public List<Tratamientos> Tratamientos { get; set; }
+        public List<Tratamiento> Tratamientos { get; set; }
 
 
 
-        public static void RealizarTratamiento(Paciente paciente, Tratamientos tratamiento)
+        public static void RealizarTratamiento(Paciente paciente, Tratamiento tratamiento)
         {
             // Registrar que el odontólogo realizó el tratamiento al paciente
         }

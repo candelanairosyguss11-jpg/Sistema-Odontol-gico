@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Sistema_Odontológico
 {
-    public class Tratamientos
+    public class Tratamiento
     {
         public string Descripcion { get; set; }
         
-        public void MostrarInformacion()
+        public string MostrarInformacion()
         {
-            Console.WriteLine("Tratamiento: " + Descripcion);
+            return $"Tratamiento: {Descripcion}";
         }
         public static void ActualizarDescripcion()
         {
