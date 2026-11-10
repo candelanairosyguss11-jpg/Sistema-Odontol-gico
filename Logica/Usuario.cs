@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Sistema_Odontológico
 {
-    public abstract class Usuario
+    public abstract class Usuario : IEntidad
     {
         public int Id { get; set; }
         public string Nombre

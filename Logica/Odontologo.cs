@@ -2,7 +2,7 @@
 
 namespace Sistema_Odontológico
 {
-    public abstract class Odontologo : Usuario
+    public class Odontologo : Usuario
     {
         public List<Tratamiento> Tratamientos { get; set; }
 
