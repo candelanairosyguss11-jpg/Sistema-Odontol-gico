@@ -60,11 +60,11 @@
       <FileName>Validador.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Sistema_Odontológico.Secetraria">
-    <Position X="3.75" Y="4" Width="1.5" />
+  <Class Name="Sistema_Odontológico.Secretario">
+    <Position X="3.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Secetraria.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Secretario.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Sistema_Odontológico.Secretario">
