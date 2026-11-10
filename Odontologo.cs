@@ -6,7 +6,10 @@ namespace Sistema_Odontológico
     {
         public List<Tratamiento> Tratamientos { get; set; }
 
-
+        public override string Rol
+        {
+            get { return "Odontólogo"; }
+        }
 
         public static void RealizarTratamiento(Paciente paciente, Tratamiento tratamiento)
         {
