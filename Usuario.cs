@@ -70,7 +70,7 @@ namespace Sistema_Odontológico
         }
         public string HashContrasena { get; set; }
         public string SalContrasena { get; set; }
-        public bool Activo { get; set; } = true; //para dar de baja a odontologos y secretarios
+        public bool Activo { get; set; } = true; //para dar de baja a secretarios
 
         public string NombreCompleto => $"{Nombre} {Apellido}";
 
