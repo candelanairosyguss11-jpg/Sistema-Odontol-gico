@@ -16,10 +16,9 @@ namespace Sistema_Odontológico
         public List<string> ConsentimientosInformados { get; set; }
 
 
-        //metodos
-        public void AgregarTratamiento(Tratamientos tratamientos)
+        public void AgregarTratamiento(Tratamientos tratamiento)
         {
-            TratamientosRealizados.Add(tratamientos);
+            TratamientosRealizados.Add(tratamiento);
         }
 
         public void AgregarAlergia(string alergia)
@@ -27,7 +26,7 @@ namespace Sistema_Odontológico
             Alergias.Add(alergia);
         }
 
-        public void AgregarEstudio(Documento estudio)
+        public void AgregarEstudio(Documento estudio) // Cambia "Documento" por el tipo de tu lista
         {
             Estudios.Add(estudio);
         }
@@ -37,10 +36,10 @@ namespace Sistema_Odontológico
             Odontograma = odontograma;
         }
 
+        // Método corregido (agregado void y removido static)
         public void AgregarConsentimiento(Documento consentimiento)
         {
             ConsentimientosInformados.Add(consentimiento);
         }
-
     }
 }

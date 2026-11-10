@@ -11,17 +11,17 @@ namespace Sistema_Odontológico
         public string CorreoElect { get; set; }
 
         
-        public void SolicitarTurno()
+        public static void SolicitarTurno()
         {
             // Solicitar un turno
         }
 
-        public void CancelarTurno(Turno turno)
+        public static void CancelarTurno(Turno turno)
         {
             // Cancelar turno
         }
 
-        public void ReprogramarTurno(Turno turno)
+        public static void ReprogramarTurno(Turno turno)
         {
             // Reprogramar turno
         }

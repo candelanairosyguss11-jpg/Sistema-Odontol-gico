@@ -9,7 +9,7 @@ namespace Sistema_Odontológico
         public string Nombre { get; set; }
         public string Tipo { get; set; }
         
-        public void Abrir()
+        public static void Abrir()
         {
             // Abrir documento
         }

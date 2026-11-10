@@ -12,7 +12,7 @@ namespace Sistema_Odontológico
         {
             Console.WriteLine("Tratamiento: " + Descripcion);
         }
-        public void ActualizarDescripcion()
+        public static void ActualizarDescripcion()
         {
             // modificar descripción
         }
