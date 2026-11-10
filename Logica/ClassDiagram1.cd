@@ -17,7 +17,7 @@
   <Class Name="Sistema_Odontológico.Odontologo">
     <Position X="3.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAKAAAAAAAAAAADAAAABEAAAAAQAAAAAAEAAAA=</HashCode>
+      <HashCode>AAAAAAAKAAAAAAAAAAADAAAABEAAAgAQAAAAAAEAAAA=</HashCode>
       <FileName>Odontologo.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -48,22 +48,23 @@
   <Class Name="Sistema_Odontológico.Usuario">
     <Position X="1.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAgAAAAAAEAAAAgABAAIEAAgCgAAAAAgAAAAA=</HashCode>
+      <HashCode>AIACAAAAgAAAAAAEAACAgABAAIEAAgCgAAAAAgAAAAA=</HashCode>
       <FileName>Usuario.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Sistema_Odontológico.Validador">
     <Position X="15.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAgCAAAAAAAAAAgAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAICAAAAAAAAAgCAAAAAAAAAAgAAAAAA=</HashCode>
       <FileName>Validador.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Sistema_Odontológico.Secetraria">
-    <Position X="3.75" Y="4" Width="1.5" />
+  <Class Name="Sistema_Odontológico.Secretario">
+    <Position X="3.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Secetraria.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Secretario.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
