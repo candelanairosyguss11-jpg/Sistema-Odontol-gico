@@ -32,7 +32,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Sistema_Odontológico.Tratamiento">
-    <Position X="6" Y="1.75" Width="1.5" />
+    <Position X="6.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAAAAAAAAAAAAAAAAAAAAABBAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Tratamiento.cs</FileName>
