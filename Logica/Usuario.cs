@@ -72,7 +72,10 @@ namespace Sistema_Odontológico
         public string SalContrasena { get; set; }
         public bool Activo { get; set; } = true; //para dar de baja a secretarios
 
-        public string NombreCompleto => $"{Nombre} {Apellido}";
+        public string NombreCompleto()
+        {
+            return $"{Nombre} {Apellido}";
+        }
 
         public abstract string Rol { get; }
 

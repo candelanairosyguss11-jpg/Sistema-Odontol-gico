@@ -30,7 +30,7 @@ namespace Sistema_Odontológico
             return new List<T>(_items); //devuelve una copia
         }
 
-        public T? ObtenerPorId(int id)
+        public T ObtenerPorId(int id)
         {
             return _items.FirstOrDefault(e => e.Id == id); //recorre la lista y devuelve el primer elemento que cumpla "e => e.Id == id" que es que dado un elemento e, devolvé si el Id de e es igual a id
         }
