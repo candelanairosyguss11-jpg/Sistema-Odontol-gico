@@ -7,8 +7,30 @@ namespace Sistema_Odontológico
     public abstract class Usuario
     {
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
+        public string Nombre
+        {
+            get;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("El nombre no puede estar vacío.");
+                }
+                field = value.Trim();
+            }
+        }
+        public string Apellido
+        {
+            get;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("El apellido no puede estar vacío.");
+                }
+                field = value.Trim();
+            }
+        }
         public string Correo
         {
             get;
@@ -36,7 +58,7 @@ namespace Sistema_Odontológico
         }
         public string Telefono //por los +, guiones, etc
         {
-            get;
+            get; 
             set
             {
                 if (!Validador.EsTelefonoValido(value))
@@ -53,5 +75,22 @@ namespace Sistema_Odontológico
         public string NombreCompleto => $"{Nombre} {Apellido}";
 
         public abstract string Rol { get; }
+
+        public void EstablecerContrasena(string contrasena)
+        {
+            if (!Validador.EsContrasenaValida(contrasena))
+            {
+                throw new ArgumentException("La contraseña debe tener al menos 8 caracteres, con al menos una letra mayúscula, una minúscula y un número.");
+            }
+
+            var (hash, sal) = ServicioContrasenas.Hashear(contrasena);
+            HashContrasena = hash;
+            SalContrasena = sal;
+        }
+
+        public bool VerificarContrasena(string contrasena) //para cuando se loggean
+        {
+            return ServicioContrasenas.Verificar(contrasena, HashContrasena, SalContrasena);
+        }
     }
 }
