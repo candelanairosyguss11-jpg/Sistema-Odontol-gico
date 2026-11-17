@@ -103,6 +103,7 @@
             buttonTurnos.TabIndex = 4;
             buttonTurnos.Text = "🗓️Turnos";
             buttonTurnos.UseVisualStyleBackColor = false;
+            buttonTurnos.Click += buttonTurnos_Click_1;
             // 
             // buttonInicio
             // 

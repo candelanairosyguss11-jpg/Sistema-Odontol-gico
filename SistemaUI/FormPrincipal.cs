@@ -30,7 +30,7 @@ namespace SistemaUI
         }
 
 
-      
+
 
         private void PanelMenu_Paint(object sender, PaintEventArgs e)
         {
@@ -65,6 +65,16 @@ namespace SistemaUI
         private void Button3HC_Click_1(object sender, EventArgs e)
         {
             AbrirFormulario(new FormHistoriasClinicas());
+        }
+
+        private void buttonCerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void buttonTurnos_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

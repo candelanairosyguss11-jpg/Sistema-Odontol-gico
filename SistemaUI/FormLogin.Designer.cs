@@ -32,7 +32,7 @@
             DNI = new Label();
             Contraseña = new Label();
             textDNI = new TextBox();
-            textContraseña = new TextBox();
+            txtContrasena = new TextBox();
             checkMostar = new CheckBox();
             Rol = new Label();
             comboRol = new ComboBox();
@@ -78,12 +78,13 @@
             textDNI.Size = new Size(164, 27);
             textDNI.TabIndex = 3;
             // 
-            // textContraseña
+            // txtContrasena
             // 
-            textContraseña.Location = new Point(286, 160);
-            textContraseña.Name = "textContraseña";
-            textContraseña.Size = new Size(164, 27);
-            textContraseña.TabIndex = 4;
+            txtContrasena.Location = new Point(286, 160);
+            txtContrasena.Name = "txtContrasena";
+            txtContrasena.Size = new Size(164, 27);
+            txtContrasena.TabIndex = 4;
+            txtContrasena.TextChanged += textContraseña_TextChanged;
             // 
             // checkMostar
             // 
@@ -108,8 +109,8 @@
             // 
             // comboRol
             // 
+            comboRol.DropDownStyle = ComboBoxStyle.DropDownList;
             comboRol.FormattingEnabled = true;
-            comboRol.Items.AddRange(new object[] { "Odontológo", "Secretaria" });
             comboRol.Location = new Point(286, 243);
             comboRol.Name = "comboRol";
             comboRol.Size = new Size(164, 28);
@@ -124,6 +125,7 @@
             buttonIngresar.TabIndex = 8;
             buttonIngresar.Text = "Ingresar";
             buttonIngresar.UseVisualStyleBackColor = true;
+            buttonIngresar.Click += buttonIngresar_Click;
             // 
             // buttonCancelar
             // 
@@ -133,6 +135,7 @@
             buttonCancelar.TabIndex = 9;
             buttonCancelar.Text = "Cancelar";
             buttonCancelar.UseVisualStyleBackColor = true;
+            buttonCancelar.Click += buttonCancelar_Click;
             // 
             // FormLogin
             // 
@@ -145,13 +148,14 @@
             Controls.Add(comboRol);
             Controls.Add(Rol);
             Controls.Add(checkMostar);
-            Controls.Add(textContraseña);
+            Controls.Add(txtContrasena);
             Controls.Add(textDNI);
             Controls.Add(Contraseña);
             Controls.Add(DNI);
             Controls.Add(titulo);
             Name = "FormLogin";
             Text = "FormLogin";
+            Load += FormLogin_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -162,11 +166,22 @@
         private Label DNI;
         private Label Contraseña;
         private TextBox textDNI;
-        private TextBox textContraseña;
+        private TextBox txtContrasena;
         private CheckBox checkMostar;
         private Label Rol;
         private ComboBox comboRol;
         private Button buttonIngresar;
         private Button buttonCancelar;
+
+        private void btnIngresar_Click(object sender, EventArgs e)
+        {
+            // Aquí va la validación de usuario y contraseña.
+
+            FormPrincipal principal = new FormPrincipal();
+
+            principal.Show();
+
+            this.Hide();
+        }
     }
 }
