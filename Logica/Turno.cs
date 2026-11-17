@@ -81,7 +81,14 @@ namespace Sistema_Odontológico
                 throw new InvalidOperationException("No se puede marcar la asistencia antes del turno.");
             }
 
-            Estado = asistio ? EstadoTurno.Asistio : EstadoTurno.NoAsistio;
+            if (asistio)
+            {
+                Estado = EstadoTurno.Asistio;
+            }
+            else
+            {
+                Estado = EstadoTurno.NoAsistio;
+            }
         }
     }
 }

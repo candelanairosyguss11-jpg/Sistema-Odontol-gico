@@ -1,22 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Sistema_Odontológico
 {
-    public class Tratamiento
+    public class Tratamiento : IEntidad
     {
-        public string Descripcion { get; set; }
-        
-        public string MostrarInformacion()
+        public int Id { get; set; }
+        public int OdontologoId { get; set; }
+
+        public string Nombre
         {
-            return $"Tratamiento: {Descripcion}";
-        }
-        public static void ActualizarDescripcion()
-        {
-            // modificar descripción
+            get;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("El nombre del tratamiento no puede estar vacío.");
+                }
+                field = value.Trim();
+            }
         }
 
+        // duración sugerida, sirve para autocompletar la del turno
+        public int DuracionMinutos
+        {
+            get;
+            set
+            {
+                if (value < Turno.DuracionMinima || value > Turno.DuracionMaxima)
+                {
+                    throw new ArgumentException("La duración sugerida no es válida.");
+                }
+                field = value;
+            }
+        } = 30;
+
+        public bool Activo { get; set; } = true; // baja lógica para no romper turnos viejos
+
+        public override string ToString()
+        {
+            return Nombre; // útil para mostrarlo en listas desplegables
+        }
     }
 }

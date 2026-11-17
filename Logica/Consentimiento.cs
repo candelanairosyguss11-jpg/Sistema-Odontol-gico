@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Sistema_Odontológico
 {
     public class Consentimiento : Documento
     {
-
+        public int TratamientoId { get; set; } // tratamiento al que corresponde
     }
 }

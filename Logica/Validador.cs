@@ -45,5 +45,11 @@ namespace Sistema_Odontológico
 
             return fecha <= hoy && fecha >= limiteInferior;
         }
+
+        public static bool EsEnlaceValido(string enlace)
+        {
+            return Uri.TryCreate(enlace, UriKind.Absolute, out Uri? uri)
+                && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps);
+        }
     }
 }
