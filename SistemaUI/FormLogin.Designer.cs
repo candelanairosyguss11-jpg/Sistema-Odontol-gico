@@ -65,7 +65,7 @@
             // Contraseña
             // 
             Contraseña.AutoSize = true;
-            Contraseña.Location = new Point(287, 137);
+            Contraseña.Location = new Point(288, 153);
             Contraseña.Name = "Contraseña";
             Contraseña.Size = new Size(83, 20);
             Contraseña.TabIndex = 2;
@@ -80,7 +80,7 @@
             // 
             // txtContrasena
             // 
-            txtContrasena.Location = new Point(286, 160);
+            txtContrasena.Location = new Point(287, 176);
             txtContrasena.Name = "txtContrasena";
             txtContrasena.Size = new Size(164, 27);
             txtContrasena.TabIndex = 4;
@@ -90,7 +90,7 @@
             // checkMostar
             // 
             checkMostar.AutoSize = true;
-            checkMostar.Location = new Point(286, 193);
+            checkMostar.Location = new Point(287, 209);
             checkMostar.Name = "checkMostar";
             checkMostar.Size = new Size(153, 24);
             checkMostar.TabIndex = 5;
@@ -101,7 +101,7 @@
             // Rol
             // 
             Rol.AutoSize = true;
-            Rol.Location = new Point(287, 220);
+            Rol.Location = new Point(287, 259);
             Rol.Name = "Rol";
             Rol.Size = new Size(31, 20);
             Rol.TabIndex = 6;
@@ -112,7 +112,7 @@
             // 
             comboRol.DropDownStyle = ComboBoxStyle.DropDownList;
             comboRol.FormattingEnabled = true;
-            comboRol.Location = new Point(286, 243);
+            comboRol.Location = new Point(286, 282);
             comboRol.Name = "comboRol";
             comboRol.Size = new Size(164, 28);
             comboRol.TabIndex = 7;
@@ -120,7 +120,7 @@
             // 
             // buttonIngresar
             // 
-            buttonIngresar.Location = new Point(267, 305);
+            buttonIngresar.Location = new Point(267, 344);
             buttonIngresar.Name = "buttonIngresar";
             buttonIngresar.Size = new Size(94, 29);
             buttonIngresar.TabIndex = 8;
@@ -130,7 +130,7 @@
             // 
             // buttonCancelar
             // 
-            buttonCancelar.Location = new Point(392, 305);
+            buttonCancelar.Location = new Point(392, 344);
             buttonCancelar.Name = "buttonCancelar";
             buttonCancelar.Size = new Size(94, 29);
             buttonCancelar.TabIndex = 9;
@@ -156,6 +156,7 @@
             Controls.Add(titulo);
             Name = "FormLogin";
             Text = "FormLogin";
+            WindowState = FormWindowState.Maximized;
             Load += FormLogin_Load;
             ResumeLayout(false);
             PerformLayout();
