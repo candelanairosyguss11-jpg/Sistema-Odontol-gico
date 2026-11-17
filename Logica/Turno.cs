@@ -16,40 +16,72 @@ namespace Sistema_Odontológico
         public int PacienteId { get; set; }
         public int OdontologoId { get; set; }
         public DateTime Inicio { get; set; }
-        public int DuracionMinutos { get; set; }
-        public string Motivo { get; set; } = string.Empty;
+
+        public int DuracionMinutos 
+        { 
+            get; 
+            set
+            {
+                if (value < DuracionMinima || value > DuracionMaxima)
+                {
+                    throw new ArgumentException($"La duración debe estar entre {DuracionMinima} y {DuracionMaxima} minutos.");
+                }
+                field = value;
+            }
+        }
+
+        public List<int> TratamientosIds { get; set; } = new List<int>();
+        public string Detalle { get; set; } = string.Empty; // nota previa opcional
 
         [JsonConverter(typeof(JsonStringEnumConverter))] //para que guarde el nombre y no el número
+
+        public int? TurnoOriginalId { get; set; } // si es una reprogramación
+
         public EstadoTurno Estado { get; set; } = EstadoTurno.Pendiente;
 
         [JsonIgnore]
-        public DateTime Fin => Inicio.AddMinutes(DuracionMinutos);
+        public DateTime Fin
+        {
+            get { return Inicio.AddMinutes(DuracionMinutos); }
+        }
+
+        public bool SeSuperponeCon(Turno otro)
+        {
+            return OdontologoId == otro.OdontologoId
+                && Inicio < otro.Fin
+                && otro.Inicio < Fin;
+        }
+
+        public void Cancelar()
+        {
+            if (Estado != EstadoTurno.Pendiente)
+            {
+                throw new InvalidOperationException("Solo se puede cancelar un turno pendiente.");
+            }
+            Estado = EstadoTurno.Cancelado;
+        }
+
+        public void MarcarReprogramado()
+        {
+            if (Estado != EstadoTurno.Pendiente)
+            {
+                throw new InvalidOperationException("Solo se puede reprogramar un turno pendiente.");
+            }
+            Estado = EstadoTurno.Reprogramado;
+        }
+
+        public void MarcarAsistencia(bool asistio)
+        {
+            if (Estado != EstadoTurno.Pendiente)
+            {
+                throw new InvalidOperationException("El turno ya no está pendiente.");
+            }
+            if (DateTime.Now < Inicio)
+            {
+                throw new InvalidOperationException("No se puede marcar la asistencia antes del turno.");
+            }
+
+            Estado = asistio ? EstadoTurno.Asistio : EstadoTurno.NoAsistio;
+        }
     }
-
-    //public class Turno
-    //{   public int Id { get; set; }
-    //    public Paciente Paciente { get; set; }
-    //    public Odontologo Odontologo { get; set; }
-    //    public DateTime FechaHora { get; set; }
-    //    public string Estado { get; set; }      //confirmado, sin confirmar, cancelado, reprogramado
-
-
-    //    public void Confirmar()
-    //    {
-    //        Estado = "Confirmado";
-    //    }
-
-    //    public void Cancelar()
-    //    {
-    //        Estado = "Cancelado";
-    //    }
-
-    //    public void Reprogramar(DateTime nuevaFechaHora)
-    //    {
-    //        FechaHora = nuevaFechaHora;
-    //        Estado = "Reprogramado";
-    //    }
-
-    //}
-
 }
