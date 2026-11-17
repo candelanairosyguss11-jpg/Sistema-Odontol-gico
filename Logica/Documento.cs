@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Sistema_Odontológico
 {
     public abstract class Documento
     {
-        public string NombreArchivo { get; set; }
-        public string RutaRelativa { get; set; }
+        public string NombreOriginal { get; set; } = string.Empty; // lo que se muestra
+        public string RutaRelativa { get; set; } = string.Empty;   // dentro de Rutas.CarpetaArchivos
         public DateTime FechaCarga { get; set; } = DateTime.Now;
+        public int SubidoPorOdontologoId { get; set; }
         public string Comentario { get; set; } = string.Empty;
-        
-        //public string MostarInformacion()
-        //{
-        //    return $"Documento: {Nombre}\nTipo: {Tipo}";
-        //}
     }
 }
