@@ -37,5 +37,13 @@ namespace Sistema_Odontológico
             contrasena.Any(char.IsLower) &&
             contrasena.Any(char.IsDigit);
         }
+
+        public static bool EsFechaNacimientoValida(DateOnly fecha)
+        {
+            DateOnly hoy = DateOnly.FromDateTime(DateTime.Today);
+            DateOnly limiteInferior = hoy.AddYears(-120); //para que no sea extremadamente viejo tampoco
+
+            return fecha <= hoy && fecha >= limiteInferior;
+        }
     }
 }

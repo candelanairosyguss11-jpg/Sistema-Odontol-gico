@@ -1,4 +1,4 @@
-﻿using System.Reflection.Metadata.Ecma335;
+﻿using System.Text.Json.Serialization;
 
 namespace Sistema_Odontológico
 {
@@ -6,6 +6,7 @@ namespace Sistema_Odontológico
     {
         public List<Tratamiento> Tratamientos { get; set; }
 
+        [JsonIgnore]
         public override string Rol
         {
             get { return "Odontólogo"; }
@@ -15,37 +16,5 @@ namespace Sistema_Odontológico
         {
             // Registrar que el odontólogo realizó el tratamiento al paciente
         }
-
-        public static void RegistrarTurno(Turno turno)
-        {
-            // Registrar turno
-        }
-
-        public static void ModificarTurno(Turno turno)
-        {
-            // Modificar turno
-        }
-
-        public static void ConsultarTurnos()
-        {
-            // Consultar agenda
-        }
-
-        public static void RegistrarHistoriaClinica(HistoriaClinica historia)
-        {
-            // Registrar historia clínica
-        }
-
-        public static void ModificarHistoriaClinica(HistoriaClinica historia)
-        {
-            // Modificar historia clínica
-        }
-
-        public static void ConsultarHistoriaClinica(HistoriaClinica historia)
-        {
-            // Consultar historia clínica
-        }
-
-
     }
 }
