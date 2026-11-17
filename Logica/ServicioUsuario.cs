@@ -32,7 +32,7 @@ namespace Sistema_Odontológico
             dni = Validador.NormalizarDni(dni);
             Odontologo odontologo = _repoOdontologos.ObtenerTodos().FirstOrDefault(o => o.DNI == dni);
             
-            if (odontologo == null || odontologo.Activo == false || odontologo.VerificarContrasena(contrasena) == false)
+            if (odontologo == null || !odontologo.Activo || !odontologo.VerificarContrasena(contrasena))
             {
                 return null;
             }
