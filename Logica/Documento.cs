@@ -4,20 +4,16 @@ using System.Text;
 
 namespace Sistema_Odontológico
 {
-    public class Documento
+    public abstract class Documento
     {
-        public string Nombre { get; set; }
-        public string Tipo { get; set; }
+        public string NombreArchivo { get; set; }
+        public string RutaRelativa { get; set; }
+        public DateTime FechaCarga { get; set; } = DateTime.Now;
+        public string Comentario { get; set; } = string.Empty;
         
-        public static void Abrir()
-        {
-            // Abrir documento
-        }
-
-        public string MostarInformacion()
-        {
-            return $"Documento: {Nombre}\nTipo: {Tipo}";
-        }
-
+        //public string MostarInformacion()
+        //{
+        //    return $"Documento: {Nombre}\nTipo: {Tipo}";
+        //}
     }
 }

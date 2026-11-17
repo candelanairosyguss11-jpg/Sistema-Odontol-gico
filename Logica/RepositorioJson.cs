@@ -19,7 +19,7 @@ namespace Sistema_Odontológico
         //constructor
         public RepositorioJson(string nombreArchivo)
         {
-            string carpeta = Path.Combine(AppContext.BaseDirectory, "Datos");
+            string carpeta = Rutas.CarpetaDatos;
             Directory.CreateDirectory(carpeta);
             _ruta = Path.Combine(carpeta, nombreArchivo);
             _items = Cargar(); //si el archivo no existe, devuelve una lista vacía

@@ -5,10 +5,13 @@ using System.Text.Json.Serialization;
 
 namespace Sistema_Odontológico
 {
-    public enum EstadoTurno { Pendiente, Asistio, NoAsistio, Cancelado }
+    public enum EstadoTurno { Pendiente, Asistio, NoAsistio, Cancelado, Reprogramado }
 
     public class Turno : IEntidad
     {
+        public const int DuracionMinima = 15;
+        public const int DuracionMaxima = 240; // 4 horas
+
         public int Id { get; set; }
         public int PacienteId { get; set; }
         public int OdontologoId { get; set; }
