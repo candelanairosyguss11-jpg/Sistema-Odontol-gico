@@ -28,104 +28,111 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            checkBox1 = new CheckBox();
-            label4 = new Label();
-            comboBox1 = new ComboBox();
-            button1 = new Button();
-            button2 = new Button();
+            titulo = new Label();
+            DNI = new Label();
+            Contraseña = new Label();
+            textDNI = new TextBox();
+            textContraseña = new TextBox();
+            checkMostar = new CheckBox();
+            Rol = new Label();
+            comboRol = new ComboBox();
+            buttonIngresar = new Button();
+            buttonCancelar = new Button();
             SuspendLayout();
             // 
-            // label1
+            // titulo
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(344, 36);
-            label1.Name = "label1";
-            label1.Size = new Size(50, 20);
-            label1.TabIndex = 0;
-            label1.Text = "label1";
+            titulo.AutoSize = true;
+            titulo.Font = new Font("Segoe UI", 14F);
+            titulo.Location = new Point(256, 21);
+            titulo.Name = "titulo";
+            titulo.Size = new Size(240, 32);
+            titulo.TabIndex = 0;
+            titulo.Text = "Centro Odontológico";
+            titulo.UseWaitCursor = true;
+            titulo.Click += titulo_Click;
             // 
-            // label2
+            // DNI
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(344, 67);
-            label2.Name = "label2";
-            label2.Size = new Size(50, 20);
-            label2.TabIndex = 1;
-            label2.Text = "label2";
+            DNI.AutoSize = true;
+            DNI.Location = new Point(286, 67);
+            DNI.Name = "DNI";
+            DNI.Size = new Size(92, 20);
+            DNI.TabIndex = 1;
+            DNI.Text = "Ingresar DNI";
+            DNI.Click += label2_Click;
             // 
-            // label3
+            // Contraseña
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(344, 137);
-            label3.Name = "label3";
-            label3.Size = new Size(50, 20);
-            label3.TabIndex = 2;
-            label3.Text = "label3";
+            Contraseña.AutoSize = true;
+            Contraseña.Location = new Point(287, 137);
+            Contraseña.Name = "Contraseña";
+            Contraseña.Size = new Size(83, 20);
+            Contraseña.TabIndex = 2;
+            Contraseña.Text = "Contraseña";
             // 
-            // textBox1
+            // textDNI
             // 
-            textBox1.Location = new Point(315, 90);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(125, 27);
-            textBox1.TabIndex = 3;
+            textDNI.Location = new Point(286, 90);
+            textDNI.Name = "textDNI";
+            textDNI.Size = new Size(164, 27);
+            textDNI.TabIndex = 3;
             // 
-            // textBox2
+            // textContraseña
             // 
-            textBox2.Location = new Point(315, 160);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(125, 27);
-            textBox2.TabIndex = 4;
+            textContraseña.Location = new Point(286, 160);
+            textContraseña.Name = "textContraseña";
+            textContraseña.Size = new Size(164, 27);
+            textContraseña.TabIndex = 4;
             // 
-            // checkBox1
+            // checkMostar
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(358, 193);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(101, 24);
-            checkBox1.TabIndex = 5;
-            checkBox1.Text = "checkBox1";
-            checkBox1.UseVisualStyleBackColor = true;
-            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
+            checkMostar.AutoSize = true;
+            checkMostar.Location = new Point(286, 193);
+            checkMostar.Name = "checkMostar";
+            checkMostar.Size = new Size(153, 24);
+            checkMostar.TabIndex = 5;
+            checkMostar.Text = "Mostar contraseña";
+            checkMostar.UseVisualStyleBackColor = true;
+            checkMostar.CheckedChanged += checkBox1_CheckedChanged;
             // 
-            // label4
+            // Rol
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(347, 231);
-            label4.Name = "label4";
-            label4.Size = new Size(50, 20);
-            label4.TabIndex = 6;
-            label4.Text = "label4";
+            Rol.AutoSize = true;
+            Rol.Location = new Point(287, 220);
+            Rol.Name = "Rol";
+            Rol.Size = new Size(31, 20);
+            Rol.TabIndex = 6;
+            Rol.Text = "Rol";
+            Rol.Click += label4_Click;
             // 
-            // comboBox1
+            // comboRol
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(299, 266);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(151, 28);
-            comboBox1.TabIndex = 7;
+            comboRol.FormattingEnabled = true;
+            comboRol.Items.AddRange(new object[] { "Odontológo", "Secretaria" });
+            comboRol.Location = new Point(286, 243);
+            comboRol.Name = "comboRol";
+            comboRol.Size = new Size(164, 28);
+            comboRol.TabIndex = 7;
+            comboRol.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
-            // button1
+            // buttonIngresar
             // 
-            button1.Location = new Point(276, 322);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 29);
-            button1.TabIndex = 8;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
+            buttonIngresar.Location = new Point(267, 305);
+            buttonIngresar.Name = "buttonIngresar";
+            buttonIngresar.Size = new Size(94, 29);
+            buttonIngresar.TabIndex = 8;
+            buttonIngresar.Text = "Ingresar";
+            buttonIngresar.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // buttonCancelar
             // 
-            button2.Location = new Point(397, 322);
-            button2.Name = "button2";
-            button2.Size = new Size(94, 29);
-            button2.TabIndex = 9;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
+            buttonCancelar.Location = new Point(392, 305);
+            buttonCancelar.Name = "buttonCancelar";
+            buttonCancelar.Size = new Size(94, 29);
+            buttonCancelar.TabIndex = 9;
+            buttonCancelar.Text = "Cancelar";
+            buttonCancelar.UseVisualStyleBackColor = true;
             // 
             // FormLogin
             // 
@@ -133,16 +140,16 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GradientActiveCaption;
             ClientSize = new Size(800, 450);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(comboBox1);
-            Controls.Add(label4);
-            Controls.Add(checkBox1);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(buttonCancelar);
+            Controls.Add(buttonIngresar);
+            Controls.Add(comboRol);
+            Controls.Add(Rol);
+            Controls.Add(checkMostar);
+            Controls.Add(textContraseña);
+            Controls.Add(textDNI);
+            Controls.Add(Contraseña);
+            Controls.Add(DNI);
+            Controls.Add(titulo);
             Name = "FormLogin";
             Text = "FormLogin";
             ResumeLayout(false);
@@ -151,15 +158,15 @@
 
         #endregion
 
-        private Label label1;
-        private Label label2;
-        private Label label3;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private CheckBox checkBox1;
-        private Label label4;
-        private ComboBox comboBox1;
-        private Button button1;
-        private Button button2;
+        private Label titulo;
+        private Label DNI;
+        private Label Contraseña;
+        private TextBox textDNI;
+        private TextBox textContraseña;
+        private CheckBox checkMostar;
+        private Label Rol;
+        private ComboBox comboRol;
+        private Button buttonIngresar;
+        private Button buttonCancelar;
     }
 }
