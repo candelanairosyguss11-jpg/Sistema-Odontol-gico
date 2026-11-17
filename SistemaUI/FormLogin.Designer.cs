@@ -84,6 +84,7 @@
             txtContrasena.Name = "txtContrasena";
             txtContrasena.Size = new Size(164, 27);
             txtContrasena.TabIndex = 4;
+            txtContrasena.UseSystemPasswordChar = true;
             txtContrasena.TextChanged += textContraseña_TextChanged;
             // 
             // checkMostar

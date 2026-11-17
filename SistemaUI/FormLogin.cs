@@ -41,11 +41,13 @@ namespace SistemaUI
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //comboRol.Items.Add("Secretaria");
+            // comboRol.Items.Clear();
             //comboRol.Items.Add("Odontólogo");
-
+            //comboRol.Items.Add("Secretaria");
             //comboRol.SelectedIndex = -1;
-
+            comboRol.DataSource = null;
+            comboRol.DisplayMember = "";
+            comboRol.ValueMember = "";
             comboRol.Items.Clear();
             comboRol.Items.Add("Odontólogo");
             comboRol.Items.Add("Secretaria");
