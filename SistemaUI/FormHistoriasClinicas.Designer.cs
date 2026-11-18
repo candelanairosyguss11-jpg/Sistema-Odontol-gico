@@ -41,6 +41,7 @@
             // 
             // MenuHistoriasC
             // 
+            MenuHistoriasC.BackColor = Color.LightSkyBlue;
             MenuHistoriasC.Controls.Add(buttonVolver);
             MenuHistoriasC.Controls.Add(buttonObservaciones);
             MenuHistoriasC.Controls.Add(buttonConsentimientos);
@@ -115,6 +116,7 @@
             // 
             // panelHC
             // 
+            panelHC.BackColor = SystemColors.GradientActiveCaption;
             panelHC.Dock = DockStyle.Fill;
             panelHC.Location = new Point(133, 0);
             panelHC.Name = "panelHC";

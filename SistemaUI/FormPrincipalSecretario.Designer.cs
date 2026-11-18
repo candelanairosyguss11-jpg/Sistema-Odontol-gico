@@ -41,7 +41,7 @@
             // 
             // panelMenu
             // 
-            panelMenu.BackColor = Color.FromArgb(38, 54, 74);
+            panelMenu.BackColor = Color.LightSkyBlue;
             panelMenu.Controls.Add(button3);
             panelMenu.Controls.Add(button2);
             panelMenu.Controls.Add(button1);

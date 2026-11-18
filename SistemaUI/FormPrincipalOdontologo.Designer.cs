@@ -50,7 +50,7 @@
             // 
             // panelMenu
             // 
-            panelMenu.BackColor = Color.FromArgb(38, 54, 74);
+            panelMenu.BackColor = Color.LightSkyBlue;
             panelMenu.Controls.Add(buttonHistoriaC);
             panelMenu.Controls.Add(buttonCerrar);
             panelMenu.Controls.Add(buttonTurnos);
