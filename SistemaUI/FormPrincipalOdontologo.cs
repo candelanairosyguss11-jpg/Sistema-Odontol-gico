@@ -14,6 +14,7 @@ namespace SistemaUI
         //
         public void AbrirFormulario(Form formulario)
         {
+            panelMenu.Visible = !(formulario is FormHistoriasClinicas);
             foreach (Control control in panelContenido.Controls)
             {
                 control.Dispose();

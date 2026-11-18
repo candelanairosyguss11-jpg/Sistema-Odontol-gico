@@ -13,7 +13,7 @@ namespace SistemaUI
     {
         public FormDatosPaciente()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
 
         private void FormDatosPaciente_Load(object sender, EventArgs e)
@@ -25,6 +25,21 @@ namespace SistemaUI
         {
             InitializeComponent();
             this.paciente = paciente;
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
