@@ -39,34 +39,34 @@ namespace SistemaUI
 
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // comboRol.Items.Clear();
-            //comboRol.Items.Add("Odontólogo");
-            //comboRol.Items.Add("Secretaria");
+        //private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    // comboRol.Items.Clear();
+        //    //comboRol.Items.Add("Odontólogo");
+        //    //comboRol.Items.Add("Secretaria");
             
-        }
+        //}
 
 
-        private void buttonIngresar_Click(object sender, EventArgs e)
-        {
+        //private void buttonIngresar_Click(object sender, EventArgs e)
+        //{
 
-            // validar usuario
+        //    // validar usuario
 
-            FormPrincipalOdontologo principal = new FormPrincipalOdontologo();
+        //    FormPrincipalOdontologo principal = new FormPrincipalOdontologo();
 
-            principal.Show();
-            this.Hide();
+        //    principal.Show();
+        //    this.Hide();
 
-        }
+        //}
 
-        private void FormLogin_Load(object sender, EventArgs e)
-        {
-            comboRol.Items.Add("Odontólogo");
-            comboRol.Items.Add("Secretaria");
-            comboRol.SelectedIndex = -1;
-            //comboRol.DropDownStyle = ComboBoxStyle.DropDownList;
-        }
+        //private void FormLogin_Load(object sender, EventArgs e)
+        //{
+        //    comboRol.Items.Add("Odontólogo");
+        //    comboRol.Items.Add("Secretaria");
+        //    comboRol.SelectedIndex = -1;
+        //    //comboRol.DropDownStyle = ComboBoxStyle.DropDownList;
+        //}
 
         private void FormLogin_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -87,6 +87,47 @@ namespace SistemaUI
         private void textContraseña_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+
+        private void FormLogin_Load(object sender, EventArgs e)
+        {
+            comboRol.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboRol.Items.Clear();
+            comboRol.Items.Add("Odontólogo");
+            comboRol.Items.Add("Secretaria");
+            comboRol.SelectedIndex = -1;
+        }
+
+        private void buttonIngresar_Click(object sender, EventArgs e)
+        {
+            if (comboRol.SelectedItem == null)
+            {
+                MessageBox.Show("Seleccioná un rol.");
+                return;
+            }
+
+            // TODO: validar DNI y contraseña con la capa Logica
+
+            Form principal;
+            switch (comboRol.SelectedItem.ToString())
+            {
+                case "Odontólogo": principal = new FormPrincipalOdontologo(); break;
+                case "Secretaria": principal = new FormPrincipalSecretario(); break;
+                default: return;
+            }
+
+            // Cuando se cierra la sesión, vuelve el login limpio
+            principal.FormClosed += (s, args) =>
+            {
+                textDNI.Clear();
+                txtContrasena.Clear();
+                comboRol.SelectedIndex = -1;
+                this.Show();
+            };
+
+            principal.Show();
+            this.Hide();
         }
     }
 }
