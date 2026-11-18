@@ -54,7 +54,7 @@ namespace SistemaUI
 
         private void ButtonInicio_Click(object sender, EventArgs e)
         {
-
+            AbrirFormulario(new FormInicio());
         }
 
         private void PanelContenido_Paint_1(object sender, PaintEventArgs e)
@@ -73,6 +73,11 @@ namespace SistemaUI
         }
 
         private void buttonTurnos_Click_1(object sender, EventArgs e)
+        {
+            AbrirFormulario(new FormTurnos());
+        }
+
+        private void buttonCerrar_Click_1(object sender, EventArgs e)
         {
 
         }

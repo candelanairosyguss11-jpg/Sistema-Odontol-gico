@@ -89,6 +89,7 @@
             buttonCerrar.TabIndex = 5;
             buttonCerrar.Text = "↩ Cerrar sesión";
             buttonCerrar.UseVisualStyleBackColor = false;
+            buttonCerrar.Click += buttonCerrar_Click_1;
             // 
             // buttonTurnos
             // 
