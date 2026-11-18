@@ -103,7 +103,7 @@
             panelContenido.Name = "panelContenido";
             panelContenido.Size = new Size(550, 450);
             panelContenido.TabIndex = 8;
-            panelContenido.Paint += this.panelContenido_Paint;
+            //panelContenido.Paint += this.panelContenido_Paint;
             // 
             // FormPrincipalSecretario
             // 
@@ -118,10 +118,6 @@
             ResumeLayout(false);
         }
 
-        private void panelContenido_Paint(object sender, PaintEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
 
         #endregion
 
