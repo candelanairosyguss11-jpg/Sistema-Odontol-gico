@@ -58,6 +58,22 @@ internal static class Program
         return t;
     }
 
+    static Paciente NuevoPaciente(string dni, string nombre, string apellido)
+    {
+        var p = new Paciente();
+        p.Nombre = nombre; p.Apellido = apellido; p.DNI = dni;
+        p.Correo = "paciente@mail.com"; p.Telefono = "1122334455";
+        p.FechaNacimiento = DateOnly.FromDateTime(DateTime.Today).AddYears(-30);
+        return p;
+    }
+
+    static Tratamiento NuevoTratamiento(int odontologoId, string nombre)
+    {
+        var t = new Tratamiento();
+        t.OdontologoId = odontologoId; t.Nombre = nombre; t.DuracionMinutos = 30;
+        return t;
+    }
+
     static void LimpiarDatos()
     {
         if (Directory.Exists(Rutas.CarpetaDatos)) Directory.Delete(Rutas.CarpetaDatos, true);
@@ -280,6 +296,100 @@ internal static class Program
             return ok;
         });
         Caso("Rechaza un archivo que no existe", () => Lanza<FileNotFoundException>(() => ServicioArchivos.Guardar(@"C:\no\existe.jpg", 1)));
+
+        // ---------- SERVICIO PACIENTES ----------
+        _informe.AppendLine("--- SERVICIO PACIENTES ---");
+        var servP = new ServicioPacientes(new RepositorioJson<Paciente>("pacientes_servicio.json"));
+
+        Caso("Registrar paciente", () => { servP.Registrar(NuevoPaciente("40111222", "Ana", "Pérez")); return servP.ObtenerTodos().Count == 1; });
+        Caso("DNI repetido (con puntos) falla", () => Lanza<InvalidOperationException>(() => servP.Registrar(NuevoPaciente("40.111.222", "Otra", "Persona"))));
+        Caso("Registrar sin fecha de nacimiento falla", () => Lanza<InvalidOperationException>(() =>
+        {
+            var p = new Paciente();
+            p.Nombre = "Sin"; p.Apellido = "Fecha"; p.DNI = "40999888";
+            p.Correo = "s@mail.com"; p.Telefono = "1122334455";
+            servP.Registrar(p);
+        }));
+        Caso("Registrar segundo paciente", () => { servP.Registrar(NuevoPaciente("40333444", "Luis", "Gómez")); return servP.ObtenerTodos().Count == 2; });
+        Caso("BuscarPorDni con puntos, e inexistente -> null", () => servP.BuscarPorDni("40.111.222") != null && servP.BuscarPorDni("11111111") == null);
+        Caso("BuscarPorNombre: por nombre, por DNI y vacío", () =>
+            servP.BuscarPorNombre("ana").Count == 1
+            && servP.BuscarPorNombre("333").Count == 1
+            && servP.BuscarPorNombre("").Count == 2);
+        Caso("Actualizar teléfono (no choca consigo mismo) y persiste", () =>
+        {
+            var p = servP.BuscarPorDni("40111222");
+            p.Telefono = "1199998888";
+            servP.Actualizar(p);
+            var servP2 = new ServicioPacientes(new RepositorioJson<Paciente>("pacientes_servicio.json"));
+            return servP2.BuscarPorDni("40111222").Telefono == "1199998888";
+        });
+        Caso("Actualizar con el DNI de otro paciente falla", () =>
+        {
+            var luis = servP.BuscarPorDni("40333444");
+            luis.DNI = "40111222";
+            bool lanzo = Lanza<InvalidOperationException>(() => servP.Actualizar(luis));
+            luis.DNI = "40333444"; // se restaura porque el objeto en memoria quedó modificado
+            return lanzo;
+        });
+
+        // ---------- SERVICIO TRATAMIENTOS ----------
+        _informe.AppendLine("--- SERVICIO TRATAMIENTOS ---");
+        var servT = new ServicioTratamientos(new RepositorioJson<Tratamiento>("tratamientos.json"));
+
+        Caso("Agregar tratamiento", () => { servT.Agregar(NuevoTratamiento(1, "Limpieza")); return servT.ObtenerTodosDeOdontologo(1).Count == 1; });
+        Caso("Mismo nombre (otras mayúsculas) falla", () => Lanza<InvalidOperationException>(() => servT.Agregar(NuevoTratamiento(1, "limpieza"))));
+        Caso("Mismo nombre para otro odontólogo funciona", () => { servT.Agregar(NuevoTratamiento(2, "Limpieza")); return servT.ObtenerTodosDeOdontologo(2).Count == 1; });
+        Caso("Sin odontólogo falla", () => Lanza<InvalidOperationException>(() => servT.Agregar(NuevoTratamiento(0, "Conducto"))));
+        Caso("Sin nombre falla", () => Lanza<InvalidOperationException>(() =>
+        {
+            var t = new Tratamiento();
+            t.OdontologoId = 1;
+            servT.Agregar(t);
+        }));
+        Caso("Desactivar: no aparece en activos pero sigue existiendo", () =>
+        {
+            int id = servT.ObtenerTodosDeOdontologo(1).First(t => t.Nombre == "Limpieza").Id;
+            servT.Desactivar(id);
+            return servT.ObtenerActivosDeOdontologo(1).Count == 0
+                && servT.ObtenerTodosDeOdontologo(1).Count == 1
+                && servT.ObtenerPorId(id) != null
+                && !servT.ObtenerPorId(id).Activo;
+        });
+        Caso("Reactivar: vuelve a aparecer", () =>
+        {
+            int id = servT.ObtenerTodosDeOdontologo(1).First(t => t.Nombre == "Limpieza").Id;
+            servT.Reactivar(id);
+            return servT.ObtenerActivosDeOdontologo(1).Count == 1;
+        });
+        Caso("Nombre de un tratamiento desactivado avisa que está desactivado", () =>
+        {
+            var t = servT.ObtenerTodosDeOdontologo(1).First(x => x.Nombre == "Limpieza");
+            servT.Desactivar(t.Id);
+            string mensaje = "";
+            try { servT.Agregar(NuevoTratamiento(1, "Limpieza")); }
+            catch (InvalidOperationException ex) { mensaje = ex.Message; }
+            servT.Reactivar(t.Id);
+            return mensaje.Contains("desactivado");
+        });
+        Caso("Actualizar duración (no choca consigo mismo)", () =>
+        {
+            var t = servT.ObtenerTodosDeOdontologo(1).First(x => x.Nombre == "Limpieza");
+            t.DuracionMinutos = 45;
+            servT.Actualizar(t);
+            return servT.ObtenerPorId(t.Id).DuracionMinutos == 45;
+        });
+        Caso("ObtenerPorIds devuelve los tratamientos pedidos", () =>
+        {
+            servT.Agregar(NuevoTratamiento(1, "Extracción"));
+            var ids = servT.ObtenerTodosDeOdontologo(1).Select(t => t.Id).ToList();
+            return servT.ObtenerPorIds(ids).Count == 2;
+        });
+        Caso("Los tratamientos persisten al reabrir", () =>
+        {
+            var servT2 = new ServicioTratamientos(new RepositorioJson<Tratamiento>("tratamientos.json"));
+            return servT2.ObtenerTodosDeOdontologo(1).Count == 2;
+        });
 
         // ---------- RESULTADO ----------
         string informe = _informe.ToString();
