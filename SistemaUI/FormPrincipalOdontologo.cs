@@ -12,7 +12,7 @@ namespace SistemaUI
 
         }
         //
-        private void AbrirFormulario(Form formulario)
+        public void AbrirFormulario(Form formulario)
         {
             foreach (Control control in panelContenido.Controls)
             {
@@ -61,7 +61,7 @@ namespace SistemaUI
 
         private void Button3HC_Click_1(object sender, EventArgs e)
         {
-            AbrirFormulario(new FormHistoriasClinicas());
+            AbrirFormulario(new FormListaPaciente());
         }
 
         private void buttonCerrar_Click_1(object sender, EventArgs e)

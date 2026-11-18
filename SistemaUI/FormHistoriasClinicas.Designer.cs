@@ -29,71 +29,83 @@
         private void InitializeComponent()
         {
             MenuHistoriasC = new Panel();
-            button5 = new Button();
-            button4 = new Button();
-            button3 = new Button();
-            button2 = new Button();
-            button1 = new Button();
+            buttonObservaciones = new Button();
+            buttonConsentimientos = new Button();
+            buttonEstudios = new Button();
+            buttonOdontograma = new Button();
+            buttonDatos = new Button();
+            buttonVolver = new Button();
             MenuHistoriasC.SuspendLayout();
             SuspendLayout();
             // 
             // MenuHistoriasC
             // 
-            MenuHistoriasC.Controls.Add(button5);
-            MenuHistoriasC.Controls.Add(button4);
-            MenuHistoriasC.Controls.Add(button3);
-            MenuHistoriasC.Controls.Add(button2);
-            MenuHistoriasC.Controls.Add(button1);
+            MenuHistoriasC.Controls.Add(buttonVolver);
+            MenuHistoriasC.Controls.Add(buttonObservaciones);
+            MenuHistoriasC.Controls.Add(buttonConsentimientos);
+            MenuHistoriasC.Controls.Add(buttonEstudios);
+            MenuHistoriasC.Controls.Add(buttonOdontograma);
+            MenuHistoriasC.Controls.Add(buttonDatos);
             MenuHistoriasC.Dock = DockStyle.Left;
             MenuHistoriasC.Location = new Point(0, 0);
             MenuHistoriasC.Name = "MenuHistoriasC";
             MenuHistoriasC.Size = new Size(133, 450);
             MenuHistoriasC.TabIndex = 0;
             // 
-            // button5
+            // buttonObservaciones
             // 
-            button5.Location = new Point(3, 368);
-            button5.Name = "button5";
-            button5.Size = new Size(123, 82);
-            button5.TabIndex = 4;
-            button5.Text = "Observaciones";
-            button5.UseVisualStyleBackColor = true;
+            buttonObservaciones.Location = new Point(3, 382);
+            buttonObservaciones.Name = "buttonObservaciones";
+            buttonObservaciones.Size = new Size(123, 68);
+            buttonObservaciones.TabIndex = 4;
+            buttonObservaciones.Text = "Observaciones";
+            buttonObservaciones.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // buttonConsentimientos
             // 
-            button4.Location = new Point(3, 276);
-            button4.Name = "button4";
-            button4.Size = new Size(123, 86);
-            button4.TabIndex = 3;
-            button4.Text = "Consentimiento Informado";
-            button4.UseVisualStyleBackColor = true;
+            buttonConsentimientos.Location = new Point(3, 308);
+            buttonConsentimientos.Name = "buttonConsentimientos";
+            buttonConsentimientos.Size = new Size(123, 68);
+            buttonConsentimientos.TabIndex = 3;
+            buttonConsentimientos.Text = "Consentimiento Informado";
+            buttonConsentimientos.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // buttonEstudios
             // 
-            button3.Location = new Point(3, 191);
-            button3.Name = "button3";
-            button3.Size = new Size(123, 79);
-            button3.TabIndex = 2;
-            button3.Text = "Estudios";
-            button3.UseVisualStyleBackColor = true;
+            buttonEstudios.Location = new Point(3, 232);
+            buttonEstudios.Name = "buttonEstudios";
+            buttonEstudios.Size = new Size(123, 70);
+            buttonEstudios.TabIndex = 2;
+            buttonEstudios.Text = "Estudios";
+            buttonEstudios.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // buttonOdontograma
             // 
-            button2.Location = new Point(3, 98);
-            button2.Name = "button2";
-            button2.Size = new Size(123, 87);
-            button2.TabIndex = 1;
-            button2.Text = "Odontograma";
-            button2.UseVisualStyleBackColor = true;
+            buttonOdontograma.Location = new Point(3, 150);
+            buttonOdontograma.Name = "buttonOdontograma";
+            buttonOdontograma.Size = new Size(123, 76);
+            buttonOdontograma.TabIndex = 1;
+            buttonOdontograma.Text = "Odontograma";
+            buttonOdontograma.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // buttonDatos
             // 
-            button1.Location = new Point(3, 0);
-            button1.Name = "button1";
-            button1.Size = new Size(123, 92);
-            button1.TabIndex = 0;
-            button1.Text = "Datos";
-            button1.UseVisualStyleBackColor = true;
+            buttonDatos.Location = new Point(3, 64);
+            buttonDatos.Name = "buttonDatos";
+            buttonDatos.Size = new Size(123, 80);
+            buttonDatos.TabIndex = 0;
+            buttonDatos.Text = "Datos";
+            buttonDatos.UseVisualStyleBackColor = true;
+            // 
+            // buttonVolver
+            // 
+            buttonVolver.Location = new Point(3, 12);
+            buttonVolver.Name = "buttonVolver";
+            buttonVolver.Size = new Size(123, 36);
+            buttonVolver.TabIndex = 5;
+            buttonVolver.Text = "← Volver";
+            buttonVolver.UseVisualStyleBackColor = true;
+            buttonVolver.Click += button6_Click;
             // 
             // FormHistoriasClinicas
             // 
@@ -112,10 +124,11 @@
         #endregion
 
         private Panel MenuHistoriasC;
-        private Button button5;
-        private Button button4;
-        private Button button3;
-        private Button button2;
-        private Button button1;
+        private Button buttonObservaciones;
+        private Button buttonConsentimientos;
+        private Button buttonEstudios;
+        private Button buttonOdontograma;
+        private Button buttonDatos;
+        private Button buttonVolver;
     }
 }

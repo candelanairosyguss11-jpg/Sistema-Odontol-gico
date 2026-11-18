@@ -28,19 +28,66 @@
         /// </summary>
         private void InitializeComponent()
         {
+            ListadePacientes = new Label();
+            textBuscarPaciente = new TextBox();
+            dataGridViewPacientes = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewPacientes).BeginInit();
             SuspendLayout();
+            // 
+            // ListadePacientes
+            // 
+            ListadePacientes.AutoSize = true;
+            ListadePacientes.Font = new Font("Segoe UI", 20F);
+            ListadePacientes.Location = new Point(0, 9);
+            ListadePacientes.Name = "ListadePacientes";
+            ListadePacientes.Size = new Size(283, 46);
+            ListadePacientes.TabIndex = 0;
+            ListadePacientes.Text = "Lista de Pacientes";
+            ListadePacientes.Click += ListadePacientes_Click;
+            // 
+            // textBuscarPaciente
+            // 
+            textBuscarPaciente.Location = new Point(484, 12);
+            textBuscarPaciente.Name = "textBuscarPaciente";
+            textBuscarPaciente.Size = new Size(304, 27);
+            textBuscarPaciente.TabIndex = 1;
+            textBuscarPaciente.Text = "🔍 Buscar paciente";
+            textBuscarPaciente.TextChanged += textBuscarPaciente_TextChanged;
+            // 
+            // dataGridViewPacientes
+            // 
+            dataGridViewPacientes.BackgroundColor = SystemColors.GradientInactiveCaption;
+            dataGridViewPacientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewPacientes.Dock = DockStyle.Bottom;
+            dataGridViewPacientes.Location = new Point(0, 58);
+            dataGridViewPacientes.Name = "dataGridViewPacientes";
+            dataGridViewPacientes.RowHeadersWidth = 51;
+            dataGridViewPacientes.Size = new Size(800, 392);
+            dataGridViewPacientes.TabIndex = 2;
+            dataGridViewPacientes.CellContentClick += dataGridViewPacientes_CellContentClick;
             // 
             // FormListaPaciente
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(800, 450);
+            Controls.Add(dataGridViewPacientes);
+            Controls.Add(textBuscarPaciente);
+            Controls.Add(ListadePacientes);
             Name = "FormListaPaciente";
             Text = "FormListaPaciente";
+            WindowState = FormWindowState.Maximized;
             Load += FormListaPaciente_Load;
+            ((System.ComponentModel.ISupportInitialize)dataGridViewPacientes).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Label ListadePacientes;
+        private TextBox textBuscarPaciente;
+        private DataGridView dataGridViewPacientes;
     }
 }
