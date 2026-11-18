@@ -27,6 +27,10 @@ namespace SistemaUI
 
             panelContenido.Controls.Add(formulario);
             formulario.Show();
+
+
+
+
         }
 
         private void PanelMenu_Paint(object sender, PaintEventArgs e)
@@ -61,7 +65,7 @@ namespace SistemaUI
 
         private void Button3HC_Click_1(object sender, EventArgs e)
         {
-            AbrirFormulario(new FormListaPaciente());
+            AbrirFormulario(new FormListaPacientes());
         }
 
         private void buttonCerrar_Click_1(object sender, EventArgs e)

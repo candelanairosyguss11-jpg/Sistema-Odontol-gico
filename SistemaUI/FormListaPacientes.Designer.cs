@@ -1,6 +1,6 @@
 ﻿namespace SistemaUI
 {
-    partial class FormListaPaciente
+    partial class FormListaPacientes
     {
         /// <summary>
         /// Required designer variable.

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace SistemaUI
 {
-    public partial class FormListaPaciente : Form
+    public partial class FormListaPacientes : Form
     {
 
     private List<Paciente> pacientes = new();
@@ -29,13 +29,13 @@ namespace SistemaUI
             dataGridViewPacientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewPacientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            // TODO: traer los pacientes desde la capa Logica
+            // como hacer para hacer la lista de los pacientes
             pacientes = new List<Paciente>
             {
                 new Paciente { Id = 1, Apellido = "Pérez", Nombre = "Juan", DNI = "30111222" },
                 new Paciente { Id = 2, Apellido = "Gómez", Nombre = "María", DNI = "28999888" }
             };
-            MostrarPacientes(pacientes);
+            MostrarPacientes(pacientes);//prueba
         }
 
         private void MostrarPacientes(List<Paciente> lista)
