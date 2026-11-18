@@ -12,7 +12,7 @@ namespace SistemaUI
 {
     public partial class FormInicio : Form
     {
-        private const int HoraInicio = 7, HoraFin = 22;
+        private const int HoraInicio = 8, HoraFin = 21;
         private readonly CultureInfo cultura = new CultureInfo("es-AR");
         private readonly DataGridView grilla = new DataGridView();
         private readonly Label lblMes = new Label();
