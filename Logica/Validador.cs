@@ -17,7 +17,7 @@ namespace Sistema_Odontológico
             dni.All(char.IsDigit) &&
             dni.Length is >= 7 and <= 8;
         }
-            
+
         public static string NormalizarDni(string dni)
         {
             return dni?.Replace(".", "").Replace(" ", "").Trim(); //saca los puntos y espacios
@@ -48,7 +48,7 @@ namespace Sistema_Odontológico
 
         public static bool EsEnlaceValido(string enlace)
         {
-            return Uri.TryCreate(enlace, UriKind.Absolute, out Uri? uri)
+            return Uri.TryCreate(enlace, UriKind.Absolute, out Uri uri)
                 && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps);
         }
     }

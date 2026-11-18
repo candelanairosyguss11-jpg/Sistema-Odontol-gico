@@ -17,9 +17,9 @@ namespace Sistema_Odontológico
         public int OdontologoId { get; set; }
         public DateTime Inicio { get; set; }
 
-        public int DuracionMinutos 
-        { 
-            get; 
+        public int DuracionMinutos
+        {
+            get;
             set
             {
                 if (value < DuracionMinima || value > DuracionMaxima)
@@ -33,16 +33,22 @@ namespace Sistema_Odontológico
         public List<int> TratamientosIds { get; set; } = new List<int>();
         public string Detalle { get; set; } = string.Empty; // nota previa opcional
 
-        [JsonConverter(typeof(JsonStringEnumConverter))] //para que guarde el nombre y no el número
-
         public int? TurnoOriginalId { get; set; } // si es una reprogramación
 
+        [JsonConverter(typeof(JsonStringEnumConverter))] //para que guarde el nombre y no el número
         public EstadoTurno Estado { get; set; } = EstadoTurno.Pendiente;
 
         [JsonIgnore]
         public DateTime Fin
         {
             get { return Inicio.AddMinutes(DuracionMinutos); }
+        }
+
+        // los cancelados y reprogramados liberan el horario
+        [JsonIgnore]
+        public bool OcupaHorario
+        {
+            get { return Estado != EstadoTurno.Cancelado && Estado != EstadoTurno.Reprogramado; }
         }
 
         public bool SeSuperponeCon(Turno otro)
