@@ -45,5 +45,10 @@ namespace SistemaUI
         {
             this.Close();
         }
+
+        private void panelContenido_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

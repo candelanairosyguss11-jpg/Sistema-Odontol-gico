@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             panelMenu = new Panel();
+            button3 = new Button();
+            button2 = new Button();
+            button1 = new Button();
             buttonCerrar = new Button();
             buttonTurnos = new Button();
             buttonInicio = new Button();
             panelContenido = new Panel();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
             panelMenu.SuspendLayout();
             SuspendLayout();
             // 
@@ -53,6 +53,48 @@
             panelMenu.Name = "panelMenu";
             panelMenu.Size = new Size(250, 450);
             panelMenu.TabIndex = 0;
+            // 
+            // button3
+            // 
+            button3.BackColor = Color.MidnightBlue;
+            button3.Dock = DockStyle.Top;
+            button3.FlatAppearance.BorderColor = Color.MidnightBlue;
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.ForeColor = Color.White;
+            button3.Location = new Point(0, 230);
+            button3.Name = "button3";
+            button3.Size = new Size(250, 67);
+            button3.TabIndex = 9;
+            button3.Text = "📒Agenda Viviana";
+            button3.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            button2.BackColor = Color.MidnightBlue;
+            button2.Dock = DockStyle.Top;
+            button2.FlatAppearance.BorderColor = Color.MidnightBlue;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.ForeColor = Color.White;
+            button2.Location = new Point(0, 163);
+            button2.Name = "button2";
+            button2.Size = new Size(250, 67);
+            button2.TabIndex = 8;
+            button2.Text = "📒Agenda Christian";
+            button2.UseVisualStyleBackColor = false;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.MidnightBlue;
+            button1.Dock = DockStyle.Top;
+            button1.FlatAppearance.BorderColor = Color.MidnightBlue;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(0, 96);
+            button1.Name = "button1";
+            button1.Size = new Size(250, 67);
+            button1.TabIndex = 7;
+            button1.Text = "📒Agenda Ariel";
+            button1.UseVisualStyleBackColor = false;
             // 
             // buttonCerrar
             // 
@@ -109,48 +151,7 @@
             panelContenido.Name = "panelContenido";
             panelContenido.Size = new Size(550, 450);
             panelContenido.TabIndex = 8;
-            // 
-            // button1
-            // 
-            button1.BackColor = Color.MidnightBlue;
-            button1.Dock = DockStyle.Top;
-            button1.FlatAppearance.BorderColor = Color.MidnightBlue;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(0, 96);
-            button1.Name = "button1";
-            button1.Size = new Size(250, 67);
-            button1.TabIndex = 7;
-            button1.Text = "📒Agenda Ariel";
-            button1.UseVisualStyleBackColor = false;
-            // 
-            // button2
-            // 
-            button2.BackColor = Color.MidnightBlue;
-            button2.Dock = DockStyle.Top;
-            button2.FlatAppearance.BorderColor = Color.MidnightBlue;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.ForeColor = Color.White;
-            button2.Location = new Point(0, 163);
-            button2.Name = "button2";
-            button2.Size = new Size(250, 67);
-            button2.TabIndex = 8;
-            button2.Text = "📒Agenda Christian";
-            button2.UseVisualStyleBackColor = false;
-            // 
-            // button3
-            // 
-            button3.BackColor = Color.MidnightBlue;
-            button3.Dock = DockStyle.Top;
-            button3.FlatAppearance.BorderColor = Color.MidnightBlue;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.ForeColor = Color.White;
-            button3.Location = new Point(0, 230);
-            button3.Name = "button3";
-            button3.Size = new Size(250, 67);
-            button3.TabIndex = 9;
-            button3.Text = "📒Agenda Viviana";
-            button3.UseVisualStyleBackColor = false;
+            panelContenido.Paint += panelContenido_Paint;
             // 
             // FormPrincipalSecretario
             // 

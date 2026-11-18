@@ -39,45 +39,6 @@ namespace SistemaUI
 
         }
 
-        //private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    // comboRol.Items.Clear();
-        //    //comboRol.Items.Add("Odontólogo");
-        //    //comboRol.Items.Add("Secretaria");
-            
-        //}
-
-
-        //private void buttonIngresar_Click(object sender, EventArgs e)
-        //{
-
-        //    // validar usuario
-
-        //    FormPrincipalOdontologo principal = new FormPrincipalOdontologo();
-
-        //    principal.Show();
-        //    this.Hide();
-
-        //}
-
-        //private void FormLogin_Load(object sender, EventArgs e)
-        //{
-        //    comboRol.Items.Add("Odontólogo");
-        //    comboRol.Items.Add("Secretaria");
-        //    comboRol.SelectedIndex = -1;
-        //    //comboRol.DropDownStyle = ComboBoxStyle.DropDownList;
-        //}
-
-        private void FormLogin_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (Application.OpenForms["FormPrincipal"] != null)
-            {
-                Application.OpenForms["FormPrincipal"].FormClosing -= FormPrincipal_FormClosing;
-            }
-
-            this.Show();
-        }
-
         private void buttonCancelar_Click(object sender, EventArgs e)
         {
             Application.OpenForms["FormLogin"].Show();
@@ -107,7 +68,7 @@ namespace SistemaUI
                 return;
             }
 
-            // TODO: validar DNI y contraseña con la capa Logica
+            // falta validar DNI y contraseña 
 
             Form principal;
             switch (comboRol.SelectedItem.ToString())
@@ -117,7 +78,7 @@ namespace SistemaUI
                 default: return;
             }
 
-            // Cuando se cierra la sesión, vuelve el login limpio
+            // Cuando se cierra la sesión, vuelve a la pantalla de login 
             principal.FormClosed += (s, args) =>
             {
                 textDNI.Clear();

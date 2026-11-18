@@ -11,7 +11,7 @@ namespace SistemaUI
         {
 
         }
-        //agragado NAi
+        //
         private void AbrirFormulario(Form formulario)
         {
             foreach (Control control in panelContenido.Controls)
@@ -44,7 +44,7 @@ namespace SistemaUI
 
         }
 
-        private void ButtonInicio_Click(object sender, EventArgs e)
+        private void buttonInicio_Click_1(object sender, EventArgs e)
         {
             AbrirFormulario(new FormInicio());
         }
@@ -54,14 +54,14 @@ namespace SistemaUI
 
         }
 
-        private void Button3HC_Click_1(object sender, EventArgs e)
-        {
-            AbrirFormulario(new FormHistoriasClinicas());
-        }
-
         private void buttonTurnos_Click_1(object sender, EventArgs e)
         {
             AbrirFormulario(new FormTurnos());
+        }
+
+        private void Button3HC_Click_1(object sender, EventArgs e)
+        {
+            AbrirFormulario(new FormHistoriasClinicas());
         }
 
         private void buttonCerrar_Click_1(object sender, EventArgs e)
@@ -69,9 +69,6 @@ namespace SistemaUI
             this.Close();
         }
 
-        private void buttonInicio_Click_1(object sender, EventArgs e)
-        {
-            AbrirFormulario(new FormInicio());
-        }
+        
     }
 }

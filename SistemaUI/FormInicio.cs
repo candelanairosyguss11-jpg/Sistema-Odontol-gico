@@ -101,7 +101,7 @@ namespace SistemaUI
 
             // TODO: reemplazar por los turnos reales que devuelva la capa Logica,
             // filtrados entre semanaInicio y semanaInicio.AddDays(7)
-            MostrarTurno(semanaInicio.AddDays(1).AddHours(9), "Turno: Juan Pérez", Color.LightSkyBlue);
+            MostrarTurno(semanaInicio.AddDays(1).AddHours(9), "Turno: Juan Pérez", Color.LightSkyBlue);//instancia de prueba
         }
 
         private void MostrarTurno(DateTime fechaHora, string texto, Color color)
