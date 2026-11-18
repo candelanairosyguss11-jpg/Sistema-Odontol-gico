@@ -59,7 +59,7 @@
             button3.Name = "button3";
             button3.Size = new Size(189, 54);
             button3.TabIndex = 2;
-            button3.Text = "Cancelar";
+            button3.Text = "Cancelar Turno";
             button3.UseVisualStyleBackColor = true;
             // 
             // FormTurnos

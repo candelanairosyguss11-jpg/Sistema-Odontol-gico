@@ -43,7 +43,7 @@ namespace SistemaUI
 
         private void buttonCerrar_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
     }
 }

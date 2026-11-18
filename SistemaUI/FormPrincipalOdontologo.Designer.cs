@@ -120,8 +120,9 @@
             buttonInicio.TabIndex = 0;
             buttonInicio.Text = "ℹ️Inicio";
             buttonInicio.UseVisualStyleBackColor = false;
+            buttonInicio.Click += buttonInicio_Click_1;
             // 
-            // FormPrincipal
+            // FormPrincipalOdontologo
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -129,7 +130,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(panelContenido);
             Controls.Add(panelMenu);
-            Name = "FormPrincipal";
+            Name = "FormPrincipalOdontologo";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Sistema Odontológico";
             WindowState = FormWindowState.Maximized;
