@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
-
 using System.Globalization;
 
 namespace SistemaUI
@@ -114,6 +113,11 @@ namespace SistemaUI
             var celda = grilla.Rows[fila].Cells[col];
             celda.Value = texto;
             celda.Style.BackColor = color;
+        }
+
+        private void FormInicio_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
