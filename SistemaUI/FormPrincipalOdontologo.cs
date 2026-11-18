@@ -1,8 +1,8 @@
 namespace SistemaUI
 {
-    public partial class FormPrincipal : Form
+    public partial class FormPrincipalOdontologo : Form
     {
-        public FormPrincipal()
+        public FormPrincipalOdontologo()
         {
             InitializeComponent();
         }
@@ -29,9 +29,6 @@ namespace SistemaUI
             formulario.Show();
         }
 
-
-
-
         private void PanelMenu_Paint(object sender, PaintEventArgs e)
         {
 
@@ -40,11 +37,6 @@ namespace SistemaUI
         private void Button3_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void ButtonTurnos_Click(object sender, EventArgs e)
-        {
-            AbrirFormulario(new FormTurnos());
         }
 
         private void PanelContenido_Paint(object sender, PaintEventArgs e)
@@ -67,11 +59,6 @@ namespace SistemaUI
             AbrirFormulario(new FormHistoriasClinicas());
         }
 
-        private void buttonCerrar_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void buttonTurnos_Click_1(object sender, EventArgs e)
         {
             AbrirFormulario(new FormTurnos());
@@ -79,7 +66,7 @@ namespace SistemaUI
 
         private void buttonCerrar_Click_1(object sender, EventArgs e)
         {
-
+            this.Close();
         }
     }
 }

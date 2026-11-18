@@ -44,14 +44,7 @@ namespace SistemaUI
             // comboRol.Items.Clear();
             //comboRol.Items.Add("Odontólogo");
             //comboRol.Items.Add("Secretaria");
-            //comboRol.SelectedIndex = -1;
-            comboRol.DataSource = null;
-            comboRol.DisplayMember = "";
-            comboRol.ValueMember = "";
-            comboRol.Items.Clear();
-            comboRol.Items.Add("Odontólogo");
-            comboRol.Items.Add("Secretaria");
-            comboRol.DropDownStyle = ComboBoxStyle.DropDownList;
+            
         }
 
 
@@ -60,7 +53,7 @@ namespace SistemaUI
 
             // validar usuario
 
-            FormPrincipal principal = new FormPrincipal();
+            FormPrincipalOdontologo principal = new FormPrincipalOdontologo();
 
             principal.Show();
             this.Hide();
@@ -69,7 +62,10 @@ namespace SistemaUI
 
         private void FormLogin_Load(object sender, EventArgs e)
         {
-
+            comboRol.Items.Add("Odontólogo");
+            comboRol.Items.Add("Secretaria");
+            comboRol.SelectedIndex = -1;
+            //comboRol.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void FormLogin_FormClosing(object sender, FormClosingEventArgs e)

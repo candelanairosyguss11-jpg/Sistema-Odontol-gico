@@ -179,7 +179,7 @@
         {
             // Aquí va la validación de usuario y contraseña.
 
-            FormPrincipal principal = new FormPrincipal();
+            FormPrincipalOdontologo principal = new FormPrincipalOdontologo();
 
             principal.Show();
 
