@@ -103,7 +103,6 @@
             panelContenido.Name = "panelContenido";
             panelContenido.Size = new Size(550, 450);
             panelContenido.TabIndex = 8;
-            //panelContenido.Paint += this.panelContenido_Paint;
             // 
             // FormPrincipalSecretario
             // 
@@ -114,6 +113,7 @@
             Controls.Add(panelMenu);
             Name = "FormPrincipalSecretario";
             Text = "FormPrincipalSecretaria";
+            WindowState = FormWindowState.Maximized;
             panelMenu.ResumeLayout(false);
             ResumeLayout(false);
         }
