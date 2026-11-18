@@ -13,7 +13,7 @@ namespace SistemaUI
         public FormTurnos()
         {
             InitializeComponent();
-            Show();
+            
         }
 
         private void FormTurnos_Load(object sender, EventArgs e)
