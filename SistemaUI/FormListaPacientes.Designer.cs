@@ -51,7 +51,7 @@
             textBuscarPaciente.Name = "textBuscarPaciente";
             textBuscarPaciente.Size = new Size(304, 27);
             textBuscarPaciente.TabIndex = 1;
-            textBuscarPaciente.Text = "🔍 Buscar paciente";
+            textBuscarPaciente.Text = "🔍︎ Buscar paciente";
             textBuscarPaciente.TextChanged += textBuscarPaciente_TextChanged;
             // 
             // dataGridViewPacientes
@@ -66,7 +66,7 @@
             dataGridViewPacientes.TabIndex = 2;
             dataGridViewPacientes.CellContentClick += dataGridViewPacientes_CellContentClick;
             // 
-            // FormListaPaciente
+            // FormListaPacientes
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -75,7 +75,7 @@
             Controls.Add(dataGridViewPacientes);
             Controls.Add(textBuscarPaciente);
             Controls.Add(ListadePacientes);
-            Name = "FormListaPaciente";
+            Name = "FormListaPacientes";
             Text = "FormListaPaciente";
             WindowState = FormWindowState.Maximized;
             Load += FormListaPaciente_Load;

@@ -34,6 +34,7 @@
             buttonCerrar = new Button();
             buttonTurnos = new Button();
             buttonInicio = new Button();
+            button1 = new Button();
             panelMenu.SuspendLayout();
             SuspendLayout();
             // 
@@ -51,6 +52,7 @@
             // panelMenu
             // 
             panelMenu.BackColor = Color.LightSkyBlue;
+            panelMenu.Controls.Add(button1);
             panelMenu.Controls.Add(buttonHistoriaC);
             panelMenu.Controls.Add(buttonCerrar);
             panelMenu.Controls.Add(buttonTurnos);
@@ -122,6 +124,21 @@
             buttonInicio.UseVisualStyleBackColor = false;
             buttonInicio.Click += buttonInicio_Click_1;
             // 
+            // button1
+            // 
+            button1.BackColor = Color.MidnightBlue;
+            button1.Dock = DockStyle.Bottom;
+            button1.FlatAppearance.BorderColor = Color.MediumBlue;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(0, 392);
+            button1.Name = "button1";
+            button1.Size = new Size(220, 29);
+            button1.TabIndex = 7;
+            button1.Text = "☰ Configuración";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
             // FormPrincipalOdontologo
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -146,5 +163,6 @@
         private Button buttonTurnos;
         private Button buttonHistoriaC;
         private Button buttonCerrar;
+        private Button button1;
     }
 }

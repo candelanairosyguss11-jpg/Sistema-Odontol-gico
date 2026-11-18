@@ -29,9 +29,6 @@ namespace SistemaUI
             panelContenido.Controls.Add(formulario);
             formulario.Show();
 
-
-
-
         }
 
         private void PanelMenu_Paint(object sender, PaintEventArgs e)
@@ -69,11 +66,16 @@ namespace SistemaUI
             AbrirFormulario(new FormListaPacientes());
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(new FormConfiguracionOdontologo());
+        }
+    
+
         private void buttonCerrar_Click_1(object sender, EventArgs e)
         {
             this.Close();
         }
-
-        
     }
+
 }
