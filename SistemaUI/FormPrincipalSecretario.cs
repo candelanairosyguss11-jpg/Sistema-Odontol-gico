@@ -50,5 +50,11 @@ namespace SistemaUI
         {
 
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+            AbrirFormulario(new FormConfiguracionSecretario());
+        }
     }
 }
