@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="Logica/Sistema Odontológico.csproj" />
+  <Project Path="PruebasLogica/PruebasLogica.csproj" Id="588b6cfa-005c-449c-9996-6f1b3face73b" />
   <Project Path="SistemaUI/SistemaUI.csproj" Id="811694aa-eb3a-44cb-9daa-8adc33b8a8ff" />
 </Solution>
