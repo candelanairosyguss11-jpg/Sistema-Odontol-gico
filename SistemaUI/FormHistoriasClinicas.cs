@@ -13,7 +13,7 @@ namespace SistemaUI
         public FormHistoriasClinicas()
         {
             InitializeComponent();
-            Show();
+            
                 
               
         }
