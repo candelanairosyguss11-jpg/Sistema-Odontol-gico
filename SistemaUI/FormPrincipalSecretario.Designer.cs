@@ -118,6 +118,11 @@
             ResumeLayout(false);
         }
 
+        private void panelContenido_Paint(object sender, PaintEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         public Panel panelMenu;

@@ -1,6 +1,6 @@
 ﻿namespace SistemaUI
 {
-    partial class FormPrincipal
+    partial class FormPrincipalOdontologo
     {
         /// <summary>
         ///  Required designer variable.
