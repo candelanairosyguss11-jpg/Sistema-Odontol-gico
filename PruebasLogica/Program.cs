@@ -391,6 +391,115 @@ internal static class Program
             return servT2.ObtenerTodosDeOdontologo(1).Count == 2;
         });
 
+        // ---------- SERVICIO TURNOS ----------
+        _informe.AppendLine("--- SERVICIO TURNOS ---");
+        var servTurnos = new ServicioTurnos(new RepositorioJson<Turno>("turnos_servicio.json"), servP, servT);
+
+        int pacienteId = servP.BuscarPorDni("40111222").Id;
+        int limpieza1 = servT.ObtenerTodosDeOdontologo(1).First(t => t.Nombre == "Limpieza").Id;
+        int limpieza2 = servT.ObtenerTodosDeOdontologo(2).First(t => t.Nombre == "Limpieza").Id;
+        int extraccion1 = servT.ObtenerTodosDeOdontologo(1).First(t => t.Nombre == "Extracción").Id;
+
+        DateTime dia = DateTime.Today.AddDays(2);
+        Func<int, int, DateTime> hora = (h, m) => dia.AddHours(h).AddMinutes(m);
+
+        // arma un turno válido del odontólogo 1 con "Limpieza"
+        Func<DateTime, int, Turno> crear = (inicio, minutos) =>
+        {
+            var t = new Turno();
+            t.PacienteId = pacienteId; t.OdontologoId = 1;
+            t.Inicio = inicio; t.DuracionMinutos = minutos;
+            t.TratamientosIds.Add(limpieza1);
+            return t;
+        };
+
+        Caso("Agendar un turno válido", () => { servTurnos.Agendar(crear(hora(10, 0), 30)); return servTurnos.ObtenerAgenda(1, dia).Count == 1; });
+        Caso("Sin tratamientos falla", () => Lanza<InvalidOperationException>(() => { var t = crear(hora(12, 0), 30); t.TratamientosIds.Clear(); servTurnos.Agendar(t); }));
+        Caso("Paciente inexistente falla", () => Lanza<InvalidOperationException>(() => { var t = crear(hora(12, 0), 30); t.PacienteId = 999; servTurnos.Agendar(t); }));
+        Caso("Turno en el pasado falla", () => Lanza<InvalidOperationException>(() => servTurnos.Agendar(crear(DateTime.Now.AddHours(-1), 30))));
+        Caso("A las 7:30 (antes de abrir) falla", () => Lanza<InvalidOperationException>(() => servTurnos.Agendar(crear(hora(7, 30), 30))));
+        Caso("A las 20:45 por 30 min (termina 21:15) falla", () => Lanza<InvalidOperationException>(() => servTurnos.Agendar(crear(hora(20, 45), 30))));
+        Caso("De 20:30 a 21:00 (justo en el límite) funciona", () => { servTurnos.Agendar(crear(hora(20, 30), 30)); return true; });
+        Caso("Tratamiento de otro odontólogo falla", () => Lanza<InvalidOperationException>(() => { var t = crear(hora(12, 0), 30); t.TratamientosIds = new List<int> { limpieza2 }; servTurnos.Agendar(t); }));
+        Caso("Tratamiento inexistente falla", () => Lanza<InvalidOperationException>(() => { var t = crear(hora(12, 0), 30); t.TratamientosIds.Add(9999); servTurnos.Agendar(t); }));
+        Caso("Turno que se superpone falla", () => Lanza<InvalidOperationException>(() => servTurnos.Agendar(crear(hora(10, 15), 30))));
+        Caso("Turno pegado al anterior funciona", () => { servTurnos.Agendar(crear(hora(10, 30), 30)); return true; });
+        Caso("Otro odontólogo, mismo horario, funciona", () =>
+        {
+            var t = crear(hora(10, 0), 30);
+            t.OdontologoId = 2; t.TratamientosIds = new List<int> { limpieza2 };
+            servTurnos.Agendar(t);
+            return servTurnos.ObtenerAgenda(2, dia).Count == 1;
+        });
+        Caso("Cancelar libera el horario", () =>
+        {
+            int id = servTurnos.ObtenerAgenda(1, dia).First(t => t.Inicio == hora(10, 30)).Id;
+            servTurnos.Cancelar(id);
+            servTurnos.Agendar(crear(hora(10, 30), 30));
+            return servTurnos.ObtenerAgenda(1, dia).Count(t => t.Inicio == hora(10, 30)) == 1;
+        });
+        Caso("Cancelar un turno ya cancelado falla", () =>
+        {
+            int id = servTurnos.ObtenerTurnosDePaciente(pacienteId).First(t => t.Estado == EstadoTurno.Cancelado).Id;
+            return Lanza<InvalidOperationException>(() => servTurnos.Cancelar(id));
+        });
+        Caso("Reprogramar: nuevo pendiente, el viejo queda Reprogramado y libera el horario", () =>
+        {
+            var original = servTurnos.ObtenerAgenda(1, dia).First(t => t.Inicio == hora(10, 0));
+            Turno nuevo = servTurnos.Reprogramar(original.Id, hora(15, 0), 45);
+            return nuevo.Estado == EstadoTurno.Pendiente
+                && nuevo.TurnoOriginalId == original.Id
+                && nuevo.DuracionMinutos == 45
+                && original.Estado == EstadoTurno.Reprogramado
+                && nuevo.TratamientosIds.Count == 1
+                && !ReferenceEquals(nuevo.TratamientosIds, original.TratamientosIds)
+                && !servTurnos.ObtenerAgenda(1, dia).Any(t => t.Inicio == hora(10, 0));
+        });
+        Caso("Reprogramar a un horario ocupado falla y el original sigue pendiente", () =>
+        {
+            var original = servTurnos.ObtenerAgenda(1, dia).First(t => t.Inicio == hora(20, 30));
+            bool lanzo = Lanza<InvalidOperationException>(() => servTurnos.Reprogramar(original.Id, hora(15, 15), 30));
+            return lanzo && original.Estado == EstadoTurno.Pendiente;
+        });
+        Caso("Reprogramar corriendo 15 minutos (no choca consigo mismo)", () =>
+        {
+            var original = servTurnos.ObtenerAgenda(1, dia).First(t => t.Inicio == hora(20, 30));
+            Turno nuevo = servTurnos.Reprogramar(original.Id, hora(20, 15), 30);
+            return nuevo.Inicio == hora(20, 15) && original.Estado == EstadoTurno.Reprogramado;
+        });
+        Caso("Reprogramar un turno que no está pendiente falla", () =>
+        {
+            int id = servTurnos.ObtenerTurnosDePaciente(pacienteId).First(t => t.Estado == EstadoTurno.Reprogramado).Id;
+            return Lanza<InvalidOperationException>(() => servTurnos.Reprogramar(id, hora(17, 0), 30));
+        });
+        Caso("Marcar asistencia en un turno futuro falla", () =>
+        {
+            int id = servTurnos.ObtenerAgenda(1, dia).First(t => t.Inicio == hora(15, 0)).Id;
+            return Lanza<InvalidOperationException>(() => servTurnos.MarcarAsistencia(id, true));
+        });
+        Caso("ObtenerAgenda: solo ese día y odontólogo, sin cancelados ni reprogramados", () =>
+        {
+            var agenda = servTurnos.ObtenerAgenda(1, dia);
+            return agenda.Count == 3
+                && servTurnos.ObtenerAgenda(2, dia).Count == 1
+                && servTurnos.ObtenerAgenda(1, dia.AddDays(1)).Count == 0
+                && agenda[0].Inicio < agenda[1].Inicio;
+        });
+        Caso("ObtenerTurnosDePaciente: todos los estados, del más reciente al más antiguo", () =>
+        {
+            var lista = servTurnos.ObtenerTurnosDePaciente(pacienteId);
+            return lista.Count == 7
+                && lista.Any(t => t.Estado == EstadoTurno.Cancelado)
+                && lista[0].Inicio >= lista[lista.Count - 1].Inicio;
+        });
+        Caso("ObtenerTextoTratamientos une los nombres", () =>
+        {
+            var t = crear(hora(12, 0), 30);
+            t.TratamientosIds.Add(extraccion1);
+            string texto = servTurnos.ObtenerTextoTratamientos(t);
+            return texto.Contains("Limpieza") && texto.Contains("Extracción") && texto.Contains(", ");
+        });
+
         // ---------- RESULTADO ----------
         string informe = _informe.ToString();
         int fallos = informe.Split('\n').Count(l => l.StartsWith("FALLÓ") || l.StartsWith("ERROR"));
