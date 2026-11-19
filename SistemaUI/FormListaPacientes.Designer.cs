@@ -58,11 +58,10 @@
             // 
             dataGridViewPacientes.BackgroundColor = SystemColors.GradientInactiveCaption;
             dataGridViewPacientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewPacientes.Dock = DockStyle.Bottom;
             dataGridViewPacientes.Location = new Point(0, 58);
             dataGridViewPacientes.Name = "dataGridViewPacientes";
             dataGridViewPacientes.RowHeadersWidth = 51;
-            dataGridViewPacientes.Size = new Size(800, 392);
+            dataGridViewPacientes.Size = new Size(1401, 582);
             dataGridViewPacientes.TabIndex = 2;
             dataGridViewPacientes.CellContentClick += dataGridViewPacientes_CellContentClick;
             // 

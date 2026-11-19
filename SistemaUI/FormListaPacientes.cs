@@ -29,13 +29,13 @@ namespace SistemaUI
             dataGridViewPacientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewPacientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            // como hacer para hacer la lista de los pacientes
+            // como hacer para hacer la lista de los pacientes yy el buscador de pacientesss
             pacientes = new List<Paciente>
             {
                 new Paciente { Id = 1, Apellido = "Pérez", Nombre = "Juan", DNI = "30111222" },
                 new Paciente { Id = 2, Apellido = "Gómez", Nombre = "María", DNI = "28999888" }
             };
-            MostrarPacientes(pacientes);//prueba, pero aunque cambie de dia sigue el turno 
+            MostrarPacientes(pacientes);//prueba
         }
 
         private void MostrarPacientes(List<Paciente> lista)
