@@ -35,7 +35,7 @@ namespace SistemaUI
                 new Paciente { Id = 1, Apellido = "Pérez", Nombre = "Juan", DNI = "30111222" },
                 new Paciente { Id = 2, Apellido = "Gómez", Nombre = "María", DNI = "28999888" }
             };
-            MostrarPacientes(pacientes);//prueba
+            MostrarPacientes(pacientes);//prueba, pero aunque cambie de dia sigue el turno 
         }
 
         private void MostrarPacientes(List<Paciente> lista)

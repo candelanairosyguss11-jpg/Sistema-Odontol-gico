@@ -11,13 +11,6 @@ namespace SistemaUI
 {
     public partial class FormHistoriasClinicas : Form
     {
-        //public FormHistoriasClinicas()
-        //{
-        //    InitializeComponent();
-
-
-
-        //}
         private readonly Paciente paciente;
 
         public FormHistoriasClinicas(Paciente paciente)
@@ -29,7 +22,7 @@ namespace SistemaUI
 
         private void FormHistoriasClinicas_Load(object sender, EventArgs e)
         {
-            AbrirEnPanel(new FormDatosPaciente(paciente));
+            AbrirEnPanel(new FormDatosPaciente(paciente));//para que en el panel al abrir la historia clinica parazca primero el formulario de datos del paciente
         }
         private void AbrirEnPanel(Form f)
         {

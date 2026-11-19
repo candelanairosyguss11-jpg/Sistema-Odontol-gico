@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Sistema_Odontológico;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
+using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
-using System.Globalization;
 
 namespace SistemaUI
 {
@@ -117,7 +118,7 @@ namespace SistemaUI
 
         private void FormInicio_Load(object sender, EventArgs e)
         {
-
+            
         }
     }
 }

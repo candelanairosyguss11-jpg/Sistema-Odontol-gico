@@ -9,7 +9,7 @@ namespace SistemaUI
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
-
+            AbrirFormulario(new FormInicio());
         }
         //
         public void AbrirFormulario(Form formulario)

@@ -56,5 +56,10 @@ namespace SistemaUI
 
             AbrirFormulario(new FormConfiguracionSecretario());
         }
+
+        private void FormPrincipalSecretario_Load(object sender, EventArgs e)
+        {
+            AbrirFormulario(new FormInicio());
+        }
     }
 }
