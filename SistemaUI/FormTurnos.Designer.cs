@@ -31,14 +31,15 @@
             button1 = new Button();
             button2 = new Button();
             button3 = new Button();
-            panel1 = new Panel();
-            panel2 = new Panel();
-            panel1.SuspendLayout();
+            panelMenuTurno = new Panel();
+            buttonVolver = new Button();
+            panelTurnos = new Panel();
+            panelMenuTurno.SuspendLayout();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(0, 7);
+            button1.Location = new Point(0, 47);
             button1.Name = "button1";
             button1.Size = new Size(204, 54);
             button1.TabIndex = 0;
@@ -48,7 +49,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(0, 67);
+            button2.Location = new Point(0, 107);
             button2.Name = "button2";
             button2.Size = new Size(204, 54);
             button2.TabIndex = 1;
@@ -58,32 +59,45 @@
             // 
             // button3
             // 
-            button3.Location = new Point(0, 127);
+            button3.Location = new Point(0, 167);
             button3.Name = "button3";
             button3.Size = new Size(204, 54);
             button3.TabIndex = 2;
             button3.Text = "Cancelar Turno";
             button3.UseVisualStyleBackColor = true;
             // 
-            // panel1
+            // panelMenuTurno
             // 
-            panel1.BackColor = Color.LightSkyBlue;
-            panel1.Controls.Add(button3);
-            panel1.Controls.Add(button2);
-            panel1.Controls.Add(button1);
-            panel1.Dock = DockStyle.Left;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(204, 450);
-            panel1.TabIndex = 3;
+            panelMenuTurno.BackColor = Color.LightSkyBlue;
+            panelMenuTurno.Controls.Add(buttonVolver);
+            panelMenuTurno.Controls.Add(button3);
+            panelMenuTurno.Controls.Add(button2);
+            panelMenuTurno.Controls.Add(button1);
+            panelMenuTurno.Dock = DockStyle.Left;
+            panelMenuTurno.Location = new Point(0, 0);
+            panelMenuTurno.Name = "panelMenuTurno";
+            panelMenuTurno.Size = new Size(204, 450);
+            panelMenuTurno.TabIndex = 3;
+            panelMenuTurno.Paint += panel1_Paint;
             // 
-            // panel2
+            // buttonVolver
             // 
-            panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(204, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(596, 450);
-            panel2.TabIndex = 4;
+            buttonVolver.Location = new Point(12, 5);
+            buttonVolver.Name = "buttonVolver";
+            buttonVolver.Size = new Size(173, 36);
+            buttonVolver.TabIndex = 6;
+            buttonVolver.Text = "← Volver";
+            buttonVolver.UseVisualStyleBackColor = true;
+            buttonVolver.Click += buttonVolver_Click;
+            // 
+            // panelTurnos
+            // 
+            panelTurnos.Dock = DockStyle.Fill;
+            panelTurnos.Location = new Point(204, 0);
+            panelTurnos.Name = "panelTurnos";
+            panelTurnos.Size = new Size(596, 450);
+            panelTurnos.TabIndex = 4;
+            panelTurnos.Paint += panelTurnos_Paint;
             // 
             // FormTurnos
             // 
@@ -91,12 +105,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(800, 450);
-            Controls.Add(panel2);
-            Controls.Add(panel1);
+            Controls.Add(panelTurnos);
+            Controls.Add(panelMenuTurno);
             Name = "FormTurnos";
             Text = "Turnos";
             Load += FormTurnos_Load;
-            panel1.ResumeLayout(false);
+            panelMenuTurno.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -105,7 +119,8 @@
         private Button button1;
         private Button button2;
         private Button button3;
-        private Panel panel1;
-        private Panel panel2;
+        private Panel panelMenuTurno;
+        private Panel panelTurnos;
+        private Button buttonVolver;
     }
 }

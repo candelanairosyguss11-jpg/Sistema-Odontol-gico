@@ -59,6 +59,7 @@
             Controls.Add(labelCambiarContrasena);
             Name = "FormConfiguracionSecretario";
             Text = "FormConfiguracionSecretario";
+            Load += FormConfiguracionSecretario_Load;
             ResumeLayout(false);
             PerformLayout();
         }

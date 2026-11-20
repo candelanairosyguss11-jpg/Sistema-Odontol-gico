@@ -94,6 +94,7 @@
             Controls.Add(labelTratamientos);
             Name = "FormConfiguracionOdontologo";
             Text = "FormConfiguracionOdontologo";
+            Load += FormConfiguracionOdontologo_Load;
             ResumeLayout(false);
             PerformLayout();
         }

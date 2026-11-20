@@ -55,6 +55,7 @@
             MenuHistoriasC.Name = "MenuHistoriasC";
             MenuHistoriasC.Size = new Size(159, 450);
             MenuHistoriasC.TabIndex = 0;
+            MenuHistoriasC.Paint += MenuHistoriasC_Paint;
             // 
             // label1
             // 
