@@ -28,13 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
+            buttonVolver = new Button();
             SuspendLayout();
+            // 
+            // buttonVolver
+            // 
+            buttonVolver.Location = new Point(12, 12);
+            buttonVolver.Name = "buttonVolver";
+            buttonVolver.Size = new Size(136, 36);
+            buttonVolver.TabIndex = 6;
+            buttonVolver.Text = "← Volver";
+            buttonVolver.UseVisualStyleBackColor = true;
             // 
             // FormObservaciones
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(buttonVolver);
             Name = "FormObservaciones";
             Text = "FormObservaciones";
             Load += FormObservaciones_Load;
@@ -42,5 +53,7 @@
         }
 
         #endregion
+
+        private Button buttonVolver;
     }
 }
