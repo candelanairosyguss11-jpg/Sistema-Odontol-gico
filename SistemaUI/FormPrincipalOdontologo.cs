@@ -1,3 +1,5 @@
+using Sistema_Odontológico;
+
 namespace SistemaUI
 {
     public partial class FormPrincipalOdontologo : Form

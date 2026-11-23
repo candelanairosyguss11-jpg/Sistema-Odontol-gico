@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Sistema_Odontológico;
 
 namespace SistemaUI
 {
@@ -58,12 +59,6 @@ namespace SistemaUI
                 c.Top += desplazamientoY;
             }
             this.ResumeLayout();
-        }
-
-
-        private void FormAgregarTurno_Resize(object sender, EventArgs e)
-        {
-            CentrarControles();
         }
 
         private void textDNI_TextChanged(object sender, EventArgs e)
