@@ -81,5 +81,17 @@ namespace SistemaUI
                 else if (principal is FormPrincipalOdontologo o) o.AbrirFormulario(new FormTurnos());
             }));
         }
+
+        private void buttonCancelar_Click(object sender, EventArgs e)
+        {
+            bool hayDatos = textDNI.Text.Trim() != "" || textNombre.Text.Trim() != "";
+
+            if (hayDatos)
+            {
+                var respuesta = MessageBox.Show("¿Descartar los datos cargados?", "Cancelar",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (respuesta != DialogResult.Yes) return;
+            }
+        }
     }
 }
