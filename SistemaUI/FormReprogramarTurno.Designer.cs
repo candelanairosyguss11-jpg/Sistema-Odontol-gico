@@ -33,18 +33,19 @@
             // 
             // buttonVolver
             // 
-            buttonVolver.Location = new Point(12, 12);
+            buttonVolver.Location = new Point(23, 12);
             buttonVolver.Name = "buttonVolver";
             buttonVolver.Size = new Size(136, 36);
             buttonVolver.TabIndex = 6;
             buttonVolver.Text = "← Volver";
             buttonVolver.UseVisualStyleBackColor = true;
+            buttonVolver.Click += buttonVolver_Click;
             // 
             // FormReprogramarTurno
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1898, 984);
             Controls.Add(buttonVolver);
             Name = "FormReprogramarTurno";
             Text = "FormReprogramarTurno";

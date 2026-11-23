@@ -33,7 +33,6 @@ namespace SistemaUI
             panelContenido.Controls.Add(formulario);
             formulario.Show();
            
-
         }
 
         private void PanelMenu_Paint(object sender, PaintEventArgs e)

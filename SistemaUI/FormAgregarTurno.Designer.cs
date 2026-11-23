@@ -46,15 +46,17 @@
             textNombre = new TextBox();
             labelPaciente = new Label();
             buttonBuscarDNI = new Button();
+            ButtonVolver = new Button();
             panelAltaRapida.SuspendLayout();
             SuspendLayout();
             // 
             // textDNI
             // 
-            textDNI.Location = new Point(112, 14);
+            textDNI.Location = new Point(179, 69);
             textDNI.Name = "textDNI";
             textDNI.Size = new Size(145, 27);
             textDNI.TabIndex = 10;
+            textDNI.TextChanged += textDNI_TextChanged;
             // 
             // panelAltaRapida
             // 
@@ -73,7 +75,7 @@
             panelAltaRapida.Controls.Add(label1);
             panelAltaRapida.Controls.Add(textNombre);
             panelAltaRapida.Controls.Add(labelPaciente);
-            panelAltaRapida.Location = new Point(111, 45);
+            panelAltaRapida.Location = new Point(179, 102);
             panelAltaRapida.Name = "panelAltaRapida";
             panelAltaRapida.Size = new Size(591, 397);
             panelAltaRapida.TabIndex = 9;
@@ -203,18 +205,29 @@
             // 
             // buttonBuscarDNI
             // 
-            buttonBuscarDNI.Location = new Point(12, 12);
+            buttonBuscarDNI.Location = new Point(79, 69);
             buttonBuscarDNI.Name = "buttonBuscarDNI";
             buttonBuscarDNI.Size = new Size(94, 29);
             buttonBuscarDNI.TabIndex = 8;
             buttonBuscarDNI.Text = "Buscar DNI";
             buttonBuscarDNI.UseVisualStyleBackColor = true;
             // 
+            // ButtonVolver
+            // 
+            ButtonVolver.Location = new Point(12, 12);
+            ButtonVolver.Name = "ButtonVolver";
+            ButtonVolver.Size = new Size(136, 36);
+            ButtonVolver.TabIndex = 11;
+            ButtonVolver.Text = "← Volver";
+            ButtonVolver.UseVisualStyleBackColor = true;
+            ButtonVolver.Click += buttonVolver_Click;
+            // 
             // FormAgregarTurno
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(881, 511);
+            Controls.Add(ButtonVolver);
             Controls.Add(textDNI);
             Controls.Add(panelAltaRapida);
             Controls.Add(buttonBuscarDNI);
@@ -247,5 +260,6 @@
         private TextBox textNombre;
         private Label labelPaciente;
         private Button buttonBuscarDNI;
+        private Button ButtonVolver;
     }
 }

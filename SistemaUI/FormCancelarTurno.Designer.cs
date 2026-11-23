@@ -39,12 +39,13 @@
             buttonVolver.TabIndex = 6;
             buttonVolver.Text = "← Volver";
             buttonVolver.UseVisualStyleBackColor = true;
+            buttonVolver.Click += buttonVolver_Click;
             // 
             // FormCancelarTurno
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1901, 1033);
             Controls.Add(buttonVolver);
             Name = "FormCancelarTurno";
             Text = "FormCancelarTurno";

@@ -21,6 +21,7 @@ namespace SistemaUI
             CentrarControles();
         }
 
+
         //
         private void CentrarControles()
         {
@@ -64,6 +65,17 @@ namespace SistemaUI
         private void FormReprogramarTruno_Resize(object sender, EventArgs e)
         {
             CentrarControles();
+        }
+
+        private void buttonVolver_Click(object sender, EventArgs e)
+        {
+            var principal = Parent.FindForm();   // el formulario principal que contiene este panel
+
+            BeginInvoke(new Action(() =>
+            {
+                if (principal is FormPrincipalSecretario s) s.AbrirFormulario(new FormTurnos());
+                else if (principal is FormPrincipalOdontologo o) o.AbrirFormulario(new FormTurnos());
+            }));
         }
     }
 }

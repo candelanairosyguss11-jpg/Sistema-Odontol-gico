@@ -28,51 +28,52 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
+            buttonAgregarturno = new Button();
+            buttonreprogramarTurno = new Button();
+            buttonCancelarTurno = new Button();
             panelMenuTurno = new Panel();
             buttonVolver = new Button();
             panelTurnos = new Panel();
             panelMenuTurno.SuspendLayout();
             SuspendLayout();
             // 
-            // button1
+            // buttonAgregarturno
             // 
-            button1.Location = new Point(0, 47);
-            button1.Name = "button1";
-            button1.Size = new Size(204, 54);
-            button1.TabIndex = 0;
-            button1.Text = "+Agregar nuevo turno";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            buttonAgregarturno.Location = new Point(0, 47);
+            buttonAgregarturno.Name = "buttonAgregarturno";
+            buttonAgregarturno.Size = new Size(204, 54);
+            buttonAgregarturno.TabIndex = 0;
+            buttonAgregarturno.Text = "+Agregar nuevo turno";
+            buttonAgregarturno.UseVisualStyleBackColor = true;
+            buttonAgregarturno.Click += button1_Click;
             // 
-            // button2
+            // buttonreprogramarTurno
             // 
-            button2.Location = new Point(0, 107);
-            button2.Name = "button2";
-            button2.Size = new Size(204, 54);
-            button2.TabIndex = 1;
-            button2.Text = "Reprogramar turno";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            buttonreprogramarTurno.Location = new Point(0, 107);
+            buttonreprogramarTurno.Name = "buttonreprogramarTurno";
+            buttonreprogramarTurno.Size = new Size(204, 54);
+            buttonreprogramarTurno.TabIndex = 1;
+            buttonreprogramarTurno.Text = "Reprogramar turno";
+            buttonreprogramarTurno.UseVisualStyleBackColor = true;
+            buttonreprogramarTurno.Click += button2_Click;
             // 
-            // button3
+            // buttonCancelarTurno
             // 
-            button3.Location = new Point(0, 167);
-            button3.Name = "button3";
-            button3.Size = new Size(204, 54);
-            button3.TabIndex = 2;
-            button3.Text = "Cancelar Turno";
-            button3.UseVisualStyleBackColor = true;
+            buttonCancelarTurno.Location = new Point(0, 167);
+            buttonCancelarTurno.Name = "buttonCancelarTurno";
+            buttonCancelarTurno.Size = new Size(204, 54);
+            buttonCancelarTurno.TabIndex = 2;
+            buttonCancelarTurno.Text = "Cancelar Turno";
+            buttonCancelarTurno.UseVisualStyleBackColor = true;
+            buttonCancelarTurno.Click += buttonCancelarTurno_Click;
             // 
             // panelMenuTurno
             // 
             panelMenuTurno.BackColor = Color.LightSkyBlue;
             panelMenuTurno.Controls.Add(buttonVolver);
-            panelMenuTurno.Controls.Add(button3);
-            panelMenuTurno.Controls.Add(button2);
-            panelMenuTurno.Controls.Add(button1);
+            panelMenuTurno.Controls.Add(buttonCancelarTurno);
+            panelMenuTurno.Controls.Add(buttonreprogramarTurno);
+            panelMenuTurno.Controls.Add(buttonAgregarturno);
             panelMenuTurno.Dock = DockStyle.Left;
             panelMenuTurno.Location = new Point(0, 0);
             panelMenuTurno.Name = "panelMenuTurno";
@@ -116,9 +117,9 @@
 
         #endregion
 
-        private Button button1;
-        private Button button2;
-        private Button button3;
+        private Button buttonAgregarturno;
+        private Button buttonreprogramarTurno;
+        private Button buttonCancelarTurno;
         private Panel panelMenuTurno;
         private Panel panelTurnos;
         private Button buttonVolver;

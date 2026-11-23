@@ -65,5 +65,21 @@ namespace SistemaUI
         {
             CentrarControles();
         }
+
+        private void textDNI_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonVolver_Click(object sender, EventArgs e)
+        {
+            var principal = Parent.FindForm();   // el formulario principal que contiene este panel
+
+            BeginInvoke(new Action(() =>
+            {
+                if (principal is FormPrincipalSecretario s) s.AbrirFormulario(new FormTurnos());
+                else if (principal is FormPrincipalOdontologo o) o.AbrirFormulario(new FormTurnos());
+            }));
+        }
     }
 }

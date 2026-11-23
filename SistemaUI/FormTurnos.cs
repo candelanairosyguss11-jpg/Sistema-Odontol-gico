@@ -22,27 +22,28 @@ namespace SistemaUI
             CentrarControles();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+
+        public void AbrirFormulario(Form formulario)
         {
+            // El menú principal se oculta cuando se abre la sección de agregar, reprogramar y cancelar turnos
+            panelMenuTurno.Visible = !(formulario is FormAgregarTurno || formulario is FormReprogramarTurno || formulario is FormCancelarTurno);
 
-        }
+            foreach (Control control in panelTurnos.Controls)
+            {
+                control.Dispose();
+            }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void AbrirEnPanel(Form f)
-        {
-            foreach (Control c in panelTurnos.Controls) c.Dispose();
             panelTurnos.Controls.Clear();
 
-            f.TopLevel = false;
-            f.FormBorderStyle = FormBorderStyle.None;
-            f.Dock = DockStyle.Fill;
-            panelTurnos.Controls.Add(f);
-            f.Show();
+            formulario.TopLevel = false;
+            formulario.FormBorderStyle = FormBorderStyle.None;
+            formulario.Dock = DockStyle.Fill;
+
+            panelTurnos.Controls.Add(formulario);
+            formulario.Show();
+
         }
+        
 
         //
         private void CentrarControles()
@@ -89,6 +90,21 @@ namespace SistemaUI
             CentrarControles();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(new FormAgregarTurno());
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(new FormReprogramarTurno());
+        }
+
+        private void buttonCancelarTurno_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(new FormCancelarTurno());
+        }
+
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
@@ -109,5 +125,7 @@ namespace SistemaUI
         {
 
         }
+
+        
     }
 }
