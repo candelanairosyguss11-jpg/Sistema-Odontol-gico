@@ -41,10 +41,28 @@ namespace SistemaUI
         {
             dataGridViewPacientes.DataSource = null;
             dataGridViewPacientes.DataSource = lista;
-            dataGridViewPacientes.Columns["Id"].Visible = false;
-            dataGridViewPacientes.Columns["Apellido"].Visible = false;
-            dataGridViewPacientes.Columns["Nombre"].Visible = false;
-            // quedan visibles NombreCompleto y DNI
+
+            // columnas que no se muestran
+            foreach (string nombre in new[] { "Id", "Apellido", "Nombre", "Domicilio" })
+            {
+                if (dataGridViewPacientes.Columns.Contains(nombre))
+                    dataGridViewPacientes.Columns[nombre].Visible = false;
+            }
+
+            // orden de las columnas visibles, de izquierda a derecha
+            string[] orden = { "NombreCompleto", "DNI", "Telefono", "Correo", "FechaNacimiento", "Edad", "ObraSocial", "NumAfiliado" };
+            for (int i = 0; i < orden.Length; i++)
+            {
+                if (dataGridViewPacientes.Columns.Contains(orden[i]))
+                    dataGridViewPacientes.Columns[orden[i]].DisplayIndex = i;
+            }
+
+            // títulos más legibles
+            dataGridViewPacientes.Columns["NombreCompleto"].HeaderText = "Nombre y apellido";
+            dataGridViewPacientes.Columns["FechaNacimiento"].HeaderText = "Fecha de nacimiento";
+            dataGridViewPacientes.Columns["ObraSocial"].HeaderText = "Obra social";
+            dataGridViewPacientes.Columns["NumAfiliado"].HeaderText = "N.º de afiliado";
+            dataGridViewPacientes.Columns["Telefono"].HeaderText = "Teléfono";
         }
 
         private void ListadePacientes_Click(object sender, EventArgs e)

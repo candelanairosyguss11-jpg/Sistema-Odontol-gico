@@ -22,6 +22,14 @@ namespace SistemaUI
             //para centar los controles
             CentrarControles();
             historia = Servicios.Historias.ObtenerPorPaciente(paciente.Id);
+
+            label1.Text = "Nombre y Apellido: " + paciente.NombreCompleto;
+            label6.Text = "DNI: " + paciente.DNI;
+            label2.Text = "Teléfono: " + paciente.Telefono;
+            label3.Text = "Correo: " + paciente.Correo;
+            label4.Text = $"Fecha de Nacimiento: {paciente.FechaNacimiento:dd/MM/yyyy} ({paciente.Edad} años)";
+            label5.Text = "Obra Social: " + (string.IsNullOrWhiteSpace(paciente.ObraSocial) ? "-" : paciente.ObraSocial);
+            label7.Text = "Num. de Afiliado" + (string.IsNullOrWhiteSpace(paciente.NumAfiliado) ? "-" : paciente.NumAfiliado);
         }
         private readonly Paciente paciente;
         public FormDatosPaciente(Paciente paciente)
@@ -84,5 +92,9 @@ namespace SistemaUI
             this.ResumeLayout();
         }
 
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

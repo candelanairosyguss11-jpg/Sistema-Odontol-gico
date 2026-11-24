@@ -84,10 +84,10 @@
             // 
             panelReprogramar.BackgroundColor = SystemColors.ButtonHighlight;
             panelReprogramar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            panelReprogramar.Location = new Point(162, 97);
+            panelReprogramar.Location = new Point(162, 95);
             panelReprogramar.Name = "panelReprogramar";
             panelReprogramar.RowHeadersWidth = 51;
-            panelReprogramar.Size = new Size(829, 299);
+            panelReprogramar.Size = new Size(914, 299);
             panelReprogramar.TabIndex = 14;
             // 
             // dateTimePickerHora

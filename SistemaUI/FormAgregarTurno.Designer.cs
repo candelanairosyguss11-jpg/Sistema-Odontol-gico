@@ -58,6 +58,10 @@
             textNombre = new TextBox();
             labelPaciente = new Label();
             ButtonVolver = new Button();
+            label9 = new Label();
+            comboBoxObraSocial = new ComboBox();
+            label10 = new Label();
+            textBoxNumAfiliado = new TextBox();
             panelAltaRapida.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numDuracion).BeginInit();
             SuspendLayout();
@@ -72,6 +76,10 @@
             // 
             // panelAltaRapida
             // 
+            panelAltaRapida.Controls.Add(textBoxNumAfiliado);
+            panelAltaRapida.Controls.Add(label10);
+            panelAltaRapida.Controls.Add(comboBoxObraSocial);
+            panelAltaRapida.Controls.Add(label9);
             panelAltaRapida.Controls.Add(label8);
             panelAltaRapida.Controls.Add(dateTimePickerHora);
             panelAltaRapida.Controls.Add(labelDuracion);
@@ -224,7 +232,7 @@
             // 
             // buttonCancelar
             // 
-            buttonCancelar.Location = new Point(563, 714);
+            buttonCancelar.Location = new Point(564, 751);
             buttonCancelar.Name = "buttonCancelar";
             buttonCancelar.Size = new Size(94, 29);
             buttonCancelar.TabIndex = 14;
@@ -235,7 +243,7 @@
             // dateTimePicker1
             // 
             dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(213, 687);
+            dateTimePicker1.Location = new Point(213, 730);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(250, 27);
             dateTimePicker1.TabIndex = 13;
@@ -243,7 +251,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(38, 687);
+            label6.Location = new Point(48, 730);
             label6.Name = "label6";
             label6.Size = new Size(152, 20);
             label6.TabIndex = 12;
@@ -252,7 +260,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(118, 646);
+            label5.Location = new Point(118, 650);
             label5.Name = "label5";
             label5.Size = new Size(57, 20);
             label5.TabIndex = 10;
@@ -260,7 +268,7 @@
             // 
             // buttonGuardar
             // 
-            buttonGuardar.Location = new Point(693, 714);
+            buttonGuardar.Location = new Point(694, 751);
             buttonGuardar.Name = "buttonGuardar";
             buttonGuardar.Size = new Size(94, 29);
             buttonGuardar.TabIndex = 1;
@@ -364,6 +372,40 @@
             ButtonVolver.UseVisualStyleBackColor = true;
             ButtonVolver.Click += buttonVolver_Click;
             // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(86, 693);
+            label9.Name = "label9";
+            label9.Size = new Size(89, 20);
+            label9.TabIndex = 26;
+            label9.Text = "Obra Social:";
+            label9.Click += label9_Click;
+            // 
+            // comboBoxObraSocial
+            // 
+            comboBoxObraSocial.FormattingEnabled = true;
+            comboBoxObraSocial.Location = new Point(215, 690);
+            comboBoxObraSocial.Name = "comboBoxObraSocial";
+            comboBoxObraSocial.Size = new Size(206, 28);
+            comboBoxObraSocial.TabIndex = 27;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(453, 693);
+            label10.Name = "label10";
+            label10.Size = new Size(104, 20);
+            label10.TabIndex = 28;
+            label10.Text = "Num. Afiliado:";
+            // 
+            // textBoxNumAfiliado
+            // 
+            textBoxNumAfiliado.Location = new Point(564, 691);
+            textBoxNumAfiliado.Name = "textBoxNumAfiliado";
+            textBoxNumAfiliado.Size = new Size(143, 27);
+            textBoxNumAfiliado.TabIndex = 29;
+            // 
             // FormAgregarTurno
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -412,5 +454,9 @@
         private NumericUpDown numDuracion;
         private DateTimePicker dateTimePickerHora;
         private Label label8;
+        private Label label9;
+        private TextBox textBoxNumAfiliado;
+        private Label label10;
+        private ComboBox comboBoxObraSocial;
     }
 }
