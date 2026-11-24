@@ -72,9 +72,5 @@ namespace SistemaUI
         }
 
 
-        private void FormConfiguracionOdontologo_Resize(object sender, EventArgs e)
-        {
-            CentrarControles();
-        }
     }
 }

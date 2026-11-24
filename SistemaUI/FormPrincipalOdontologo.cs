@@ -123,11 +123,6 @@ namespace SistemaUI
             this.ResumeLayout();
         }
 
-
-        private void FormPrincipalOdontologo_Resize(object sender, EventArgs e)
-        {
-            CentrarControles();
-        }
     }
 
 }

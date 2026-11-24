@@ -71,7 +71,12 @@ namespace SistemaUI
 
         private void textBuscarPaciente_TextChanged(object sender, EventArgs e)
         {
-
+            string filtro = textBuscarPaciente.Text.Trim();
+            var filtrados = pacientes
+                .Where(p => p.NombreCompleto.Contains(filtro, StringComparison.OrdinalIgnoreCase)
+                         || p.DNI.Contains(filtro))
+                .ToList();
+            MostrarPacientes(filtrados);
         }
 
 
@@ -114,10 +119,6 @@ namespace SistemaUI
             this.ResumeLayout();
         }
 
-        private void FormListaPaciente_Resize(object sender, EventArgs e)
-        {
-            CentrarControles();
-        }
     }
 }
 

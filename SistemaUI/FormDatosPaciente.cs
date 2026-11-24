@@ -82,10 +82,5 @@ namespace SistemaUI
             this.ResumeLayout();
         }
 
-
-        private void FormDatosPaciente_Resize(object sender, EventArgs e)
-        {
-            CentrarControles();
-        }
     }
 }

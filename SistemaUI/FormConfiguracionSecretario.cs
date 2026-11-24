@@ -61,10 +61,5 @@ namespace SistemaUI
             this.ResumeLayout();
         }
 
-
-        private void FormConfiguracionSecretario_Resize(object sender, EventArgs e)
-        {
-            CentrarControles();
-        }
     }
 }

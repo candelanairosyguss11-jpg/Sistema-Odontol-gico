@@ -124,12 +124,6 @@ namespace SistemaUI
             this.ResumeLayout();
         }
 
-
-        private void FormHistoriasClinicas_Resize(object sender, EventArgs e)
-        {
-            CentrarControles();
-        }
-
         private void MenuHistoriasC_Paint(object sender, PaintEventArgs e)
         {
 

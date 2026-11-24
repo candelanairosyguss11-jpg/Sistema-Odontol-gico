@@ -14,7 +14,10 @@ namespace SistemaUI
         public FormReprogramarTurno()
         {
             InitializeComponent();
+            dgvTurnos = new Panel();
         }
+
+        private Paciente paciente;
 
         private void FormReprogramarTurno_Load(object sender, EventArgs e)
         {
@@ -22,7 +25,21 @@ namespace SistemaUI
             CentrarControles();
         }
 
-
+        private void CargarTurnos()
+        {
+            var odontologos = Servicios.Usuarios.ObtenerOdontologos();
+            panelReprogramar.DataSource = Servicios.Turnos.ObtenerTurnosDePaciente(paciente.Id)
+                .Where(t => t.Estado == EstadoTurno.Pendiente)
+                .Select(t => new
+                {
+                    t.Id,
+                    Fecha = t.Inicio.ToString("dd/MM/yyyy HH:mm"),
+                    Odontologo = odontologos.FirstOrDefault(o => o.Id == t.OdontologoId)?.NombreCompleto,
+                    Tratamientos = Servicios.Turnos.ObtenerTextoTratamientos(t)
+                }).ToList();
+            panelReprogramar.Columns["Id"].Visible = false;
+        }
+        private Panel dgvTurnos;
         //
         private void CentrarControles()
         {
@@ -62,21 +79,38 @@ namespace SistemaUI
             this.ResumeLayout();
         }
 
-
-        private void FormReprogramarTruno_Resize(object sender, EventArgs e)
-        {
-            CentrarControles();
-        }
-
         private void buttonVolver_Click(object sender, EventArgs e)
         {
-            var principal = Parent.FindForm();   // el formulario principal que contiene este panel
+            var turnos = Parent.FindForm() as FormTurnos;
+            BeginInvoke(new Action(() => turnos?.VolverAlMenu()));
+        }
 
-            BeginInvoke(new Action(() =>
+        private void buttonBuscarDNI_Click(object sender, EventArgs e)
+        {
+            paciente = Servicios.Pacientes.BuscarPorDni(textDNI.Text);
+            if (paciente == null) { MessageBox.Show("No existe un paciente con ese DNI."); return; }
+            CargarTurnos();
+        }
+
+        private void buttonReprogramar_Click(object sender, EventArgs e)
+        {
+            if (panelReprogramar.CurrentRow == null) { MessageBox.Show("Elegí un turno."); return; }
+            int id = (int)panelReprogramar.CurrentRow.Cells["Id"].Value;
+
+            try
             {
-                if (principal is FormPrincipalSecretario s) s.AbrirFormulario(new FormTurnos());
-                else if (principal is FormPrincipalOdontologo o) o.AbrirFormulario(new FormTurnos());
-            }));
+                var nuevoInicio = dateTimePickerFechaTurno.Value.Date + dateTimePickerHora.Value.TimeOfDay;
+                Servicios.Turnos.Reprogramar(id, nuevoInicio, (int)numDuracion.Value);
+                MessageBox.Show("Turno reprogramado.");
+                CargarTurnos();
+            }
+            catch (Exception ex) when (ex is InvalidOperationException || ex is ArgumentException)
+            { MessageBox.Show(ex.Message); }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

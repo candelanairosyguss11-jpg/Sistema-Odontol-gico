@@ -69,9 +69,5 @@ namespace SistemaUI
         }
 
 
-        private void FormObservaciones_Resize(object sender, EventArgs e)
-        {
-            CentrarControles();
-        }
     }
 }

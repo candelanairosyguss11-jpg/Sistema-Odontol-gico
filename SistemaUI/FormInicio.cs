@@ -162,10 +162,5 @@ namespace SistemaUI
             this.ResumeLayout();
         }
 
-
-        private void FormInicio_Resize(object sender, EventArgs e)
-        {
-            CentrarControles();
-        }
     }
 }

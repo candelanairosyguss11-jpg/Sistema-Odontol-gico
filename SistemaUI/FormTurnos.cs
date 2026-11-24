@@ -17,6 +17,7 @@ namespace SistemaUI
 
         }
 
+        private DataGridView dgvTurnos;
         private void FormTurnos_Load(object sender, EventArgs e)
         {
             //para centar los controles
@@ -85,12 +86,6 @@ namespace SistemaUI
             this.ResumeLayout();
         }
 
-
-        private void FormTrunos_Resize(object sender, EventArgs e)
-        {
-            CentrarControles();
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             AbrirFormulario(new FormAgregarTurno());
@@ -110,16 +105,18 @@ namespace SistemaUI
         {
 
         }
+        public void VolverAlMenu()
+        {
+            panelMenuTurno.Visible = true;
 
+            foreach (Control c in panelTurnos.Controls.Cast<Control>().ToList())
+                c.Dispose();
+            panelTurnos.Controls.Clear();
+        }
         private void buttonVolver_Click(object sender, EventArgs e)
         {
-            var principal = Parent.FindForm();   // el formulario principal que contiene este panel
-
-            BeginInvoke(new Action(() =>
-            {
-                if (principal is FormPrincipalSecretario s) s.AbrirFormulario(new FormInicio());
-                else if (principal is FormPrincipalOdontologo o) o.AbrirFormulario(new FormInicio());
-            }));
+            var turnos = Parent.FindForm() as FormTurnos;
+            BeginInvoke(new Action(() => turnos?.VolverAlMenu()));
         }
 
         private void panelTurnos_Paint(object sender, PaintEventArgs e)

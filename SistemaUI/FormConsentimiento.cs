@@ -13,7 +13,7 @@ namespace SistemaUI
     {
         public FormConsentimiento()
         {
-            //InitializeComponent();
+            InitializeComponent();
         }
 
         private void FormConsentimiento_Load(object sender, EventArgs e)
@@ -69,9 +69,5 @@ namespace SistemaUI
         }
 
 
-        private void FormConsentimiento_Resize(object sender, EventArgs e)
-        {
-            CentrarControles();
-        }
     }
 }

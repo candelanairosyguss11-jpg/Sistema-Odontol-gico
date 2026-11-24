@@ -116,7 +116,7 @@
             comboRol.Name = "comboRol";
             comboRol.Size = new Size(164, 28);
             comboRol.TabIndex = 7;
-          
+            comboRol.SelectedIndexChanged += comboRol_SelectedIndexChanged;
             // 
             // buttonIngresar
             // 

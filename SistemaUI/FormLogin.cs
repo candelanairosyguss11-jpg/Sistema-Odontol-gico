@@ -40,11 +40,8 @@ namespace SistemaUI
 
         }
 
-        private void buttonCancelar_Click(object sender, EventArgs e)
-        {
-            Application.OpenForms["FormLogin"].Show();
-            this.Close();
-        }
+        private void buttonCancelar_Click(object sender, EventArgs e) => Application.Exit();
+        
 
         private void textContraseña_TextChanged(object sender, EventArgs e)
         {
@@ -57,7 +54,7 @@ namespace SistemaUI
             comboRol.DropDownStyle = ComboBoxStyle.DropDownList;
             comboRol.Items.Clear();
             comboRol.Items.Add("Odontólogo");
-            comboRol.Items.Add("Secretaria");
+            comboRol.Items.Add("Secretario");
             comboRol.SelectedIndex = -1;
             //para centar los controles
             CentrarControles();
@@ -77,7 +74,7 @@ namespace SistemaUI
             switch (comboRol.SelectedItem.ToString())
             {
                 case "Odontólogo": principal = new FormPrincipalOdontologo(); break;
-                case "Secretaria": principal = new FormPrincipalSecretario(); break;
+                case "Secretario": principal = new FormPrincipalSecretario(); break;
                 default: return;
             }
 
@@ -94,8 +91,8 @@ namespace SistemaUI
             this.Hide();
 
         }
-            //
-            private void CentrarControles()
+        //
+        private void CentrarControles()
         {
             if (this.Controls.Count == 0) return;
 
@@ -133,11 +130,9 @@ namespace SistemaUI
             this.ResumeLayout();
         }
 
-
-        private void FormLogin_Resize(object sender, EventArgs e)
+        private void comboRol_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CentrarControles();
+
         }
-    
     }
 }

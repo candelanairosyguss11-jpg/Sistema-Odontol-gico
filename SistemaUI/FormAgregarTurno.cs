@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Sistema_Odontológico;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using Sistema_Odontológico;
+using static System.Collections.Specialized.BitVector32;
 
 namespace SistemaUI
 {
@@ -16,10 +17,19 @@ namespace SistemaUI
             InitializeComponent();
         }
 
+        private Paciente pacienteActual;
+
         private void FormAgregarTurno_Load(object sender, EventArgs e)
         {
             //para centar los controles
             CentrarControles();
+            comboBoxOdontologo.DataSource = Servicios.Usuarios.ObtenerOdontologos();
+            comboBoxOdontologo.DisplayMember = "NombreCompleto";
+            if (Sesion.Actual is Odontologo yo)
+            {
+                comboBoxOdontologo.SelectedValue = yo.Id;   // si no anda, buscá el ítem por Id
+                comboBoxOdontologo.Enabled = false;
+            }
         }
 
         //
@@ -68,13 +78,8 @@ namespace SistemaUI
 
         private void buttonVolver_Click(object sender, EventArgs e)
         {
-            var principal = Parent.FindForm();   // el formulario principal que contiene este panel
-
-            BeginInvoke(new Action(() =>
-            {
-                if (principal is FormPrincipalSecretario s) s.AbrirFormulario(new FormTurnos());
-                else if (principal is FormPrincipalOdontologo o) o.AbrirFormulario(new FormTurnos());
-            }));
+            var turnos = Parent.FindForm() as FormTurnos;
+            BeginInvoke(new Action(() => turnos?.VolverAlMenu()));
         }
 
         private void buttonCancelar_Click(object sender, EventArgs e)
@@ -87,6 +92,102 @@ namespace SistemaUI
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (respuesta != DialogResult.Yes) return;
             }
+        }
+
+        private void buttonGuardar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (pacienteActual == null)
+                {
+                    var p = new Paciente
+                    {
+                        Nombre = textNombre.Text,
+                        Apellido = textApellido.Text,
+                        DNI = textDNI2.Text,
+                        Telefono = textTelefono.Text,
+                        Correo = textCorreo.Text,
+                        FechaNacimiento = DateOnly.FromDateTime(dateTimePicker1.Value)
+                    };
+                    Servicios.Pacientes.Registrar(p);      // Registrar completa p.Id
+                    Servicios.Historias.ObtenerOCrear(p.Id);
+                    pacienteActual = p;
+                }
+
+                if (comboBoxOdontologo.SelectedItem is not Odontologo odontologo)
+                    throw new InvalidOperationException("Elegí un odontólogo.");
+
+                var turno = new Turno
+                {
+                    PacienteId = pacienteActual.Id,
+                    OdontologoId = odontologo.Id,
+                    Inicio = dateTimePickerFechaTurno.Value.Date + dateTimePickerHora.Value.TimeOfDay,
+                    DuracionMinutos = (int)numDuracion.Value,
+                    // Detalle = textDetalle.Text.Trim()
+                };
+                foreach (Tratamiento t in checkedListBoxTratamientos.CheckedItems)
+                    turno.TratamientosIds.Add(t.Id);
+
+                Servicios.Turnos.Agendar(turno);
+                MessageBox.Show("Turno agendado.");
+                buttonVolver_Click(sender, e);
+            }
+            catch (Exception ex) when (ex is InvalidOperationException || ex is ArgumentException)
+            {
+                MessageBox.Show(ex.Message, "No se pudo agendar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void panelAltaRapida_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxOdontologo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            checkedListBoxTratamientos.Items.Clear();
+            //    if (comboBoxOdontologo.SelectedItem is Odontologo o)
+            //        checkedListBoxTratamientos.Items.AddRange(
+            //    Servicio.Tratamientos.ObtenerActivosDeOdontologo(o.Id).ToArray());
+        }
+
+        private void checkedListBoxTratamientos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BeginInvoke(new Action(() =>
+            {
+                int total = checkedListBoxTratamientos.CheckedItems.Cast<Tratamiento>().Sum(t => t.DuracionMinutos);
+                numDuracion.Value = Math.Clamp(total, Turno.DuracionMinima, Turno.DuracionMaxima);
+            }));
+        }
+
+        private void dateTimePickerFechaTurno_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

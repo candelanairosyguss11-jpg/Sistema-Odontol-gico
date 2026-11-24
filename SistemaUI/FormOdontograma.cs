@@ -67,10 +67,5 @@ namespace SistemaUI
             this.ResumeLayout();
         }
 
-
-        private void FormOdontrograma_Resize(object sender, EventArgs e)
-        {
-            CentrarControles();
-        }
     }
 }

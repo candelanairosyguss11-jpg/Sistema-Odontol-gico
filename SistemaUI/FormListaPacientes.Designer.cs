@@ -49,9 +49,9 @@
             // 
             textBuscarPaciente.Location = new Point(484, 12);
             textBuscarPaciente.Name = "textBuscarPaciente";
+            textBuscarPaciente.PlaceholderText = "🔍︎ Buscar paciente";
             textBuscarPaciente.Size = new Size(304, 27);
             textBuscarPaciente.TabIndex = 1;
-            textBuscarPaciente.Text = "🔍︎ Buscar paciente";
             textBuscarPaciente.TextChanged += textBuscarPaciente_TextChanged;
             // 
             // dataGridViewPacientes
