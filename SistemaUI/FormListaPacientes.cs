@@ -35,12 +35,6 @@ namespace SistemaUI
             pacientes = Servicios.Pacientes.ObtenerTodos();
             MostrarPacientes(pacientes);
             // como hacer para hacer la lista de los pacientes y
-            pacientes = new List<Paciente>
-            {
-                new Paciente { Id = 1, Apellido = "Pérez", Nombre = "Juan", DNI = "30111222" },
-                new Paciente { Id = 2, Apellido = "Gómez", Nombre = "María", DNI = "28999888" }
-            };
-            MostrarPacientes(pacientes);//prueba
         }
 
         private void MostrarPacientes(List<Paciente> lista)

@@ -115,8 +115,15 @@ namespace SistemaUI
         }
         private void buttonVolver_Click(object sender, EventArgs e)
         {
-            var turnos = Parent.FindForm() as FormTurnos;
-            BeginInvoke(new Action(() => turnos?.VolverAlMenu()));
+            Form principal = Parent?.FindForm();
+
+            BeginInvoke(new Action(() =>
+            {
+                if (principal is FormPrincipalSecretario secretario)
+                    secretario.AbrirFormulario(new FormInicio());
+                else if (principal is FormPrincipalOdontologo odontologo)
+                    odontologo.AbrirFormulario(new FormInicio());
+            }));
         }
 
         private void panelTurnos_Paint(object sender, PaintEventArgs e)

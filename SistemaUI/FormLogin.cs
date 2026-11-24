@@ -64,23 +64,52 @@ namespace SistemaUI
         {
             if (comboRol.SelectedItem == null)
             {
-                MessageBox.Show("Seleccioná un rol.");
+                MessageBox.Show("Seleccioná un rol.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // falta validar DNI y contraseña 
+            string dni = textDNI.Text.Trim();
+            string contrasena = txtContrasena.Text;
 
-            Form principal;
-            switch (comboRol.SelectedItem.ToString())
+            if (string.IsNullOrWhiteSpace(dni) || string.IsNullOrWhiteSpace(contrasena))
             {
-                case "Odontólogo": principal = new FormPrincipalOdontologo(); break;
-                case "Secretario": principal = new FormPrincipalSecretario(); break;
-                default: return;
+                MessageBox.Show("Ingresá tu DNI y contraseña.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
-            // Cuando se cierra la sesión, vuelve a la pantalla de login 
+            Form principal;
+            string rolSeleccionado = comboRol.SelectedItem.ToString();
+
+            if (rolSeleccionado == "Odontólogo")
+            {
+                Odontologo odontologo = Servicios.Usuarios.IniciarSesionOdontologo(dni, contrasena);
+                if (odontologo == null)
+                {
+                    MessageBox.Show("DNI o contraseña incorrectos, o usuario inactivo.", "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                Sesion.Actual = odontologo;
+                principal = new FormPrincipalOdontologo();
+            }
+            else if (rolSeleccionado == "Secretario")
+            {
+                Secretario secretario = Servicios.Usuarios.IniciarSesionSecretario(dni, contrasena);
+                if (secretario == null)
+                {
+                    MessageBox.Show("DNI o contraseña incorrectos, o usuario inactivo.", "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                Sesion.Actual = secretario;
+                principal = new FormPrincipalSecretario();
+            }
+            else
+            {
+                return;
+            }
+
             principal.FormClosed += (s, args) =>
             {
+                Sesion.Cerrar();
                 textDNI.Clear();
                 txtContrasena.Clear();
                 comboRol.SelectedIndex = -1;
@@ -89,7 +118,6 @@ namespace SistemaUI
 
             principal.Show();
             this.Hide();
-
         }
         //
         private void CentrarControles()
