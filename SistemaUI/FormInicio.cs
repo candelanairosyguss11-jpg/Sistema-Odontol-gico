@@ -2,6 +2,7 @@
 using System;
 using System.Drawing;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace SistemaUI
@@ -10,85 +11,92 @@ namespace SistemaUI
     {
         private const int HoraInicio = 8, HoraFin = 21;
         private readonly CultureInfo cultura = new CultureInfo("es-AR");
-        private readonly DataGridView grilla = new DataGridView();
-        private readonly Label lblMes = new Label();
-        private readonly ComboBox comboOdontologo = new ComboBox();
+        private readonly Odontologo odontologoFijo;
         private DateTime semanaInicio;
 
-        public FormInicio()
+        public FormInicio() : this(null)
         {
-            InitializeComponent();
-            ConstruirCalendario();
-            IrASemana(DateTime.Today);
         }
 
-        private void ConstruirCalendario()
+        public FormInicio(Odontologo odontologo)
         {
-            var barra = new Panel { Dock = DockStyle.Top, Height = 50 };
-            var btnAnt = new Button { Text = "‹", Width = 40, Left = 10, Top = 10 };
-            var btnHoy = new Button { Text = "Hoy", Width = 60, Left = 55, Top = 10 };
-            var btnSig = new Button { Text = "›", Width = 40, Left = 120, Top = 10 };
-            lblMes.Left = 175; lblMes.Top = 14; lblMes.AutoSize = true;
-            lblMes.Font = new Font("Segoe UI", 14F);
+            InitializeComponent();
+            this.odontologoFijo = odontologo;
 
-            btnAnt.Click += (s, e) => IrASemana(semanaInicio.AddDays(-7));
-            btnSig.Click += (s, e) => IrASemana(semanaInicio.AddDays(7));
-            btnHoy.Click += (s, e) => IrASemana(DateTime.Today);
-            barra.Controls.AddRange(new Control[] { btnAnt, btnHoy, btnSig, lblMes });
-
-            // Si es Secretario, mostramos selector de Odontólogo a la derecha
-            if (Sesion.EsSecretario)
+            // Si es Secretario y entró a "Inicio" (sin seleccionar una agenda específica del menú)
+            if (Sesion.EsSecretario && odontologoFijo == null)
             {
-                var lblFiltro = new Label { Text = "Odontólogo:", Left = 390, Top = 16, AutoSize = true };
-                comboOdontologo.Left = 480;
-                comboOdontologo.Top = 12;
-                comboOdontologo.Width = 220;
-                comboOdontologo.DropDownStyle = ComboBoxStyle.DropDownList;
-                comboOdontologo.DataSource = Servicios.Usuarios.ObtenerOdontologos();
-                comboOdontologo.DisplayMember = "NombreCompleto";
-                comboOdontologo.ValueMember = "Id";
-                comboOdontologo.SelectedIndexChanged += (s, e) => CargarTurnos();
-                barra.Controls.AddRange(new Control[] { lblFiltro, comboOdontologo });
+                MostrarResumenSecretario();
             }
+            else
+            {
+                panelInicioSecretario.Visible = false;
+                ConfigurarGrilla();
+                IrASemana(DateTime.Today);
+            }
+        }
 
-            grilla.Dock = DockStyle.Fill;
-            grilla.AllowUserToAddRows = false;
-            grilla.AllowUserToDeleteRows = false;
-            grilla.AllowUserToResizeRows = false;
-            grilla.ReadOnly = true;
-            grilla.EnableHeadersVisualStyles = false;
-            grilla.BackgroundColor = Color.White;
-            grilla.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            grilla.ColumnHeadersHeight = 55;
-            grilla.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            grilla.RowHeadersWidth = 70;
+        private void MostrarResumenSecretario()
+        {
+            barra.Visible = false;
+            grilla.Visible = false;
+            panelInicioSecretario.Visible = true;
+            panelInicioSecretario.BringToFront();
+
+            if (Sesion.Actual != null)
+                lblBienvenida.Text = $"Bienvenido/a, {Sesion.Actual.NombreCompleto}";
+
+            lblSubtituloHoy.Text = $"Turnos de hoy ({DateTime.Today:dddd dd 'de' MMMM}) — Seleccioná una agenda en el menú lateral para ver la semana completa:";
+
+            var odontologos = Servicios.Usuarios.ObtenerOdontologos();
+            var turnosHoy = odontologos
+                .SelectMany(o => Servicios.Turnos.ObtenerAgenda(o.Id, DateTime.Today))
+                .OrderBy(t => t.Inicio)
+                .Select(t =>
+                {
+                    var paciente = Servicios.Pacientes.ObtenerPorId(t.PacienteId);
+                    var odontologo = odontologos.FirstOrDefault(o => o.Id == t.OdontologoId);
+                    return new
+                    {
+                        Horario = $"{t.Inicio:HH:mm} - {t.Fin:HH:mm}",
+                        Odontologo = odontologo?.NombreCompleto ?? "-",
+                        Paciente = paciente?.NombreCompleto ?? $"Paciente #{t.PacienteId}",
+                        DNI = paciente?.DNI ?? "-",
+                        Tratamientos = Servicios.Turnos.ObtenerTextoTratamientos(t),
+                        Estado = t.Estado.ToString()
+                    };
+                }).ToList();
+
+            dgvTurnosHoy.DataSource = turnosHoy;
+        }
+
+        private void ConfigurarGrilla()
+        {
             grilla.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
             grilla.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             grilla.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            grilla.CellDoubleClick += Grilla_CellDoubleClick;
 
+            grilla.Columns.Clear();
             for (int i = 0; i < 7; i++)
                 grilla.Columns.Add(new DataGridViewTextBoxColumn
                 { SortMode = DataGridViewColumnSortMode.NotSortable });
 
+            grilla.Rows.Clear();
             for (int h = HoraInicio; h <= HoraFin; h++)
             {
                 int idx = grilla.Rows.Add();
                 grilla.Rows[idx].Height = 50;
                 grilla.Rows[idx].HeaderCell.Value = $"{h}:00";
             }
-
-            Controls.Add(grilla);
-            Controls.Add(barra);
         }
 
         private int ObtenerOdontologoSeleccionadoId()
         {
+            if (odontologoFijo != null)
+                return odontologoFijo.Id;
+
             if (Sesion.OdontologoActual != null)
                 return Sesion.OdontologoActual.Id;
-
-            if (comboOdontologo.SelectedItem is Odontologo seleccionado)
-                return seleccionado.Id;
 
             return 0;
         }
@@ -96,8 +104,10 @@ namespace SistemaUI
         private void IrASemana(DateTime fecha)
         {
             semanaInicio = fecha.Date.AddDays(-(int)fecha.DayOfWeek);
-            lblMes.Text = cultura.TextInfo.ToTitleCase(
-                semanaInicio.AddDays(3).ToString("MMMM yyyy", cultura));
+            string tituloMes = cultura.TextInfo.ToTitleCase(semanaInicio.AddDays(3).ToString("MMMM yyyy", cultura));
+            lblMes.Text = odontologoFijo != null
+                ? $"{tituloMes}  —  Agenda de {odontologoFijo.NombreCompleto}"
+                : tituloMes;
 
             for (int i = 0; i < 7; i++)
             {
@@ -166,6 +176,10 @@ namespace SistemaUI
             }
         }
 
+        private void btnAnt_Click(object sender, EventArgs e) => IrASemana(semanaInicio.AddDays(-7));
+        private void btnHoy_Click(object sender, EventArgs e) => IrASemana(DateTime.Today);
+        private void btnSig_Click(object sender, EventArgs e) => IrASemana(semanaInicio.AddDays(7));
+
         private void Grilla_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
@@ -196,37 +210,6 @@ namespace SistemaUI
             }
         }
 
-        private void FormInicio_Load(object sender, EventArgs e)
-        {
-            CentrarControles();
-        }
-
-        private void CentrarControles()
-        {
-            if (this.Controls.Count == 0) return;
-
-            int minX = int.MaxValue, minY = int.MaxValue;
-            int maxX = int.MinValue, maxY = int.MinValue;
-
-            foreach (Control c in this.Controls)
-            {
-                if (!c.Visible) continue;
-                if (c.Left < minX) minX = c.Left;
-                if (c.Top < minY) minY = c.Top;
-                if (c.Right > maxX) maxX = c.Right;
-                if (c.Bottom > maxY) maxY = c.Bottom;
-            }
-
-            int nuevoInicioX = (this.ClientSize.Width - (maxX - minX)) / 2;
-            int nuevoInicioY = (this.ClientSize.Height - (maxY - minY)) / 2;
-
-            this.SuspendLayout();
-            foreach (Control c in this.Controls)
-            {
-                c.Left += nuevoInicioX - minX;
-                c.Top += nuevoInicioY - minY;
-            }
-            this.ResumeLayout();
-        }
+        private void FormInicio_Load(object sender, EventArgs e) { }
     }
 }

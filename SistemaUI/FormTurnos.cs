@@ -21,7 +21,7 @@ namespace SistemaUI
         private void FormTurnos_Load(object sender, EventArgs e)
         {
             //para centar los controles
-            CentrarControles();
+            //CentrarControles();
         }
 
 
