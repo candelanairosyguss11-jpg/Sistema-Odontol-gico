@@ -38,7 +38,7 @@
             label4 = new Label();
             textTelefono = new TextBox();
             label3 = new Label();
-            textDNI2 = new TextBox();
+            textDNI = new TextBox();
             label2 = new Label();
             textApellido = new TextBox();
             label1 = new Label();
@@ -58,7 +58,7 @@
             panelAltaRapida.Controls.Add(label4);
             panelAltaRapida.Controls.Add(textTelefono);
             panelAltaRapida.Controls.Add(label3);
-            panelAltaRapida.Controls.Add(textDNI2);
+            panelAltaRapida.Controls.Add(textDNI);
             panelAltaRapida.Controls.Add(label2);
             panelAltaRapida.Controls.Add(textApellido);
             panelAltaRapida.Controls.Add(label1);
@@ -145,12 +145,12 @@
             label3.TabIndex = 6;
             label3.Text = "DNI:";
             // 
-            // textDNI2
+            // textDNI
             // 
-            textDNI2.Location = new Point(136, 136);
-            textDNI2.Name = "textDNI2";
-            textDNI2.Size = new Size(208, 27);
-            textDNI2.TabIndex = 5;
+            textDNI.Location = new Point(136, 136);
+            textDNI.Name = "textDNI";
+            textDNI.Size = new Size(208, 27);
+            textDNI.TabIndex = 5;
             // 
             // label2
             // 
@@ -219,7 +219,7 @@
         private Label label4;
         private TextBox textTelefono;
         private Label label3;
-        private TextBox textDNI2;
+        private TextBox textDNI;
         private Label label2;
         private TextBox textApellido;
         private Label label1;

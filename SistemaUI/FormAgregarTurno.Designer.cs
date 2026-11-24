@@ -30,6 +30,7 @@
         {
             textDNI = new TextBox();
             panelAltaRapida = new Panel();
+            dateTimePickerHora = new DateTimePicker();
             labelDuracion = new Label();
             numDuracion = new NumericUpDown();
             label7 = new Label();
@@ -56,7 +57,6 @@
             textNombre = new TextBox();
             labelPaciente = new Label();
             ButtonVolver = new Button();
-            dateTimePickerHora = new DateTimePicker();
             panelAltaRapida.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numDuracion).BeginInit();
             SuspendLayout();
@@ -104,6 +104,15 @@
             panelAltaRapida.TabIndex = 9;
             panelAltaRapida.Paint += panelAltaRapida_Paint;
             // 
+            // dateTimePickerHora
+            // 
+            dateTimePickerHora.Format = DateTimePickerFormat.Time;
+            dateTimePickerHora.Location = new Point(136, 241);
+            dateTimePickerHora.Name = "dateTimePickerHora";
+            dateTimePickerHora.ShowUpDown = true;
+            dateTimePickerHora.Size = new Size(250, 27);
+            dateTimePickerHora.TabIndex = 24;
+            // 
             // labelDuracion
             // 
             labelDuracion.AutoSize = true;
@@ -116,10 +125,14 @@
             // 
             // numDuracion
             // 
+            numDuracion.Increment = new decimal(new int[] { 15, 0, 0, 0 });
             numDuracion.Location = new Point(136, 282);
+            numDuracion.Maximum = new decimal(new int[] { 240, 0, 0, 0 });
+            numDuracion.Minimum = new decimal(new int[] { 15, 0, 0, 0 });
             numDuracion.Name = "numDuracion";
             numDuracion.Size = new Size(150, 27);
             numDuracion.TabIndex = 22;
+            numDuracion.Value = new decimal(new int[] { 30, 0, 0, 0 });
             numDuracion.ValueChanged += numericUpDown1_ValueChanged;
             // 
             // label7
@@ -152,6 +165,7 @@
             // 
             // dateTimePickerFechaTurno
             // 
+            dateTimePickerFechaTurno.Format = DateTimePickerFormat.Short;
             dateTimePickerFechaTurno.Location = new Point(136, 195);
             dateTimePickerFechaTurno.Name = "dateTimePickerFechaTurno";
             dateTimePickerFechaTurno.Size = new Size(250, 27);
@@ -330,13 +344,6 @@
             ButtonVolver.Text = "← Volver";
             ButtonVolver.UseVisualStyleBackColor = true;
             ButtonVolver.Click += buttonVolver_Click;
-            // 
-            // dateTimePickerHora
-            // 
-            dateTimePickerHora.Location = new Point(136, 241);
-            dateTimePickerHora.Name = "dateTimePickerHora";
-            dateTimePickerHora.Size = new Size(250, 27);
-            dateTimePickerHora.TabIndex = 24;
             // 
             // FormAgregarTurno
             // 
