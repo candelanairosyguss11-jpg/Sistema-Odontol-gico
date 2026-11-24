@@ -43,7 +43,7 @@
             buttonAgregarturno.Name = "buttonAgregarturno";
             buttonAgregarturno.Size = new Size(204, 54);
             buttonAgregarturno.TabIndex = 0;
-            buttonAgregarturno.Text = "+Agregar nuevo turno";
+            buttonAgregarturno.Text = "+Agendar";
             buttonAgregarturno.UseVisualStyleBackColor = true;
             buttonAgregarturno.Click += button1_Click;
             // 
@@ -53,7 +53,7 @@
             buttonreprogramarTurno.Name = "buttonreprogramarTurno";
             buttonreprogramarTurno.Size = new Size(204, 54);
             buttonreprogramarTurno.TabIndex = 1;
-            buttonreprogramarTurno.Text = "Reprogramar turno";
+            buttonreprogramarTurno.Text = "Reprogramar";
             buttonreprogramarTurno.UseVisualStyleBackColor = true;
             buttonreprogramarTurno.Click += button2_Click;
             // 
@@ -63,7 +63,7 @@
             buttonCancelarTurno.Name = "buttonCancelarTurno";
             buttonCancelarTurno.Size = new Size(204, 54);
             buttonCancelarTurno.TabIndex = 2;
-            buttonCancelarTurno.Text = "Cancelar Turno";
+            buttonCancelarTurno.Text = "Cancelar";
             buttonCancelarTurno.UseVisualStyleBackColor = true;
             buttonCancelarTurno.Click += buttonCancelarTurno_Click;
             // 
