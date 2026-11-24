@@ -45,7 +45,7 @@
             // 
             titulo.AutoSize = true;
             titulo.Font = new Font("Segoe UI", 14F);
-            titulo.Location = new Point(256, 21);
+            titulo.Location = new Point(256, 0);
             titulo.Name = "titulo";
             titulo.Size = new Size(240, 32);
             titulo.TabIndex = 0;
@@ -66,7 +66,7 @@
             // Contraseña
             // 
             Contraseña.AutoSize = true;
-            Contraseña.Location = new Point(288, 153);
+            Contraseña.Location = new Point(286, 153);
             Contraseña.Name = "Contraseña";
             Contraseña.Size = new Size(83, 20);
             Contraseña.TabIndex = 2;
@@ -103,7 +103,7 @@
             // Rol
             // 
             Rol.AutoSize = true;
-            Rol.Location = new Point(286, 259);
+            Rol.Location = new Point(287, 308);
             Rol.Name = "Rol";
             Rol.Size = new Size(31, 20);
             Rol.TabIndex = 6;
@@ -114,7 +114,7 @@
             // 
             comboRol.DropDownStyle = ComboBoxStyle.DropDownList;
             comboRol.FormattingEnabled = true;
-            comboRol.Location = new Point(286, 282);
+            comboRol.Location = new Point(286, 331);
             comboRol.Name = "comboRol";
             comboRol.Size = new Size(164, 28);
             comboRol.TabIndex = 7;
@@ -122,7 +122,7 @@
             // 
             // buttonIngresar
             // 
-            buttonIngresar.Location = new Point(267, 344);
+            buttonIngresar.Location = new Point(265, 409);
             buttonIngresar.Name = "buttonIngresar";
             buttonIngresar.Size = new Size(94, 29);
             buttonIngresar.TabIndex = 8;
@@ -132,7 +132,7 @@
             // 
             // buttonCancelar
             // 
-            buttonCancelar.Location = new Point(392, 344);
+            buttonCancelar.Location = new Point(402, 409);
             buttonCancelar.Name = "buttonCancelar";
             buttonCancelar.Size = new Size(94, 29);
             buttonCancelar.TabIndex = 9;
@@ -145,9 +145,9 @@
             buttonCambiarContraseña.BackColor = SystemColors.GradientActiveCaption;
             buttonCambiarContraseña.BackgroundImageLayout = ImageLayout.None;
             buttonCambiarContraseña.ForeColor = Color.RoyalBlue;
-            buttonCambiarContraseña.Location = new Point(485, 176);
+            buttonCambiarContraseña.Location = new Point(286, 239);
             buttonCambiarContraseña.Name = "buttonCambiarContraseña";
-            buttonCambiarContraseña.Size = new Size(198, 29);
+            buttonCambiarContraseña.Size = new Size(165, 29);
             buttonCambiarContraseña.TabIndex = 10;
             buttonCambiarContraseña.Text = "Olvidó su contraseña?";
             buttonCambiarContraseña.UseVisualStyleBackColor = false;
