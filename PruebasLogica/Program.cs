@@ -500,6 +500,113 @@ internal static class Program
             return texto.Contains("Limpieza") && texto.Contains("Extracción") && texto.Contains(", ");
         });
 
+        // ---------- SERVICIO HISTORIAS ----------
+        _informe.AppendLine("--- SERVICIO HISTORIAS ---");
+        var servH = new ServicioHistorias(new RepositorioJson<HistoriaClinica>("historias_servicio.json"), servP, servT);
+        var autor = repoO.ObtenerTodos().First(); // el odontólogo registrado al principio
+        int luisId = servP.BuscarPorDni("40333444").Id;
+
+        Func<string, string> temporal = nombre =>
+        {
+            string ruta = Path.Combine(Path.GetTempPath(), nombre);
+            File.WriteAllText(ruta, "x");
+            return ruta;
+        };
+
+        Caso("Crear historia para un paciente existente", () =>
+        {
+            var h = new HistoriaClinica();
+            h.PacienteId = pacienteId; h.Alergias = "Penicilina";
+            servH.Crear(h, autor);
+            return h.Id > 0 && h.UltimaModificacionPorId == autor.Id && servH.ObtenerPorPaciente(pacienteId) != null;
+        });
+        Caso("Crear para un paciente inexistente falla", () => Lanza<InvalidOperationException>(() => { var h = new HistoriaClinica(); h.PacienteId = 999; servH.Crear(h, autor); }));
+        Caso("Crear una segunda historia para el mismo paciente falla", () => Lanza<InvalidOperationException>(() => { var h = new HistoriaClinica(); h.PacienteId = pacienteId; servH.Crear(h, autor); }));
+        Caso("ObtenerPorPaciente devuelve null si no tiene historia", () => servH.ObtenerPorPaciente(luisId) == null);
+        Caso("BuscarPorNombrePaciente: solo pacientes con historia", () =>
+            servH.BuscarPorNombrePaciente("ana").Count == 1
+            && servH.BuscarPorNombrePaciente("luis").Count == 0
+            && servH.BuscarPorNombrePaciente("").Count == 1);
+        Caso("ActualizarDatos guarda los cambios y quién los hizo", () =>
+        {
+            var h = servH.ObtenerPorPaciente(pacienteId);
+            h.Antecedentes = "Hipertensión";
+            servH.ActualizarDatos(h, autor);
+            var servH2 = new ServicioHistorias(new RepositorioJson<HistoriaClinica>("historias_servicio.json"), servP, servT);
+            var leida = servH2.ObtenerPorPaciente(pacienteId);
+            return leida.Antecedentes == "Hipertensión" && leida.FechaUltimaModificacion != null;
+        });
+        Caso("Agregar observación (con autor)", () =>
+        {
+            var h = servH.ObtenerPorPaciente(pacienteId);
+            servH.AgregarObservacion(h.Id, autor, "Control de rutina", null);
+            return h.Observaciones.Count == 1 && h.Observaciones[0].OdontologoId == autor.Id && h.Observaciones[0].TurnoId == null;
+        });
+        Caso("Observación vacía falla y no se agrega", () =>
+        {
+            var h = servH.ObtenerPorPaciente(pacienteId);
+            bool lanzo = Lanza<ArgumentException>(() => servH.AgregarObservacion(h.Id, autor, "   ", null));
+            return lanzo && h.Observaciones.Count == 1;
+        });
+        Caso("Agregar estudio con archivo (copia, nombre original, autor)", () =>
+        {
+            var h = servH.ObtenerPorPaciente(pacienteId);
+            string origen = temporal("radiografia.jpg");
+            servH.AgregarEstudioArchivo(h.Id, autor, origen, TipoEstudio.Radiografia, "Molar");
+            File.Delete(origen);
+            var e = h.Estudios[0];
+            return e.NombreOriginal == "radiografia.jpg"
+                && e.Tipo == TipoEstudio.Radiografia
+                && e.Comentario == "Molar"
+                && e.SubidoPorOdontologoId == autor.Id
+                && File.Exists(Path.Combine(Rutas.CarpetaArchivos, e.RutaRelativa));
+        });
+        Caso("Estudio con un .txt falla y no se agrega nada", () =>
+        {
+            var h = servH.ObtenerPorPaciente(pacienteId);
+            string origen = temporal("notas.txt");
+            bool lanzo = Lanza<ArgumentException>(() => servH.AgregarEstudioArchivo(h.Id, autor, origen, TipoEstudio.Otro, ""));
+            File.Delete(origen);
+            return lanzo && h.Estudios.Count == 1;
+        });
+        Caso("Agregar estudio con enlace válido", () =>
+        {
+            var h = servH.ObtenerPorPaciente(pacienteId);
+            servH.AgregarEstudioEnlace(h.Id, autor, "https://ejemplo.com/tomo", "Tomografía completa");
+            var e = h.Estudios[h.Estudios.Count - 1];
+            return h.Estudios.Count == 2 && e.EsEnlace && e.Tipo == TipoEstudio.Tomografia;
+        });
+        Caso("Enlace inválido falla", () =>
+        {
+            var h = servH.ObtenerPorPaciente(pacienteId);
+            return Lanza<ArgumentException>(() => servH.AgregarEstudioEnlace(h.Id, autor, "file:///C:/x", "")) && h.Estudios.Count == 2;
+        });
+        Caso("Agregar consentimiento", () =>
+        {
+            var h = servH.ObtenerPorPaciente(pacienteId);
+            string origen = temporal("consentimiento.pdf");
+            servH.AgregarConsentimiento(h.Id, autor, origen, limpieza1, "Firmado");
+            File.Delete(origen);
+            var c = h.Consentimientos[0];
+            return c.TratamientoId == limpieza1
+                && c.NombreOriginal == "consentimiento.pdf"
+                && File.Exists(Path.Combine(Rutas.CarpetaArchivos, c.RutaRelativa));
+        });
+        Caso("Consentimiento con tratamiento inexistente falla", () =>
+        {
+            var h = servH.ObtenerPorPaciente(pacienteId);
+            string origen = temporal("otro.pdf");
+            bool lanzo = Lanza<InvalidOperationException>(() => servH.AgregarConsentimiento(h.Id, autor, origen, 9999, ""));
+            File.Delete(origen);
+            return lanzo && h.Consentimientos.Count == 1;
+        });
+        Caso("Todo persiste al reabrir", () =>
+        {
+            var servH2 = new ServicioHistorias(new RepositorioJson<HistoriaClinica>("historias_servicio.json"), servP, servT);
+            var leida = servH2.ObtenerPorPaciente(pacienteId);
+            return leida.Observaciones.Count == 1 && leida.Estudios.Count == 2 && leida.Consentimientos.Count == 1;
+        });
+
         // ---------- RESULTADO ----------
         string informe = _informe.ToString();
         int fallos = informe.Split('\n').Count(l => l.StartsWith("FALLÓ") || l.StartsWith("ERROR"));
