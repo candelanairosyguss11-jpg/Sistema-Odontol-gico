@@ -163,7 +163,7 @@ namespace SistemaUI
             }
 
             var principal = Parent.FindForm() as FormPrincipalOdontologo;
-            BeginInvoke(new Action(() => principal?.AbrirFormulario(new FormHistoriasClinicas(paciente))));
+            BeginInvoke(new Action(() => principal?.AbrirFormulario(new FormCrearHistoriaClinica())));
         }
         
 
