@@ -1,12 +1,7 @@
 ﻿using Sistema_Odontológico;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Globalization;
-using System.Globalization;
-using System.Text;
 using System.Windows.Forms;
 
 namespace SistemaUI
@@ -17,6 +12,7 @@ namespace SistemaUI
         private readonly CultureInfo cultura = new CultureInfo("es-AR");
         private readonly DataGridView grilla = new DataGridView();
         private readonly Label lblMes = new Label();
+        private readonly ComboBox comboOdontologo = new ComboBox();
         private DateTime semanaInicio;
 
         public FormInicio()
@@ -28,7 +24,6 @@ namespace SistemaUI
 
         private void ConstruirCalendario()
         {
-            // Barra superior
             var barra = new Panel { Dock = DockStyle.Top, Height = 50 };
             var btnAnt = new Button { Text = "‹", Width = 40, Left = 10, Top = 10 };
             var btnHoy = new Button { Text = "Hoy", Width = 60, Left = 55, Top = 10 };
@@ -41,7 +36,21 @@ namespace SistemaUI
             btnHoy.Click += (s, e) => IrASemana(DateTime.Today);
             barra.Controls.AddRange(new Control[] { btnAnt, btnHoy, btnSig, lblMes });
 
-            // Grilla: 7 columnas (dom..sáb) y una fila por hora
+            // Si es Secretario, mostramos selector de Odontólogo a la derecha
+            if (Sesion.EsSecretario)
+            {
+                var lblFiltro = new Label { Text = "Odontólogo:", Left = 390, Top = 16, AutoSize = true };
+                comboOdontologo.Left = 480;
+                comboOdontologo.Top = 12;
+                comboOdontologo.Width = 220;
+                comboOdontologo.DropDownStyle = ComboBoxStyle.DropDownList;
+                comboOdontologo.DataSource = Servicios.Usuarios.ObtenerOdontologos();
+                comboOdontologo.DisplayMember = "NombreCompleto";
+                comboOdontologo.ValueMember = "Id";
+                comboOdontologo.SelectedIndexChanged += (s, e) => CargarTurnos();
+                barra.Controls.AddRange(new Control[] { lblFiltro, comboOdontologo });
+            }
+
             grilla.Dock = DockStyle.Fill;
             grilla.AllowUserToAddRows = false;
             grilla.AllowUserToDeleteRows = false;
@@ -56,6 +65,7 @@ namespace SistemaUI
             grilla.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
             grilla.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             grilla.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            grilla.CellDoubleClick += Grilla_CellDoubleClick;
 
             for (int i = 0; i < 7; i++)
                 grilla.Columns.Add(new DataGridViewTextBoxColumn
@@ -68,14 +78,24 @@ namespace SistemaUI
                 grilla.Rows[idx].HeaderCell.Value = $"{h}:00";
             }
 
-            // Orden importante: primero el Fill y después el Top
             Controls.Add(grilla);
             Controls.Add(barra);
         }
 
+        private int ObtenerOdontologoSeleccionadoId()
+        {
+            if (Sesion.OdontologoActual != null)
+                return Sesion.OdontologoActual.Id;
+
+            if (comboOdontologo.SelectedItem is Odontologo seleccionado)
+                return seleccionado.Id;
+
+            return 0;
+        }
+
         private void IrASemana(DateTime fecha)
         {
-            semanaInicio = fecha.Date.AddDays(-(int)fecha.DayOfWeek); // domingo
+            semanaInicio = fecha.Date.AddDays(-(int)fecha.DayOfWeek);
             lblMes.Text = cultura.TextInfo.ToTitleCase(
                 semanaInicio.AddDays(3).ToString("MMMM yyyy", cultura));
 
@@ -97,33 +117,90 @@ namespace SistemaUI
                 foreach (DataGridViewCell c in fila.Cells)
                 {
                     c.Value = null;
+                    c.Tag = null;
                     c.Style.BackColor = Color.White;
                 }
 
-            // TODO: reemplazar por los turnos reales que devuelva la capa Logica,
-            // filtrados entre semanaInicio y semanaInicio.AddDays(7)
-            MostrarTurno(semanaInicio.AddDays(1).AddHours(9), "Turno: Juan Pérez", Color.LightSkyBlue);//instancia de prueba, pero aunque cambie de dia sigue el turno idkk
+            int odontologoId = ObtenerOdontologoSeleccionadoId();
+            if (odontologoId <= 0) return;
+
+            for (int i = 0; i < 7; i++)
+            {
+                DateTime dia = semanaInicio.AddDays(i);
+                var turnosDelDia = Servicios.Turnos.ObtenerAgenda(odontologoId, dia);
+
+                foreach (var turno in turnosDelDia)
+                {
+                    var paciente = Servicios.Pacientes.ObtenerPorId(turno.PacienteId);
+                    string nombrePaciente = paciente != null ? paciente.NombreCompleto : $"Paciente #{turno.PacienteId}";
+                    string tratamientos = Servicios.Turnos.ObtenerTextoTratamientos(turno);
+                    string texto = $"{turno.Inicio:HH:mm} - {nombrePaciente}\n({tratamientos})";
+
+                    Color color = turno.Estado switch
+                    {
+                        EstadoTurno.Asistio => Color.LightGreen,
+                        EstadoTurno.NoAsistio => Color.LightCoral,
+                        _ => Color.LightSkyBlue
+                    };
+
+                    MostrarTurno(turno, texto, color);
+                }
+            }
         }
 
-        private void MostrarTurno(DateTime fechaHora, string texto, Color color)
+        private void MostrarTurno(Turno turno, string texto, Color color)
         {
-            int col = (int)fechaHora.DayOfWeek;
-            int fila = fechaHora.Hour - HoraInicio;
-            if (fila < 0 || fila >= grilla.Rows.Count) return;
+            int col = (int)turno.Inicio.DayOfWeek;
+            int filaInicio = turno.Inicio.Hour - HoraInicio;
+            int bloques = Math.Max(1, (int)Math.Ceiling(turno.DuracionMinutos / 60.0));
 
-            var celda = grilla.Rows[fila].Cells[col];
-            celda.Value = texto;
-            celda.Style.BackColor = color;
+            for (int b = 0; b < bloques; b++)
+            {
+                int fila = filaInicio + b;
+                if (fila < 0 || fila >= grilla.Rows.Count) continue;
+
+                var celda = grilla.Rows[fila].Cells[col];
+                celda.Value = b == 0 ? texto : "↳ (continúa)";
+                celda.Tag = turno;
+                celda.Style.BackColor = color;
+            }
+        }
+
+        private void Grilla_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+            if (grilla.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag is not Turno turno) return;
+
+            if (turno.Estado != EstadoTurno.Pendiente)
+            {
+                MessageBox.Show($"Este turno ya figura como: {turno.Estado}.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var respuesta = MessageBox.Show(
+                "¿El paciente asistió al turno?\n\n• Sí: Marcar como Asistió\n• No: Marcar como No Asistió\n• Cancelar: Salir sin cambios",
+                "Registrar asistencia",
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Question);
+
+            if (respuesta == DialogResult.Cancel) return;
+
+            try
+            {
+                Servicios.Turnos.MarcarAsistencia(turno.Id, respuesta == DialogResult.Yes);
+                CargarTurnos();
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void FormInicio_Load(object sender, EventArgs e)
         {
-            //para centar los controles
             CentrarControles();
         }
 
-
-        //
         private void CentrarControles()
         {
             if (this.Controls.Count == 0) return;
@@ -131,7 +208,6 @@ namespace SistemaUI
             int minX = int.MaxValue, minY = int.MaxValue;
             int maxX = int.MinValue, maxY = int.MinValue;
 
-            // 1. Obtener los límites del bloque de controles
             foreach (Control c in this.Controls)
             {
                 if (!c.Visible) continue;
@@ -141,26 +217,16 @@ namespace SistemaUI
                 if (c.Bottom > maxY) maxY = c.Bottom;
             }
 
-            int anchoBloque = maxX - minX;
-            int altoBloque = maxY - minY;
+            int nuevoInicioX = (this.ClientSize.Width - (maxX - minX)) / 2;
+            int nuevoInicioY = (this.ClientSize.Height - (maxY - minY)) / 2;
 
-            // 2. Calcular la nueva posición inicial centrada
-            int nuevoInicioX = (this.ClientSize.Width - anchoBloque) / 2;
-            int nuevoInicioY = (this.ClientSize.Height - altoBloque) / 2;
-
-            // 3. Calcular cuánto debe moverse cada control
-            int desplazamientoX = nuevoInicioX - minX;
-            int desplazamientoY = nuevoInicioY - minY;
-
-            // 4. Mover todos los controles manteniendo su posición relativa
             this.SuspendLayout();
             foreach (Control c in this.Controls)
             {
-                c.Left += desplazamientoX;
-                c.Top += desplazamientoY;
+                c.Left += nuevoInicioX - minX;
+                c.Top += nuevoInicioY - minY;
             }
             this.ResumeLayout();
         }
-
     }
 }

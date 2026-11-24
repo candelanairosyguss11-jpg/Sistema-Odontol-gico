@@ -2,15 +2,8 @@
 {
     partial class FormCancelarTurno
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,19 +15,17 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             buttonVolver = new Button();
             panelCancelar = new Panel();
+            lblPacienteInfo = new Label();
+            dgvTurnos = new DataGridView();
             textDNI = new TextBox();
             buttonBuscarDNI = new Button();
-            Button button = new();
-            buttonCancelar = button;
+            buttonCancelar = new Button();
             panelCancelar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvTurnos).BeginInit();
             SuspendLayout();
             // 
             // buttonVolver
@@ -49,6 +40,8 @@
             // 
             // panelCancelar
             // 
+            panelCancelar.Controls.Add(lblPacienteInfo);
+            panelCancelar.Controls.Add(dgvTurnos);
             panelCancelar.Controls.Add(buttonCancelar);
             panelCancelar.Controls.Add(textDNI);
             panelCancelar.Controls.Add(buttonBuscarDNI);
@@ -56,6 +49,30 @@
             panelCancelar.Name = "panelCancelar";
             panelCancelar.Size = new Size(906, 552);
             panelCancelar.TabIndex = 7;
+            // 
+            // lblPacienteInfo
+            // 
+            lblPacienteInfo.AutoSize = true;
+            lblPacienteInfo.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblPacienteInfo.Location = new Point(280, 23);
+            lblPacienteInfo.Name = "lblPacienteInfo";
+            lblPacienteInfo.Size = new Size(0, 23);
+            lblPacienteInfo.TabIndex = 14;
+            // 
+            // dgvTurnos
+            // 
+            dgvTurnos.AllowUserToAddRows = false;
+            dgvTurnos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvTurnos.BackgroundColor = Color.White;
+            dgvTurnos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvTurnos.Location = new Point(15, 65);
+            dgvTurnos.MultiSelect = false;
+            dgvTurnos.Name = "dgvTurnos";
+            dgvTurnos.ReadOnly = true;
+            dgvTurnos.RowHeadersVisible = false;
+            dgvTurnos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvTurnos.Size = new Size(856, 425);
+            dgvTurnos.TabIndex = 15;
             // 
             // textDNI
             // 
@@ -72,6 +89,7 @@
             buttonBuscarDNI.TabIndex = 11;
             buttonBuscarDNI.Text = "Buscar DNI";
             buttonBuscarDNI.UseVisualStyleBackColor = true;
+            buttonBuscarDNI.Click += buttonBuscarDNI_Click;
             // 
             // buttonCancelar
             // 
@@ -81,6 +99,7 @@
             buttonCancelar.TabIndex = 13;
             buttonCancelar.Text = "Cancelar Turno";
             buttonCancelar.UseVisualStyleBackColor = true;
+            buttonCancelar.Click += buttonCancelar_Click;
             // 
             // FormCancelarTurno
             // 
@@ -94,6 +113,7 @@
             Load += FormCancelarTurno_Load;
             panelCancelar.ResumeLayout(false);
             panelCancelar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvTurnos).EndInit();
             ResumeLayout(false);
         }
 
@@ -104,5 +124,7 @@
         private TextBox textDNI;
         private Button buttonBuscarDNI;
         private Button buttonCancelar;
+        private DataGridView dgvTurnos;
+        private Label lblPacienteInfo;
     }
 }

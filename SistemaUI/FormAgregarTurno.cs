@@ -1,97 +1,120 @@
 ﻿using Sistema_Odontológico;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
+using System.Linq;
 using System.Windows.Forms;
-using static System.Collections.Specialized.BitVector32;
 
 namespace SistemaUI
 {
     public partial class FormAgregarTurno : Form
     {
+        private Paciente pacienteActual;
+
         public FormAgregarTurno()
         {
             InitializeComponent();
         }
 
-        private Paciente pacienteActual;
-
         private void FormAgregarTurno_Load(object sender, EventArgs e)
         {
-            //para centar los controles
             CentrarControles();
+
+            // Vincular evento del botón Buscar DNI que no estaba en el Designer
+            buttonBuscarDNI.Click += buttonBuscarDNI_Click;
+
+            comboBoxOdontologo.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxOdontologo.DataSource = Servicios.Usuarios.ObtenerOdontologos();
             comboBoxOdontologo.DisplayMember = "NombreCompleto";
-            if (Sesion.Actual is Odontologo yo)
+            comboBoxOdontologo.ValueMember = "Id";
+
+            if (Sesion.OdontologoActual != null)
             {
-                comboBoxOdontologo.SelectedValue = yo.Id;   // si no anda, buscá el ítem por Id
+                comboBoxOdontologo.SelectedValue = Sesion.OdontologoActual.Id;
                 comboBoxOdontologo.Enabled = false;
             }
+
+            CargarTratamientosDelOdontologo();
+            dateTimePickerFechaTurno.MinDate = DateTime.Today;
         }
 
-        //
-        private void CentrarControles()
+        private void CargarTratamientosDelOdontologo()
         {
-            if (this.Controls.Count == 0) return;
-
-            int minX = int.MaxValue, minY = int.MaxValue;
-            int maxX = int.MinValue, maxY = int.MinValue;
-
-            // 1. Obtener los límites del bloque de controles
-            foreach (Control c in this.Controls)
+            checkedListBoxTratamientos.Items.Clear();
+            if (comboBoxOdontologo.SelectedItem is Odontologo o)
             {
-                if (!c.Visible) continue;
-                if (c.Left < minX) minX = c.Left;
-                if (c.Top < minY) minY = c.Top;
-                if (c.Right > maxX) maxX = c.Right;
-                if (c.Bottom > maxY) maxY = c.Bottom;
+                var activos = Servicios.Tratamientos.ObtenerActivosDeOdontologo(o.Id);
+                checkedListBoxTratamientos.Items.AddRange(activos.ToArray());
+            }
+        }
+
+        private void comboBoxOdontologo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CargarTratamientosDelOdontologo();
+        }
+
+        private void checkedListBoxTratamientos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BeginInvoke(new Action(() =>
+            {
+                int total = checkedListBoxTratamientos.CheckedItems.Cast<Tratamiento>().Sum(t => t.DuracionMinutos);
+                if (total > 0)
+                {
+                    numDuracion.Value = Math.Clamp(total, Turno.DuracionMinima, Turno.DuracionMaxima);
+                }
+            }));
+        }
+
+        private void buttonBuscarDNI_Click(object sender, EventArgs e)
+        {
+            string dni = textDNI.Text.Trim();
+            if (string.IsNullOrWhiteSpace(dni))
+            {
+                MessageBox.Show("Ingresá un DNI para buscar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
-            int anchoBloque = maxX - minX;
-            int altoBloque = maxY - minY;
+            pacienteActual = Servicios.Pacientes.BuscarPorDni(dni);
 
-            // 2. Calcular la nueva posición inicial centrada
-            int nuevoInicioX = (this.ClientSize.Width - anchoBloque) / 2;
-            int nuevoInicioY = (this.ClientSize.Height - altoBloque) / 2;
-
-            // 3. Calcular cuánto debe moverse cada control
-            int desplazamientoX = nuevoInicioX - minX;
-            int desplazamientoY = nuevoInicioY - minY;
-
-            // 4. Mover todos los controles manteniendo su posición relativa
-            this.SuspendLayout();
-            foreach (Control c in this.Controls)
+            if (pacienteActual != null)
             {
-                c.Left += desplazamientoX;
-                c.Top += desplazamientoY;
+                textNombre.Text = pacienteActual.Nombre;
+                textApellido.Text = pacienteActual.Apellido;
+                textDNI2.Text = pacienteActual.DNI;
+                textTelefono.Text = pacienteActual.Telefono;
+                textCorreo.Text = pacienteActual.Correo;
+                dateTimePicker1.Value = pacienteActual.FechaNacimiento.ToDateTime(TimeOnly.MinValue);
+
+                HabilitarCamposPaciente(false);
+                MessageBox.Show($"Paciente encontrado: {pacienteActual.NombreCompleto}", "Paciente existente", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            this.ResumeLayout();
-        }
-
-        private void textDNI_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonVolver_Click(object sender, EventArgs e)
-        {
-            var turnos = Parent.FindForm() as FormTurnos;
-            BeginInvoke(new Action(() => turnos?.VolverAlMenu()));
-        }
-
-        private void buttonCancelar_Click(object sender, EventArgs e)
-        {
-            bool hayDatos = textDNI.Text.Trim() != "" || textNombre.Text.Trim() != "";
-
-            if (hayDatos)
+            else
             {
-                var respuesta = MessageBox.Show("¿Descartar los datos cargados?", "Cancelar",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (respuesta != DialogResult.Yes) return;
+                LimpiarCamposPaciente();
+                textDNI2.Text = Validador.NormalizarDni(dni);
+                HabilitarCamposPaciente(true);
+                MessageBox.Show("No se encontró un paciente con ese DNI. Completá los datos de alta rápida.", "Nuevo paciente", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void HabilitarCamposPaciente(bool habilitar)
+        {
+            textNombre.Enabled = habilitar;
+            textApellido.Enabled = habilitar;
+            textDNI2.Enabled = habilitar;
+            textTelefono.Enabled = habilitar;
+            textCorreo.Enabled = habilitar;
+            dateTimePicker1.Enabled = habilitar;
+        }
+
+        private void LimpiarCamposPaciente()
+        {
+            pacienteActual = null;
+            textNombre.Clear();
+            textApellido.Clear();
+            textDNI2.Clear();
+            textTelefono.Clear();
+            textCorreo.Clear();
+            dateTimePicker1.Value = DateTime.Today.AddYears(-25);
         }
 
         private void buttonGuardar_Click(object sender, EventArgs e)
@@ -109,8 +132,7 @@ namespace SistemaUI
                         Correo = textCorreo.Text,
                         FechaNacimiento = DateOnly.FromDateTime(dateTimePicker1.Value)
                     };
-                    Servicios.Pacientes.Registrar(p);      // Registrar completa p.Id
-                    //ServicioHistorias.Crear(p.Id);
+                    Servicios.Pacientes.Registrar(p);
                     pacienteActual = p;
                 }
 
@@ -122,14 +144,14 @@ namespace SistemaUI
                     PacienteId = pacienteActual.Id,
                     OdontologoId = odontologo.Id,
                     Inicio = dateTimePickerFechaTurno.Value.Date + dateTimePickerHora.Value.TimeOfDay,
-                    DuracionMinutos = (int)numDuracion.Value,
-                    // Detalle = textDetalle.Text.Trim()
+                    DuracionMinutos = (int)numDuracion.Value
                 };
+
                 foreach (Tratamiento t in checkedListBoxTratamientos.CheckedItems)
                     turno.TratamientosIds.Add(t.Id);
 
                 Servicios.Turnos.Agendar(turno);
-                MessageBox.Show("Turno agendado.");
+                MessageBox.Show("Turno agendado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 buttonVolver_Click(sender, e);
             }
             catch (Exception ex) when (ex is InvalidOperationException || ex is ArgumentException)
@@ -138,56 +160,67 @@ namespace SistemaUI
             }
         }
 
-        private void panelAltaRapida_Paint(object sender, PaintEventArgs e)
+        private void buttonCancelar_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click_2(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBoxOdontologo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            checkedListBoxTratamientos.Items.Clear();
-            //    if (comboBoxOdontologo.SelectedItem is Odontologo o)
-            //        checkedListBoxTratamientos.Items.AddRange(
-            //    Servicio.Tratamientos.ObtenerActivosDeOdontologo(o.Id).ToArray());
-        }
-
-        private void checkedListBoxTratamientos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            BeginInvoke(new Action(() =>
+            bool hayDatos = !string.IsNullOrWhiteSpace(textDNI.Text) || !string.IsNullOrWhiteSpace(textNombre.Text);
+            if (hayDatos)
             {
-                int total = checkedListBoxTratamientos.CheckedItems.Cast<Tratamiento>().Sum(t => t.DuracionMinutos);
-                numDuracion.Value = Math.Clamp(total, Turno.DuracionMinima, Turno.DuracionMaxima);
-            }));
+                var respuesta = MessageBox.Show("¿Descartar los datos cargados?", "Cancelar",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (respuesta != DialogResult.Yes) return;
+            }
+            buttonVolver_Click(sender, e);
         }
 
-        private void dateTimePickerFechaTurno_ValueChanged(object sender, EventArgs e)
+        private void buttonVolver_Click(object sender, EventArgs e)
         {
-
+            var turnos = Parent?.FindForm() as FormTurnos;
+            BeginInvoke(new Action(() => turnos?.VolverAlMenu()));
         }
 
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        private void textDNI_TextChanged(object sender, EventArgs e)
         {
+            if (pacienteActual != null)
+            {
+                HabilitarCamposPaciente(true);
+                pacienteActual = null;
+            }
+        }
 
+        private void panelAltaRapida_Paint(object sender, PaintEventArgs e) { }
+        private void label7_Click(object sender, EventArgs e) { }
+        private void label7_Click_1(object sender, EventArgs e) { }
+        private void label7_Click_2(object sender, EventArgs e) { }
+        private void label8_Click(object sender, EventArgs e) { }
+        private void dateTimePickerFechaTurno_ValueChanged(object sender, EventArgs e) { }
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e) { }
+
+        private void CentrarControles()
+        {
+            if (this.Controls.Count == 0) return;
+
+            int minX = int.MaxValue, minY = int.MaxValue;
+            int maxX = int.MinValue, maxY = int.MinValue;
+
+            foreach (Control c in this.Controls)
+            {
+                if (!c.Visible) continue;
+                if (c.Left < minX) minX = c.Left;
+                if (c.Top < minY) minY = c.Top;
+                if (c.Right > maxX) maxX = c.Right;
+                if (c.Bottom > maxY) maxY = c.Bottom;
+            }
+
+            int nuevoInicioX = (this.ClientSize.Width - (maxX - minX)) / 2;
+            int nuevoInicioY = (this.ClientSize.Height - (maxY - minY)) / 2;
+
+            this.SuspendLayout();
+            foreach (Control c in this.Controls)
+            {
+                c.Left += nuevoInicioX - minX;
+                c.Top += nuevoInicioY - minY;
+            }
+            this.ResumeLayout();
         }
     }
 }
