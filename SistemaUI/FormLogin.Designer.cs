@@ -114,7 +114,7 @@
             // 
             comboRol.DropDownStyle = ComboBoxStyle.DropDownList;
             comboRol.FormattingEnabled = true;
-            comboRol.Location = new Point(286, 331);
+            comboRol.Location = new Point(287, 331);
             comboRol.Name = "comboRol";
             comboRol.Size = new Size(164, 28);
             comboRol.TabIndex = 7;
@@ -122,7 +122,7 @@
             // 
             // buttonIngresar
             // 
-            buttonIngresar.Location = new Point(265, 409);
+            buttonIngresar.Location = new Point(256, 409);
             buttonIngresar.Name = "buttonIngresar";
             buttonIngresar.Size = new Size(94, 29);
             buttonIngresar.TabIndex = 8;
@@ -132,7 +132,7 @@
             // 
             // buttonCancelar
             // 
-            buttonCancelar.Location = new Point(402, 409);
+            buttonCancelar.Location = new Point(392, 409);
             buttonCancelar.Name = "buttonCancelar";
             buttonCancelar.Size = new Size(94, 29);
             buttonCancelar.TabIndex = 9;
