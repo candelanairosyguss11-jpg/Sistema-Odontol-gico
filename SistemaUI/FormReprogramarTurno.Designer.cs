@@ -72,7 +72,7 @@
             // 
             // buttonReprogramar
             // 
-            buttonReprogramar.Location = new Point(809, 516);
+            buttonReprogramar.Location = new Point(804, 606);
             buttonReprogramar.Name = "buttonReprogramar";
             buttonReprogramar.Size = new Size(258, 29);
             buttonReprogramar.TabIndex = 13;
@@ -82,17 +82,18 @@
             // 
             // panelReprogramar
             // 
+            panelReprogramar.BackgroundColor = SystemColors.ButtonHighlight;
             panelReprogramar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             panelReprogramar.Location = new Point(162, 97);
             panelReprogramar.Name = "panelReprogramar";
             panelReprogramar.RowHeadersWidth = 51;
-            panelReprogramar.Size = new Size(940, 221);
+            panelReprogramar.Size = new Size(829, 299);
             panelReprogramar.TabIndex = 14;
             // 
             // dateTimePickerHora
             // 
             dateTimePickerHora.Format = DateTimePickerFormat.Time;
-            dateTimePickerHora.Location = new Point(558, 388);
+            dateTimePickerHora.Location = new Point(553, 478);
             dateTimePickerHora.Name = "dateTimePickerHora";
             dateTimePickerHora.ShowUpDown = true;
             dateTimePickerHora.Size = new Size(250, 27);
@@ -101,7 +102,7 @@
             // labelDuracion
             // 
             labelDuracion.AutoSize = true;
-            labelDuracion.Location = new Point(469, 431);
+            labelDuracion.Location = new Point(464, 521);
             labelDuracion.Name = "labelDuracion";
             labelDuracion.Size = new Size(72, 20);
             labelDuracion.TabIndex = 29;
@@ -110,7 +111,7 @@
             // numDuracion
             // 
             numDuracion.Increment = new decimal(new int[] { 15, 0, 0, 0 });
-            numDuracion.Location = new Point(558, 429);
+            numDuracion.Location = new Point(553, 519);
             numDuracion.Maximum = new decimal(new int[] { 240, 0, 0, 0 });
             numDuracion.Minimum = new decimal(new int[] { 15, 0, 0, 0 });
             numDuracion.Name = "numDuracion";
@@ -121,7 +122,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(494, 388);
+            label7.Location = new Point(489, 478);
             label7.Name = "label7";
             label7.Size = new Size(45, 20);
             label7.TabIndex = 27;
@@ -130,7 +131,7 @@
             // labelFechaTurno
             // 
             labelFechaTurno.AutoSize = true;
-            labelFechaTurno.Location = new Point(428, 342);
+            labelFechaTurno.Location = new Point(423, 432);
             labelFechaTurno.Name = "labelFechaTurno";
             labelFechaTurno.Size = new Size(113, 20);
             labelFechaTurno.TabIndex = 26;
@@ -139,7 +140,7 @@
             // dateTimePickerFechaTurno
             // 
             dateTimePickerFechaTurno.Format = DateTimePickerFormat.Short;
-            dateTimePickerFechaTurno.Location = new Point(558, 342);
+            dateTimePickerFechaTurno.Location = new Point(553, 432);
             dateTimePickerFechaTurno.Name = "dateTimePickerFechaTurno";
             dateTimePickerFechaTurno.Size = new Size(250, 27);
             dateTimePickerFechaTurno.TabIndex = 25;

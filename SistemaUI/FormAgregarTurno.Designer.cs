@@ -30,6 +30,7 @@
         {
             textDNI = new TextBox();
             panelAltaRapida = new Panel();
+            label8 = new Label();
             dateTimePickerHora = new DateTimePicker();
             labelDuracion = new Label();
             numDuracion = new NumericUpDown();
@@ -63,7 +64,7 @@
             // 
             // textDNI
             // 
-            textDNI.Location = new Point(106, 363);
+            textDNI.Location = new Point(108, 417);
             textDNI.Name = "textDNI";
             textDNI.Size = new Size(145, 27);
             textDNI.TabIndex = 10;
@@ -71,6 +72,7 @@
             // 
             // panelAltaRapida
             // 
+            panelAltaRapida.Controls.Add(label8);
             panelAltaRapida.Controls.Add(dateTimePickerHora);
             panelAltaRapida.Controls.Add(labelDuracion);
             panelAltaRapida.Controls.Add(textDNI);
@@ -100,14 +102,24 @@
             panelAltaRapida.Controls.Add(labelPaciente);
             panelAltaRapida.Location = new Point(12, 54);
             panelAltaRapida.Name = "panelAltaRapida";
-            panelAltaRapida.Size = new Size(809, 678);
+            panelAltaRapida.Size = new Size(809, 783);
             panelAltaRapida.TabIndex = 9;
             panelAltaRapida.Paint += panelAltaRapida_Paint;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.BackColor = Color.LightBlue;
+            label8.Location = new Point(4, 20);
+            label8.Name = "label8";
+            label8.Size = new Size(156, 20);
+            label8.TabIndex = 25;
+            label8.Text = "Información del Turno";
             // 
             // dateTimePickerHora
             // 
             dateTimePickerHora.Format = DateTimePickerFormat.Time;
-            dateTimePickerHora.Location = new Point(136, 241);
+            dateTimePickerHora.Location = new Point(137, 285);
             dateTimePickerHora.Name = "dateTimePickerHora";
             dateTimePickerHora.ShowUpDown = true;
             dateTimePickerHora.Size = new Size(250, 27);
@@ -116,7 +128,7 @@
             // labelDuracion
             // 
             labelDuracion.AutoSize = true;
-            labelDuracion.Location = new Point(47, 284);
+            labelDuracion.Location = new Point(48, 328);
             labelDuracion.Name = "labelDuracion";
             labelDuracion.Size = new Size(72, 20);
             labelDuracion.TabIndex = 23;
@@ -126,7 +138,7 @@
             // numDuracion
             // 
             numDuracion.Increment = new decimal(new int[] { 15, 0, 0, 0 });
-            numDuracion.Location = new Point(136, 282);
+            numDuracion.Location = new Point(137, 326);
             numDuracion.Maximum = new decimal(new int[] { 240, 0, 0, 0 });
             numDuracion.Minimum = new decimal(new int[] { 15, 0, 0, 0 });
             numDuracion.Name = "numDuracion";
@@ -138,7 +150,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(72, 241);
+            label7.Location = new Point(73, 285);
             label7.Name = "label7";
             label7.Size = new Size(45, 20);
             label7.TabIndex = 21;
@@ -147,7 +159,7 @@
             // 
             // buttonBuscarDNI
             // 
-            buttonBuscarDNI.Location = new Point(6, 360);
+            buttonBuscarDNI.Location = new Point(6, 415);
             buttonBuscarDNI.Name = "buttonBuscarDNI";
             buttonBuscarDNI.Size = new Size(94, 29);
             buttonBuscarDNI.TabIndex = 8;
@@ -157,7 +169,7 @@
             // labelFechaTurno
             // 
             labelFechaTurno.AutoSize = true;
-            labelFechaTurno.Location = new Point(6, 195);
+            labelFechaTurno.Location = new Point(7, 239);
             labelFechaTurno.Name = "labelFechaTurno";
             labelFechaTurno.Size = new Size(113, 20);
             labelFechaTurno.TabIndex = 20;
@@ -166,7 +178,7 @@
             // dateTimePickerFechaTurno
             // 
             dateTimePickerFechaTurno.Format = DateTimePickerFormat.Short;
-            dateTimePickerFechaTurno.Location = new Point(136, 195);
+            dateTimePickerFechaTurno.Location = new Point(137, 239);
             dateTimePickerFechaTurno.Name = "dateTimePickerFechaTurno";
             dateTimePickerFechaTurno.Size = new Size(250, 27);
             dateTimePickerFechaTurno.TabIndex = 19;
@@ -175,7 +187,7 @@
             // labelTratamiento
             // 
             labelTratamiento.AutoSize = true;
-            labelTratamiento.Location = new Point(25, 66);
+            labelTratamiento.Location = new Point(26, 110);
             labelTratamiento.Name = "labelTratamiento";
             labelTratamiento.Size = new Size(92, 20);
             labelTratamiento.TabIndex = 18;
@@ -185,7 +197,7 @@
             // checkedListBoxTratamientos
             // 
             checkedListBoxTratamientos.FormattingEnabled = true;
-            checkedListBoxTratamientos.Location = new Point(136, 57);
+            checkedListBoxTratamientos.Location = new Point(137, 101);
             checkedListBoxTratamientos.Name = "checkedListBoxTratamientos";
             checkedListBoxTratamientos.Size = new Size(172, 114);
             checkedListBoxTratamientos.TabIndex = 17;
@@ -194,7 +206,7 @@
             // comboBoxOdontologo
             // 
             comboBoxOdontologo.FormattingEnabled = true;
-            comboBoxOdontologo.Location = new Point(136, 11);
+            comboBoxOdontologo.Location = new Point(137, 55);
             comboBoxOdontologo.Name = "comboBoxOdontologo";
             comboBoxOdontologo.Size = new Size(172, 28);
             comboBoxOdontologo.TabIndex = 16;
@@ -203,7 +215,7 @@
             // labelOdontologo
             // 
             labelOdontologo.AutoSize = true;
-            labelOdontologo.Location = new Point(25, 11);
+            labelOdontologo.Location = new Point(26, 55);
             labelOdontologo.Name = "labelOdontologo";
             labelOdontologo.Size = new Size(94, 20);
             labelOdontologo.TabIndex = 15;
@@ -212,7 +224,7 @@
             // 
             // buttonCancelar
             // 
-            buttonCancelar.Location = new Point(563, 636);
+            buttonCancelar.Location = new Point(563, 714);
             buttonCancelar.Name = "buttonCancelar";
             buttonCancelar.Size = new Size(94, 29);
             buttonCancelar.TabIndex = 14;
@@ -222,7 +234,8 @@
             // 
             // dateTimePicker1
             // 
-            dateTimePicker1.Location = new Point(212, 605);
+            dateTimePicker1.Format = DateTimePickerFormat.Short;
+            dateTimePicker1.Location = new Point(213, 687);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(250, 27);
             dateTimePicker1.TabIndex = 13;
@@ -230,7 +243,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(38, 605);
+            label6.Location = new Point(38, 687);
             label6.Name = "label6";
             label6.Size = new Size(152, 20);
             label6.TabIndex = 12;
@@ -239,7 +252,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(121, 566);
+            label5.Location = new Point(118, 646);
             label5.Name = "label5";
             label5.Size = new Size(57, 20);
             label5.TabIndex = 10;
@@ -247,7 +260,7 @@
             // 
             // buttonGuardar
             // 
-            buttonGuardar.Location = new Point(690, 636);
+            buttonGuardar.Location = new Point(693, 714);
             buttonGuardar.Name = "buttonGuardar";
             buttonGuardar.Size = new Size(94, 29);
             buttonGuardar.TabIndex = 1;
@@ -257,15 +270,16 @@
             // 
             // textCorreo
             // 
-            textCorreo.Location = new Point(211, 563);
+            textCorreo.Location = new Point(213, 643);
             textCorreo.Name = "textCorreo";
             textCorreo.Size = new Size(207, 27);
             textCorreo.TabIndex = 9;
+            textCorreo.TextChanged += textCorreo_TextChanged;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(108, 526);
+            label4.Location = new Point(108, 606);
             label4.Name = "label4";
             label4.Size = new Size(70, 20);
             label4.TabIndex = 8;
@@ -273,15 +287,16 @@
             // 
             // textTelefono
             // 
-            textTelefono.Location = new Point(212, 519);
+            textTelefono.Location = new Point(213, 599);
             textTelefono.Name = "textTelefono";
             textTelefono.Size = new Size(207, 27);
             textTelefono.TabIndex = 7;
+            textTelefono.TextChanged += textTelefono_TextChanged;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(137, 482);
+            label3.Location = new Point(137, 556);
             label3.Name = "label3";
             label3.Size = new Size(38, 20);
             label3.TabIndex = 6;
@@ -289,23 +304,25 @@
             // 
             // textDNI2
             // 
-            textDNI2.Location = new Point(211, 475);
+            textDNI2.Location = new Point(213, 549);
             textDNI2.Name = "textDNI2";
             textDNI2.Size = new Size(208, 27);
             textDNI2.TabIndex = 5;
+            textDNI2.TextChanged += textDNI2_TextChanged;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(108, 439);
+            label2.Location = new Point(109, 512);
             label2.Name = "label2";
             label2.Size = new Size(69, 20);
             label2.TabIndex = 4;
             label2.Text = "Apellido:";
+            label2.Click += label2_Click;
             // 
             // textApellido
             // 
-            textApellido.Location = new Point(212, 432);
+            textApellido.Location = new Point(213, 505);
             textApellido.Name = "textApellido";
             textApellido.Size = new Size(208, 27);
             textApellido.TabIndex = 3;
@@ -313,7 +330,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(108, 399);
+            label1.Location = new Point(111, 462);
             label1.Name = "label1";
             label1.Size = new Size(67, 20);
             label1.TabIndex = 2;
@@ -321,7 +338,7 @@
             // 
             // textNombre
             // 
-            textNombre.Location = new Point(213, 396);
+            textNombre.Location = new Point(213, 462);
             textNombre.Name = "textNombre";
             textNombre.Size = new Size(207, 27);
             textNombre.TabIndex = 1;
@@ -329,11 +346,13 @@
             // labelPaciente
             // 
             labelPaciente.AutoSize = true;
-            labelPaciente.Location = new Point(6, 337);
+            labelPaciente.BackColor = Color.LightBlue;
+            labelPaciente.Location = new Point(6, 377);
             labelPaciente.Name = "labelPaciente";
-            labelPaciente.Size = new Size(64, 20);
+            labelPaciente.Size = new Size(132, 20);
             labelPaciente.TabIndex = 0;
-            labelPaciente.Text = "Paciente";
+            labelPaciente.Text = "Datos del Paciente";
+            labelPaciente.Click += labelPaciente_Click;
             // 
             // ButtonVolver
             // 
@@ -349,7 +368,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(881, 744);
+            ClientSize = new Size(881, 849);
             Controls.Add(ButtonVolver);
             Controls.Add(panelAltaRapida);
             Name = "FormAgregarTurno";
@@ -392,5 +411,6 @@
         private Label labelDuracion;
         private NumericUpDown numDuracion;
         private DateTimePicker dateTimePickerHora;
+        private Label label8;
     }
 }

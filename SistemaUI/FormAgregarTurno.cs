@@ -222,5 +222,30 @@ namespace SistemaUI
             }
             this.ResumeLayout();
         }
+
+        private void labelPaciente_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textCorreo_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textDNI2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textTelefono_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
