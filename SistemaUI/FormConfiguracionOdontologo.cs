@@ -71,6 +71,14 @@ namespace SistemaUI
             this.ResumeLayout();
         }
 
+        private void labelMisHorarios_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
