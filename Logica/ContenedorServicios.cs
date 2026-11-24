@@ -1,5 +1,6 @@
 ﻿using Sistema_Odontológico;
 
+namespace Sistema_Odontológico;
 public class ContenedorServicios
 {
     public ServicioUsuarios Usuarios { get; }
