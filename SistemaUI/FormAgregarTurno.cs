@@ -110,7 +110,7 @@ namespace SistemaUI
                         FechaNacimiento = DateOnly.FromDateTime(dateTimePicker1.Value)
                     };
                     Servicios.Pacientes.Registrar(p);      // Registrar completa p.Id
-                    Servicios.Historias.ObtenerOCrear(p.Id);
+                    //ServicioHistorias.Crear(p.Id);
                     pacienteActual = p;
                 }
 

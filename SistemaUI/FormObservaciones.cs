@@ -20,8 +20,10 @@ namespace SistemaUI
         {
             //para centar los controles
             CentrarControles();
+            historia = Servicios.Historias.ObtenerPorPaciente(paciente.Id);
         }
         private readonly Paciente paciente;
+        private HistoriaClinica historia;
         public FormObservaciones(Paciente paciente)
         {
             InitializeComponent();
@@ -68,6 +70,18 @@ namespace SistemaUI
             this.ResumeLayout();
         }
 
-
+        private void buttonAgregar_Click(object sender, EventArgs e)
+        {
+            //try
+            //{
+            //    Servicios.Historias.AgregarObservacion(historia.Id, Sesion.OdontologoActual, textNuevaObservacion.Text, null);
+            //    textNuevaObservacion.Clear();
+            //    MostrarObservaciones();
+            //}
+            //catch (Exception ex) when (ex is InvalidOperationException || ex is ArgumentException)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+        }
     }
 }

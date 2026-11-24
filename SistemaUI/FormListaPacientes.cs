@@ -147,14 +147,25 @@ namespace SistemaUI
                 return;
             }
 
-            // si el paciente todavía no tiene historia, la crea; si ya tiene, la devuelve
-            Servicios.Historias.ObtenerOCrear(paciente.Id);
+            try
+            {
+                // si el paciente no tiene historia, se crea; si ya tiene, se abre la existente
+                if (Servicios.Historias.ObtenerPorPaciente(paciente.Id) == null)
+                {
+                    var historia = new HistoriaClinica { PacienteId = paciente.Id };
+                    Servicios.Historias.Crear(historia, Sesion.OdontologoActual);
+                }
+            }
+            catch (Exception ex) when (ex is InvalidOperationException || ex is ArgumentException)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
 
             var principal = Parent.FindForm() as FormPrincipalOdontologo;
-
-            // BeginInvoke: AbrirFormulario destruye este form, así que se hace cuando el evento ya terminó
-            BeginInvoke(new Action(() => principal?.AbrirFormulario(new FormCrearHistoriaClinica())));
+            BeginInvoke(new Action(() => principal?.AbrirFormulario(new FormHistoriasClinicas(paciente))));
         }
+        
 
         private void panelContenido_Paint(object sender, PaintEventArgs e)
         {

@@ -15,11 +15,13 @@ namespace SistemaUI
         {
             //InitializeComponent();
         }
+        private HistoriaClinica historia;
 
         private void FormDatosPaciente_Load(object sender, EventArgs e)
         {
             //para centar los controles
             CentrarControles();
+            historia = Servicios.Historias.ObtenerPorPaciente(paciente.Id);
         }
         private readonly Paciente paciente;
         public FormDatosPaciente(Paciente paciente)

@@ -22,6 +22,7 @@ namespace SistemaUI
             CentrarControles();
         }
         private readonly Paciente paciente;
+
         public FormEstudios(Paciente paciente)
         {
             InitializeComponent();
