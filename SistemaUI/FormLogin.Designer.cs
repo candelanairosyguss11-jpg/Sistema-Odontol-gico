@@ -77,6 +77,7 @@
             textDNI.Name = "textDNI";
             textDNI.Size = new Size(164, 27);
             textDNI.TabIndex = 3;
+            textDNI.TextChanged += textDNI_TextChanged;
             // 
             // txtContrasena
             // 

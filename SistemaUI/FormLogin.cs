@@ -41,7 +41,7 @@ namespace SistemaUI
         }
 
         private void buttonCancelar_Click(object sender, EventArgs e) => Application.Exit();
-        
+
 
         private void textContraseña_TextChanged(object sender, EventArgs e)
         {
@@ -131,6 +131,11 @@ namespace SistemaUI
         }
 
         private void comboRol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textDNI_TextChanged(object sender, EventArgs e)
         {
 
         }

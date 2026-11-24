@@ -12,14 +12,14 @@ namespace SistemaUI
     public partial class FormListaPacientes : Form
     {
 
-    private List<Paciente> pacientes = new();
+        private List<Paciente> pacientes = new();
 
 
         public FormListaPacientes()
         {
             InitializeComponent();
         }
-         
+
         private void FormListaPaciente_Load(object sender, EventArgs e)
         {
             dataGridViewPacientes.ReadOnly = true;
@@ -32,7 +32,9 @@ namespace SistemaUI
             //para centar los controles
             CentrarControles();
 
-            // como hacer para hacer la lista de los pacientes yy el buscador de pacientesss
+            pacientes = Servicios.Pacientes.ObtenerTodos();
+            MostrarPacientes(pacientes);
+            // como hacer para hacer la lista de los pacientes y
             pacientes = new List<Paciente>
             {
                 new Paciente { Id = 1, Apellido = "Pérez", Nombre = "Juan", DNI = "30111222" },
@@ -79,6 +81,24 @@ namespace SistemaUI
             MostrarPacientes(filtrados);
         }
 
+        public void AbrirFormulario(Form formulario)
+        {
+            // El menú principal se oculta cuando se abre la sección de turnos
+            panelMenu.Visible = !(formulario is FormHistoriasClinicas);
+            foreach (Control control in panelContenido.Controls)
+            {
+                control.Dispose();
+            }
+
+            panelContenido.Controls.Clear();
+
+            formulario.TopLevel = false;
+            formulario.FormBorderStyle = FormBorderStyle.None;
+            formulario.Dock = DockStyle.Fill;
+
+            panelContenido.Controls.Add(formulario);
+            formulario.Show();
+        }
 
         //
         private void CentrarControles()
@@ -119,6 +139,37 @@ namespace SistemaUI
             this.ResumeLayout();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewPacientes.CurrentRow?.DataBoundItem is not Paciente paciente)
+            {
+                MessageBox.Show("Elegí un paciente de la lista.");
+                return;
+            }
+
+            // si el paciente todavía no tiene historia, la crea; si ya tiene, la devuelve
+            Servicios.Historias.ObtenerOCrear(paciente.Id);
+
+            var principal = Parent.FindForm() as FormPrincipalOdontologo;
+
+            // BeginInvoke: AbrirFormulario destruye este form, así que se hace cuando el evento ya terminó
+            BeginInvoke(new Action(() => principal?.AbrirFormulario(new FormCrearHistoriaClinica())));
+        }
+
+        private void panelContenido_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panelContenido_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panelContenido_Paint_2(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
 
