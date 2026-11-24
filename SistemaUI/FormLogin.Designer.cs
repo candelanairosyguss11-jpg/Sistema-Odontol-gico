@@ -38,6 +38,7 @@
             comboRol = new ComboBox();
             buttonIngresar = new Button();
             buttonCancelar = new Button();
+            buttonCambiarContraseña = new Button();
             SuspendLayout();
             // 
             // titulo
@@ -102,7 +103,7 @@
             // Rol
             // 
             Rol.AutoSize = true;
-            Rol.Location = new Point(287, 259);
+            Rol.Location = new Point(286, 259);
             Rol.Name = "Rol";
             Rol.Size = new Size(31, 20);
             Rol.TabIndex = 6;
@@ -139,12 +140,26 @@
             buttonCancelar.UseVisualStyleBackColor = true;
             buttonCancelar.Click += buttonCancelar_Click;
             // 
+            // buttonCambiarContraseña
+            // 
+            buttonCambiarContraseña.BackColor = SystemColors.GradientActiveCaption;
+            buttonCambiarContraseña.BackgroundImageLayout = ImageLayout.None;
+            buttonCambiarContraseña.ForeColor = Color.RoyalBlue;
+            buttonCambiarContraseña.Location = new Point(485, 176);
+            buttonCambiarContraseña.Name = "buttonCambiarContraseña";
+            buttonCambiarContraseña.Size = new Size(198, 29);
+            buttonCambiarContraseña.TabIndex = 10;
+            buttonCambiarContraseña.Text = "Olvidó su contraseña?";
+            buttonCambiarContraseña.UseVisualStyleBackColor = false;
+            buttonCambiarContraseña.Click += button1_Click;
+            // 
             // FormLogin
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GradientActiveCaption;
             ClientSize = new Size(800, 450);
+            Controls.Add(buttonCambiarContraseña);
             Controls.Add(buttonCancelar);
             Controls.Add(buttonIngresar);
             Controls.Add(comboRol);
@@ -186,5 +201,7 @@
 
             this.Hide();
         }
+
+        private Button buttonCambiarContraseña;
     }
 }
