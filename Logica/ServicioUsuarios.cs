@@ -113,5 +113,29 @@ namespace Sistema_Odontológico
                 throw new InvalidOperationException("Ya existe un usuario con ese DNI.");
             }
         }
+
+        //
+        public void ActualizarDatos(Usuario usuario)
+        {
+            if (usuario is Odontologo odontologo)
+            {
+                _repoOdontologos.Actualizar(odontologo);
+            }
+            else if (usuario is Secretario secretario)
+            {
+                _repoSecretarios.Actualizar(secretario);
+            }
+        }
+
+        public void CambiarEstadoSecretario(int id, bool activo)
+        {
+            Secretario secretario = _repoSecretarios.ObtenerPorId(id);
+            if (secretario == null)
+            {
+                throw new InvalidOperationException("No existe el secretario seleccionado.");
+            }
+            secretario.Activo = activo;
+            _repoSecretarios.Actualizar(secretario);
+        }
     }
 }
